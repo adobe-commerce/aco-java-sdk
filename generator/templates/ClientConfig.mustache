@@ -1,0 +1,53 @@
+{{>licenseInfo}}
+
+package {{modelPackage}};
+
+/**
+* Client configuration
+*/
+public class ClientConfig {
+
+    private AdobeCredentials credentials;
+    private String tenantId;
+    private Region region;
+    private Environment environment;
+
+    public ClientConfig(AdobeCredentials credentials, String tenantId, Region region, Environment environment) {
+        this.credentials = credentials;
+        this.tenantId = tenantId;
+        this.region = region;
+        this.environment = environment;
+    }
+
+    public AdobeCredentials getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(AdobeCredentials credentials) {
+        this.credentials = credentials;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
+    }
+}

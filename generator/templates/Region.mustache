@@ -1,0 +1,17 @@
+{{>licenseInfo}}
+
+package {{modelPackage}};
+
+public enum Region {
+    NA1("na1");
+
+    private final String value;
+
+    Region(String value) {
+    this.value = value;
+    }
+
+    public String getValue() {
+    return value;
+    }
+}

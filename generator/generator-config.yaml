@@ -1,0 +1,32 @@
+additionalProperties:
+  artifactId: aco-java-sdk
+  apiPackage: com.adobe.aco.api
+  modelPackage: com.adobe.aco.model
+  invokerPackage: com.adobe.aco
+  useLombokAnnotations: true
+  dateLibrary: java8
+  withXml: false
+  withJson: false
+
+files:
+  AdobeCredentials.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/model/AdobeCredentials.java
+  Region.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/model/Region.java
+  Environment.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/model/Environment.java
+  ClientConfig.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/model/ClientConfig.java
+  client.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/client/Client.java
+  clientImpl.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/client/ClientImpl.java
+  clientBuilder.mustache:
+    templateType: SupportingFiles
+    destinationFilename: src/main/java/com/adobe/aco/client/ClientBuilder.java

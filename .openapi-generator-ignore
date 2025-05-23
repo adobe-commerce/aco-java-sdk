@@ -1,0 +1,29 @@
+# Ignorar archivos en la raíz
+/*.*
+
+# Ignorar documentación y tests generados (opcional)
+**/api/**
+**/auth/**
+**/README.md
+**/.travis.yml
+gradle/**
+gradlew
+gradlew.bat
+build.gradle
+settings.gradle
+
+docs/**
+src/test/**
+
+src/main/java/com/adobe/aco/ApiClient.java
+src/main/java/com/adobe/aco/Configuration.java
+src/main/java/com/adobe/aco/ProgressRequestBody.java
+src/main/java/com/adobe/aco/ProgressResponseBody.java
+src/main/java/com/adobe/aco/ApiCallback.java
+src/main/java/com/adobe/aco/ApiResponse.java
+src/main/java/com/adobe/aco/GzipRequestInterceptor.java
+src/main/java/com/adobe/aco/Pair.java
+src/main/java/com/adobe/aco/ServerConfiguration.java
+src/main/java/com/adobe/aco/ServerVariable.java
+src/main/java/com/adobe/aco/StringUtil.java
+

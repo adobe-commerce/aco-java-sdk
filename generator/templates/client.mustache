@@ -1,0 +1,22 @@
+{{>licenseInfo}}
+package com.adobe.aco.client;
+
+{{#models}}
+    {{#model}}
+        import com.adobe.aco.model.{{classname}};
+    {{/model}}
+{{/models}}
+
+import java.util.List;
+
+public interface Client {
+    {{#apiInfo}}
+        {{#apis}}
+            {{#operations}}
+                {{#operation}}
+                    {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}FeedResponse{{/returnType}} {{nickname}}({{#allParams}}{{#isBodyParam}}{{{dataType}}} data{{/isBodyParam}}{{/allParams}});
+                {{/operation}}
+            {{/operations}}
+        {{/apis}}
+    {{/apiInfo}}
+}

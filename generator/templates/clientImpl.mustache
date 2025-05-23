@@ -1,0 +1,40 @@
+{{>licenseInfo}}
+package com.adobe.aco.client;
+
+import com.adobe.aco.http.CommerceHttpClient;
+import com.adobe.aco.model.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.net.http.HttpRequest;
+import java.net.http.HttpRequest.BodyPublishers;
+import java.util.List;
+
+public class ClientImpl implements Client {
+    private final CommerceHttpClient http;
+    private final ObjectMapper mapper = new ObjectMapper();
+
+public ClientImpl(CommerceHttpClient http) {
+    this.http = http;
+}
+
+{{#apiInfo}}
+    {{#apis}}
+        {{#operations}}
+            {{#operation}}
+                @Override
+                public {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}FeedResponse{{/returnType}} {{nickname}}({{#allParams}}{{#isBodyParam}}{{{dataType}}} data{{/isBodyParam}}{{/allParams}}) {
+                    try {
+                        String body = mapper.writeValueAsString(data);
+                        HttpRequest.Builder builder = HttpRequest.newBuilder()
+                            .method("{{httpMethod}}", BodyPublishers.ofString(body));
+
+                        return http.request("{{{path}}}", builder, {{#returnType}}{{{returnType}}}.class{{/returnType}}{{^returnType}}FeedResponse.class{{/returnType}});
+                    } catch (Exception e) {
+                        throw new RuntimeException("Request to {{{path}}} failed", e);
+                    }
+                }
+            {{/operation}}
+        {{/operations}}
+    {{/apis}}
+{{/apiInfo}}
+}

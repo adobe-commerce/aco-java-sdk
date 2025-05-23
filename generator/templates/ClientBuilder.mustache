@@ -1,0 +1,29 @@
+{{>licenseInfo}}
+
+package com.adobe.aco.client;
+
+import com.adobe.aco.auth.AuthService;
+import com.adobe.aco.auth.AuthServiceFactory;
+import com.adobe.aco.http.CommerceHttpClient;
+import com.adobe.aco.http.CommerceHttpClientFactory;
+import com.adobe.aco.model.ClientConfig;
+
+public class ClientBuilder {
+
+    public static Client createClient(ClientConfig config) {
+        AuthService auth = AuthServiceFactory.createAuthService(
+            config.getCredentials(),
+            System.getenv("IMS_BASE_URL_OVERRIDE")
+        );
+
+        CommerceHttpClient http = CommerceHttpClientFactory.createHttpClient(
+            auth,
+            config.getTenantId(),
+            config.getRegion(),
+            config.getEnvironment(),
+            System.getenv("BASE_URL_OVERRIDE")
+            );
+
+        return new ClientImpl(http);
+    }
+}

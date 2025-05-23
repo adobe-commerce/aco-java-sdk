@@ -1,0 +1,18 @@
+{{>licenseInfo}}
+
+package {{modelPackage}};
+
+public enum Environment {
+    PRODUCTION("production"),
+    SANDBOX("sandbox");
+
+    private final String value;
+
+    Environment(String value) {
+    this.value = value;
+    }
+
+    public String getValue() {
+    return value;
+    }
+}
