@@ -14,6 +14,15 @@ public interface Client {
         {{#apis}}
             {{#operations}}
                 {{#operation}}
+                    /**
+                    * {{summary}}
+                    {{#notes}}
+                        * {{&notes}}
+                    {{/notes}}
+                    * @param data payload of type {{#allParams}}{{#isBodyParam}}{{{dataType}}}{{/isBodyParam}}{{/allParams}}
+                    * @return {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}FeedResponse{{/returnType}} indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
                     {{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}FeedResponse{{/returnType}} {{nickname}}({{#allParams}}{{#isBodyParam}}{{{dataType}}} data{{/isBodyParam}}{{/allParams}});
                 {{/operation}}
             {{/operations}}

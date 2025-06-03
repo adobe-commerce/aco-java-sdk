@@ -15,7 +15,7 @@ public class CommerceHttpClientFactory {
 
     private static final int TIMEOUT_MS = 10000;
     private static final int MAX_RETRIES = 3;
-    private static final int RETRY_DELAY_MS = 1000;
+    private static final int INITIAL_RETRY_DELAY_MS = 1000;
 
     public static CommerceHttpClient createHttpClient(
             AuthService auth,
@@ -41,11 +41,8 @@ public class CommerceHttpClientFactory {
                     String endpoint, HttpRequest.Builder requestBuilder, Class<T> responseType)
                     throws Exception {
                 ObjectMapper mapper = new ObjectMapper();
-                System.out.println("Iniciando request para " + endpoint);
 
                 String token = auth.getBearerToken();
-
-                System.out.println("Token: " + token);
 
                 String fullUri = String.format("%s/%s%s", baseUrl, tenantId, endpoint);
 
@@ -57,42 +54,45 @@ public class CommerceHttpClientFactory {
                                 .timeout(Duration.ofMillis(TIMEOUT_MS))
                                 .build();
 
-                System.out.println("Request URI: " + request.uri());
-                System.out.println("Request method: " + request.method());
-                System.out.println("Request headers:");
-                request.headers()
-                        .map()
-                        .forEach(
-                                (key, values) ->
-                                        System.out.println(
-                                                "  " + key + ": " + String.join(", ", values)));
-
                 for (int attempt = 1; attempt <= MAX_RETRIES; attempt++) {
                     try {
                         HttpResponse<String> response =
                                 httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-                        if (response.statusCode() >= 200 && response.statusCode() < 300) {
+                        int status = response.statusCode();
+
+                        if (status >= 200 && status < 300) {
                             return mapper.readValue(response.body(), responseType);
-                        } else {
-                            String errorData = response.body();
-                            if (attempt == MAX_RETRIES
-                                    || (response.statusCode() >= 400
-                                            && response.statusCode() < 500)) {
-                                throw new ApiError(
-                                        "API request failed: " + response.statusCode(),
-                                        response.statusCode(),
-                                        errorData);
-                            }
-                            Thread.sleep(RETRY_DELAY_MS * attempt);
                         }
+
+                        String errorData = response.body();
+
+                        if (status == 429) {
+                            if (attempt == MAX_RETRIES) {
+                                throw new ApiError(
+                                        "Rate limit exceeded after retries", status, errorData);
+                            }
+                            Thread.sleep(calculateBackoffDelay(attempt));
+                            continue;
+                        }
+
+                        if (status >= 400 && status < 500) {
+                            throw new ApiError("Client error: " + status, status, errorData);
+                        }
+
+                        if (attempt == MAX_RETRIES) {
+                            throw new ApiError("Server error after retries", status, errorData);
+                        }
+
+                        Thread.sleep(calculateBackoffDelay(attempt));
+
                     } catch (ApiError e) {
                         throw e;
                     } catch (Exception e) {
                         if (attempt == MAX_RETRIES) {
                             throw new ApiError("Could not execute request", 0, e.getMessage());
                         }
-                        Thread.sleep(RETRY_DELAY_MS * attempt);
+                        Thread.sleep(calculateBackoffDelay(attempt));
                     }
                 }
 
@@ -103,4 +103,9 @@ public class CommerceHttpClientFactory {
             }
         };
     }
+
+    private static int calculateBackoffDelay(int attempt) {
+        return INITIAL_RETRY_DELAY_MS * (int) Math.pow(2, attempt - 1);
+    }
 }
+

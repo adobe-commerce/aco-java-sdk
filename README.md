@@ -35,11 +35,38 @@ Environment variables must be set with the corresponding values:
 - `REGION`: This is the region in which your ACO instance is deployed. Example: `na1`.
 - `ENVIRONMENT`: This is your ACO instance's environment type: `sandbox` or `production`.
 
+### How do I find my configuration values?
+
+In the [Commerce Cloud Manager](https://experience.adobe.com/#/@commerceprojectbeacon/commerce/cloud-service/instances), you will see a list of all of the instances you have provisioned. Find the instance you want to point the ACO SDK to and click the "Instance info" icon. In the popup, find the `GraphQL endpoint` URL. From this URL, we can determine the required `tenantId`, `region`, and `environment` configuration variables.
+
+The URL is composed of the following: `https://{region}[-sandbox].api.commerce.adobe.com/{tenantId}/graphql`
+
+As an example:
+
+- Sandbox: `https://na1-sandbox.api.commerce.adobe.com/WVYj1WZf8ifzLH7n6WAVas/graphql`
+- Production: `https://na1.api.commerce.adobe.com/WVYj1WZf8ifzLH7n6WAVas/graphql`
+
+From the above examples:
+
+- `tenantId`: `WVYj1WZf8ifzLH7n6WAVas`
+- `region`: `na1`
+- `environment`: `sandbox` or `production` (depending on the URL)
+
 ### Example
 
 ```java
-AdobeCredentials credentials = new AdobeCredentials(clientId, clientSecret);
-ClientConfig config = new ClientConfig(credentials, tenantId, Region.NA1, Environment.SANDBOX);
+AdobeCredentials credentials = new AdobeCredentials(
+    System.getenv("IMS_CLIENT_ID"),
+    System.getenv("IMS_CLIENT_SECRET")
+);
+
+ClientConfig config = new ClientConfig(
+    credentials,
+    System.getenv("TENANT_ID"),
+    Region.fromValue(System.getenv("REGION")),
+    Environment.fromValue(System.getenv("ENVIRONMENT"))
+);
+
 Client client = ClientBuilder.createClient(config);
 ```
 
@@ -59,50 +86,178 @@ All operations are synchronous. For example:
 ### Create Products
 
 ```java
-FeedProduct product = new FeedProduct();
-product.setSku("EXAMPLE-SKU-001");
-product.setScope(new Scope("en-US"));
-product.setName("Example Product");
-product.setSlug("example-product");
-product.setDescription("This is an example product created via the SDK");
-product.setStatus(FeedProduct.StatusEnum.ENABLED);
-product.setVisibleIn(List.of(
-    FeedProduct.VisibleInEnum.CATALOG,
-    FeedProduct.VisibleInEnum.SEARCH));
+FeedProduct product1 = new FeedProduct();
+product1.setSku("EXAMPLE-SKU-001");
+product1.setScope(new Scope("en-US"));
+product1.setName("Example Product 1");
+product1.setSlug("example-product-1");
+product1.setDescription("This is an example product created via the SDK");
+product1.setStatus(FeedProduct.StatusEnum.ENABLED);
+product1.setVisibleIn(List.of(FeedProduct.VisibleInEnum.CATALOG, FeedProduct.VisibleInEnum.SEARCH));
+ProductAttribute attr1 = new ProductAttribute();
+attr1.setCode("brand");
+attr1.setType(ProductAttribute.TypeEnum.STRING);
+attr1.setValues(List.of("Example Brand"));
+product1.setAttributes(List.of(attr1));
 
-ProductAttribute attribute = new ProductAttribute();
-attribute.setCode("brand");
-attribute.setType(ProductAttribute.TypeEnum.STRING);
-attribute.setValues(List.of("Example Brand"));
-product.setAttributes(List.of(attribute));
+FeedProduct product2 = new FeedProduct();
+product2.setSku("EXAMPLE-SKU-002");
+product2.setScope(new Scope("en-US"));
+product2.setName("Example Product 2");
+product2.setSlug("example-product-2");
+product2.setDescription("This is another example product created via the SDK");
+product2.setStatus(FeedProduct.StatusEnum.ENABLED);
+product2.setVisibleIn(List.of(FeedProduct.VisibleInEnum.CATALOG, FeedProduct.VisibleInEnum.SEARCH));
+ProductAttribute attr2 = new ProductAttribute();
+attr2.setCode("brand");
+attr2.setType(ProductAttribute.TypeEnum.STRING);
+attr2.setValues(List.of("Example Brand"));
+product2.setAttributes(List.of(attr2));
 
-ProcessFeedResponse response = client.createProductsSync(List.of(product));
+ProcessFeedResponse response = client.createProductsSync(List.of(product1, product2));
 System.out.println(response);
 ```
 
-### More Examples
+### Update Products
 
-Refer to the Java SDK source code for more examples on using the following methods:
+```java
+FeedProductUpdate update = new FeedProductUpdate();
+update.setSku("EXAMPLE-SKU-001");
+update.setScope(new Scope("en-US"));
+update.setName("Updated Product Name");
 
-- `createProductMetadataSync`
-- `updateProductMetadataSync`
-- `deleteProductMetadataSync`
-- `createPriceBooksSync`
-- `updatePriceBooksSync`
-- `deletePriceBooksSync`
-- `createPricesSync`
-- `updatePricesSync`
-- `deletePricesSync`
+ProcessFeedResponse response = client.updateProductsSync(List.of(update));
+System.out.println(response);
+```
+
+### Delete Products
+
+```java
+FeedProductDelete delete = new FeedProductDelete();
+delete.setSku("EXAMPLE-SKU-001");
+delete.setScope(new Scope("en-US"));
+
+ProcessFeedResponse response = client.deleteProductsSync(List.of(delete));
+System.out.println(response);
+```
+
+### Create Product Metadata
+
+```java
+FeedMetadata metadata = new FeedMetadata();
+metadata.setCode("color");
+metadata.setScope(new Scope("en-US"));
+metadata.setLabel("Color");
+metadata.setDataType(FeedMetadata.DataTypeEnum.TEXT);
+metadata.setVisibleIn(List.of(FeedMetadata.VisibleInEnum.PRODUCT_DETAIL));
+metadata.setFilterable(true);
+metadata.setSortable(true);
+metadata.setSearchable(true);
+
+ProcessFeedResponse response = client.createProductMetadataSync(List.of(metadata));
+System.out.println(response);
+```
+
+### Update Product Metadata
+
+```java
+FeedMetadataUpdate metadataUpdate = new FeedMetadataUpdate();
+metadataUpdate.setCode("color");
+metadataUpdate.setScope(new Scope("en-US"));
+metadataUpdate.setLabel("Updated Color Label");
+
+ProcessFeedResponse response = client.updateProductMetadataSync(List.of(metadataUpdate));
+System.out.println(response);
+```
+
+### Delete Product Metadata
+
+```java
+FeedMetadataDelete metadataDelete = new FeedMetadataDelete();
+metadataDelete.setCode("color");
+metadataDelete.setScope(new Scope("en-US"));
+
+ProcessFeedResponse response = client.deleteProductMetadataSync(List.of(metadataDelete));
+System.out.println(response);
+```
+
+### Create Price Books
+
+```java
+FeedPricebook pricebook = new FeedPricebook();
+pricebook.setPriceBookId("default");
+pricebook.setName("Default Price Book");
+pricebook.setCurrency("USD");
+
+ProcessFeedResponse response = client.createPriceBooksSync(List.of(pricebook));
+System.out.println(response);
+```
+
+### Update Price Books
+
+```java
+FeedPricebook pricebookUpdate = new FeedPricebook();
+pricebookUpdate.setPriceBookId("default");
+pricebookUpdate.setName("Updated Price Book Name");
+
+ProcessFeedResponse response = client.updatePriceBooksSync(List.of(pricebookUpdate));
+System.out.println(response);
+```
+
+### Delete Price Books
+
+```java
+FeedPricebook pricebookDelete = new FeedPricebook();
+pricebookDelete.setPriceBookId("default");
+
+ProcessFeedResponse response = client.deletePriceBooksSync(List.of(pricebookDelete));
+System.out.println(response);
+```
+
+### Create Prices
+
+```java
+FeedPrices price = new FeedPrices();
+price.setSku("EXAMPLE-SKU-001");
+price.setPriceBookId("default");
+price.setRegular(99.99);
+
+ProcessFeedResponse response = client.createPricesSync(List.of(price));
+System.out.println(response);
+```
+
+### Update Prices
+
+```java
+FeedPricesUpdate priceUpdate = new FeedPricesUpdate();
+priceUpdate.setSku("EXAMPLE-SKU-001");
+priceUpdate.setPriceBookId("default");
+priceUpdate.setRegular(99.99);
+
+ProcessFeedResponse response = client.updatePricesSync(List.of(priceUpdate));
+System.out.println(response);
+```
+
+### Delete Prices
+
+```java
+FeedPricesDelete priceDelete = new FeedPricesDelete();
+priceDelete.setSku("EXAMPLE-SKU-001");
+priceDelete.setPriceBookId("default");
+
+ProcessFeedResponse response = client.deletePricesSync(List.of(priceDelete));
+System.out.println(response);
+```
 
 ## Development Notes
 
 ### Generating SDK from OpenAPI spec
 
-The SDK uses a custom `generator-config.yaml` file and mustache templates stored in the `generator/templates` directory. The OpenAPI generator Maven plugin uses these to produce the classes inside `src/main/java`.
+The SDK uses a custom `generator-config.yaml` file and Mustache templates stored in the `generator/templates` directory. The OpenAPI generator Maven plugin uses these to produce the classes inside `src/main/java`.
 
 To modify generated classes:
 
-- Edit the mustache templates.
+- Edit the Mustache templates.
 - Run `mvn clean install` to regenerate the SDK code.
 
 ## Code Generation Notice

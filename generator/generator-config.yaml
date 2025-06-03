@@ -7,6 +7,7 @@ additionalProperties:
   dateLibrary: java8
   withXml: false
   withJson: false
+  hideGenerationTimestamp: true
 
 files:
   AdobeCredentials.mustache:

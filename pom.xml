@@ -5,7 +5,7 @@
     <artifactId>aco-java-sdk</artifactId>
     <packaging>jar</packaging>
     <name>aco-java-sdk</name>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
     <url>https://github.com/openapitools/openapi-generator</url>
     <description>OpenAPI Java</description>
     <scm>
@@ -16,8 +16,8 @@
 
     <licenses>
         <license>
-            <name>Unlicense</name>
-            <url>http://unlicense.org</url>
+            <name>Adobe Proprietary License</name>
+            <url>https://www.adobe.com/legal/terms.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
@@ -50,7 +50,7 @@
                             <arguments>
                                 <argument>-s</argument>
                                 <argument>-o</argument>
-                                <argument>${project.basedir}/catalog-ingestion-openapi-spec.yaml</argument>
+                                <argument>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</argument>
                                 <argument>https://raw.githubusercontent.com/AdobeDocs/commerce-services/refs/heads/ccdm-early-access/src/openapi/data-ingestion-schema-v1.yaml</argument>
                             </arguments>
                         </configuration>
@@ -71,7 +71,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.basedir}/catalog-ingestion-openapi-spec.yaml</inputSpec>
+                            <inputSpec>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</inputSpec>
                             <templateDirectory>${project.basedir}/generator/templates</templateDirectory>
                             <output>${project.basedir}</output>
                             <generatorName>java</generatorName>
