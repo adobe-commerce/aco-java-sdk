@@ -1,0 +1,79 @@
+name: Update SDK
+
+on:
+  workflow_dispatch: # Allow manual triggering
+  schedule:
+    - cron: '0 13 * * 2' # Every Tuesday at 13:00 UTC
+
+jobs:
+  update-sdk:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 17
+
+      - name: Set up GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install -y gh jq
+
+      - name: Generate SDK
+        id: generate
+        run: mvn clean generate-sources
+
+      - name: Check for changes
+        if: steps.generate.outcome == 'success'
+        id: check_changes
+        run: |
+          if git diff --quiet; then
+            echo "No changes detected in the SDK. Skipping commit and PR creation."
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "Changes detected in the SDK. Proceeding with commit and PR creation."
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create new branch and pull request
+        if: steps.generate.outcome == 'success' && steps.check_changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          EXISTING_PR=$(gh pr list --state open --search "title:chore: update SDK from OpenAPI spec" --json number,headRefName --jq '.[0]')
+          EXISTING_PR_NUMBER=$(echo "$EXISTING_PR" | jq -r '.number // empty')
+          EXISTING_BRANCH=$(echo "$EXISTING_PR" | jq -r '.headRefName // empty')
+
+          if [ -n "$EXISTING_PR_NUMBER" ]; then
+            echo "Found existing open PR #$EXISTING_PR_NUMBER for SDK updates. Updating with latest changes."
+            git checkout $EXISTING_BRANCH
+            git add .
+            git commit -m "chore: update SDK from OpenAPI spec $(date +%Y-%m-%d-%H%M%S)"
+            git push origin $EXISTING_BRANCH
+            echo "branch_name=$EXISTING_BRANCH" >> $GITHUB_OUTPUT
+          else
+            BRANCH_NAME="chore/update-sdk-$(date +%Y-%m-%d-%H%M%S)"
+            git checkout -b $BRANCH_NAME
+
+            git add .
+            git commit -m "chore: update SDK from OpenAPI spec"
+            git push -u origin $BRANCH_NAME
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+            PR_BODY="Automated PR to update the Java SDK from the latest OpenAPI spec. This PR was created automatically by the GitHub Action \"update-sdk\" workflow."
+            gh pr create \
+              --title "chore: update SDK from OpenAPI spec" \
+              --body "$PR_BODY" \
+              --base main \
+              --head $BRANCH_NAME
+          fi
