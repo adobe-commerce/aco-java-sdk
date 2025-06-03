@@ -46,7 +46,6 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /** ProductAttribute */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        date = "2025-05-23T13:16:12.231143+02:00[Europe/Madrid]",
         comments = "Generator version: 7.4.0")
 public class ProductAttribute {
     public static final String SERIALIZED_NAME_CODE = "code";
@@ -216,8 +215,8 @@ public class ProductAttribute {
 
     /**
      * The variant reference ID establishes a link between a product variant and the corresponding
-     * [Option Value ID](#operation/ProductsPost!path&#x3D;options/values/id&amp;t&#x3D;request) in
-     * a configurable product. A variant reference ID can be specified only for a product that
+     * [Option Value ID](#operation/createProducts!path&#x3D;options/values/id&amp;t&#x3D;request)
+     * in a configurable product. A variant reference ID can be specified only for a product that
      * represents a variant of a configurable product.
      *
      * @return variantReferenceId

@@ -45,7 +45,6 @@ import java.util.Set;
 /** ProductConfiguration */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        date = "2025-05-23T13:16:12.231143+02:00[Europe/Madrid]",
         comments = "Generator version: 7.4.0")
 public class ProductConfiguration {
     public static final String SERIALIZED_NAME_ATTRIBUTE_CODE = "attributeCode";
@@ -139,7 +138,7 @@ public class ProductConfiguration {
     /**
      * Product option attribute code. For &#x60;CONFIGURABLE&#x60; or &#x60;SWATCH&#x60; option
      * types, this ID must match the [\&quot;attribute
-     * code\&quot;](#operation/ProductsPost!path&#x3D;attributes/code&amp;t&#x3D;request) used for
+     * code\&quot;](#operation/createProducts!path&#x3D;attributes/code&amp;t&#x3D;request) used for
      * the configurable product (for example, \&quot;color\&quot;).
      *
      * @return attributeCode

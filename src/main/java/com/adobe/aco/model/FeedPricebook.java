@@ -41,7 +41,6 @@ import java.util.Set;
 /** Price book information */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        date = "2025-05-23T13:16:12.231143+02:00[Europe/Madrid]",
         comments = "Generator version: 7.4.0")
 public class FeedPricebook {
     public static final String SERIALIZED_NAME_PRICE_BOOK_ID = "priceBookId";

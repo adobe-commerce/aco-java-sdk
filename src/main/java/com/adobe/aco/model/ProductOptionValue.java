@@ -41,7 +41,6 @@ import java.util.Set;
 /** ProductOptionValue */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        date = "2025-05-23T13:16:12.231143+02:00[Europe/Madrid]",
         comments = "Generator version: 7.4.0")
 public class ProductOptionValue {
     public static final String SERIALIZED_NAME_VARIANT_REFERENCE_ID = "variantReferenceId";
@@ -74,7 +73,7 @@ public class ProductOptionValue {
     /**
      * Option value ID. For &#x60;CONFIGURABLE&#x60; or &#x60;SWATCH&#x60; option types, this ID
      * must match the
-     * [\&quot;variantReferenceId\&quot;](#operation/ProductsPost!path&#x3D;attributes/variantReferenceId&amp;t&#x3D;request)
+     * [\&quot;variantReferenceId\&quot;](#operation/createProducts!path&#x3D;attributes/variantReferenceId&amp;t&#x3D;request)
      * defined in the product variant.
      *
      * @return variantReferenceId

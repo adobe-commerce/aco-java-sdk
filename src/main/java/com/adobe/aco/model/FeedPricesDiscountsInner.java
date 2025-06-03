@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        date = "2025-05-23T13:16:12.231143+02:00[Europe/Madrid]",
         comments = "Generator version: 7.4.0")
 public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(FeedPricesDiscountsInner.class.getName());

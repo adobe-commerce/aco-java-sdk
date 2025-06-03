@@ -108,4 +108,3 @@ public class CommerceHttpClientFactory {
         return INITIAL_RETRY_DELAY_MS * (int) Math.pow(2, attempt - 1);
     }
 }
-

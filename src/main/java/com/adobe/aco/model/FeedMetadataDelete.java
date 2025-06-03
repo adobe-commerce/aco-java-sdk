@@ -41,7 +41,6 @@ import java.util.Set;
 /** Delete metadata information for a product attribute. */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        date = "2025-05-23T13:16:12.231143+02:00[Europe/Madrid]",
         comments = "Generator version: 7.4.0")
 public class FeedMetadataDelete {
     public static final String SERIALIZED_NAME_CODE = "code";
