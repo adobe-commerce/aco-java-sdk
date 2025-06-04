@@ -22,412 +22,376 @@
 
 package com.adobe.aco.model;
 
-import com.adobe.aco.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.util.Objects;
 import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import org.openapitools.jackson.nullable.JsonNullable;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import org.openapitools.jackson.nullable.JsonNullable;
 
-/** ProductAttribute */
-@javax.annotation.Generated(
-        value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.4.0")
+import com.adobe.aco.JSON;
+
+/**
+ * ProductAttribute
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ProductAttribute {
-    public static final String SERIALIZED_NAME_CODE = "code";
+  public static final String SERIALIZED_NAME_CODE = "code";
+  @SerializedName(SERIALIZED_NAME_CODE)
+  private String code;
 
-    @SerializedName(SERIALIZED_NAME_CODE)
-    private String code;
+  /**
+   * Type of attribute value to be applied during the rendering phase. Validation occurs only when the code is rendered. Invalid values are ignored. - &#x60;BOOLEAN&#x60;: Accept single value: \&quot;true\&quot; or false - &#x60;NUMBER&#x60;: Accept single number,e.g. \&quot;85\&quot;, \&quot;0.42\&quot;, etc. - &#x60;STRING&#x60;: Accept single string,e.g. \&quot;Great day, yall!\&quot; - &#x60;ARRAY&#x60;: Accept list of strings ,e.g. [\&quot;red\&quot;, \&quot;green\&quot;, \&quot;blue\&quot;] - &#x60;OBJECT&#x60;: Accept JSON object &#x60;\&quot;{\&quot;name\&quot;: \&quot;swatch\&quot;, \&quot;color\&quot;: \&quot;red\&quot;}\&quot;&#x60; 
+   */
+  @JsonAdapter(TypeEnum.Adapter.class)
+  public enum TypeEnum {
+    BOOLEAN("BOOLEAN"),
+    
+    NUMBER("NUMBER"),
+    
+    STRING("STRING"),
+    
+    ARRAY("ARRAY"),
+    
+    OBJECT("OBJECT");
 
-    /**
-     * Type of attribute value to be applied during the rendering phase. Validation occurs only when
-     * the code is rendered. Invalid values are ignored. - &#x60;BOOLEAN&#x60;: Accept single value:
-     * \&quot;true\&quot; or false - &#x60;NUMBER&#x60;: Accept single number,e.g. \&quot;85\&quot;,
-     * \&quot;0.42\&quot;, etc. - &#x60;STRING&#x60;: Accept single string,e.g. \&quot;Great day,
-     * yall!\&quot; - &#x60;ARRAY&#x60;: Accept list of strings ,e.g. [\&quot;red\&quot;,
-     * \&quot;green\&quot;, \&quot;blue\&quot;] - &#x60;OBJECT&#x60;: Accept JSON object
-     * &#x60;\&quot;{\&quot;name\&quot;: \&quot;swatch\&quot;, \&quot;color\&quot;:
-     * \&quot;red\&quot;}\&quot;&#x60;
-     */
-    @JsonAdapter(TypeEnum.Adapter.class)
-    public enum TypeEnum {
-        BOOLEAN("BOOLEAN"),
+    private String value;
 
-        NUMBER("NUMBER"),
-
-        STRING("STRING"),
-
-        ARRAY("ARRAY"),
-
-        OBJECT("OBJECT");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-
-        public static class Adapter extends TypeAdapter<TypeEnum> {
-            @Override
-            public void write(final JsonWriter jsonWriter, final TypeEnum enumeration)
-                    throws IOException {
-                jsonWriter.value(enumeration.getValue());
-            }
-
-            @Override
-            public TypeEnum read(final JsonReader jsonReader) throws IOException {
-                String value = jsonReader.nextString();
-                return TypeEnum.fromValue(value);
-            }
-        }
-
-        public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-            String value = jsonElement.getAsString();
-            TypeEnum.fromValue(value);
-        }
+    TypeEnum(String value) {
+      this.value = value;
     }
 
-    public static final String SERIALIZED_NAME_TYPE = "type";
-
-    @SerializedName(SERIALIZED_NAME_TYPE)
-    private TypeEnum type;
-
-    public static final String SERIALIZED_NAME_VALUES = "values";
-
-    @SerializedName(SERIALIZED_NAME_VALUES)
-    private List<String> values = new ArrayList<>();
-
-    public static final String SERIALIZED_NAME_VARIANT_REFERENCE_ID = "variantReferenceId";
-
-    @SerializedName(SERIALIZED_NAME_VARIANT_REFERENCE_ID)
-    private String variantReferenceId;
-
-    public ProductAttribute() {}
-
-    public ProductAttribute code(String code) {
-        this.code = code;
-        return this;
-    }
-
-    /**
-     * Product Attribute Code
-     *
-     * @return code
-     */
-    @javax.annotation.Nonnull
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public ProductAttribute type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Type of attribute value to be applied during the rendering phase. Validation occurs only when
-     * the code is rendered. Invalid values are ignored. - &#x60;BOOLEAN&#x60;: Accept single value:
-     * \&quot;true\&quot; or false - &#x60;NUMBER&#x60;: Accept single number,e.g. \&quot;85\&quot;,
-     * \&quot;0.42\&quot;, etc. - &#x60;STRING&#x60;: Accept single string,e.g. \&quot;Great day,
-     * yall!\&quot; - &#x60;ARRAY&#x60;: Accept list of strings ,e.g. [\&quot;red\&quot;,
-     * \&quot;green\&quot;, \&quot;blue\&quot;] - &#x60;OBJECT&#x60;: Accept JSON object
-     * &#x60;\&quot;{\&quot;name\&quot;: \&quot;swatch\&quot;, \&quot;color\&quot;:
-     * \&quot;red\&quot;}\&quot;&#x60;
-     *
-     * @return type
-     */
-    @javax.annotation.Nonnull
-    public TypeEnum getType() {
-        return type;
-    }
-
-    public void setType(TypeEnum type) {
-        this.type = type;
-    }
-
-    public ProductAttribute values(List<String> values) {
-        this.values = values;
-        return this;
-    }
-
-    public ProductAttribute addValuesItem(String valuesItem) {
-        if (this.values == null) {
-            this.values = new ArrayList<>();
-        }
-        this.values.add(valuesItem);
-        return this;
-    }
-
-    /**
-     * A list of value(s) associated with a specified attribute code.
-     *
-     * @return values
-     */
-    @javax.annotation.Nonnull
-    public List<String> getValues() {
-        return values;
-    }
-
-    public void setValues(List<String> values) {
-        this.values = values;
-    }
-
-    public ProductAttribute variantReferenceId(String variantReferenceId) {
-        this.variantReferenceId = variantReferenceId;
-        return this;
-    }
-
-    /**
-     * The variant reference ID establishes a link between a product variant and the corresponding
-     * [Option Value ID](#operation/createProducts!path&#x3D;options/values/id&amp;t&#x3D;request)
-     * in a configurable product. A variant reference ID can be specified only for a product that
-     * represents a variant of a configurable product.
-     *
-     * @return variantReferenceId
-     */
-    @javax.annotation.Nullable
-    public String getVariantReferenceId() {
-        return variantReferenceId;
-    }
-
-    public void setVariantReferenceId(String variantReferenceId) {
-        this.variantReferenceId = variantReferenceId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ProductAttribute productAttribute = (ProductAttribute) o;
-        return Objects.equals(this.code, productAttribute.code)
-                && Objects.equals(this.type, productAttribute.type)
-                && Objects.equals(this.values, productAttribute.values)
-                && Objects.equals(this.variantReferenceId, productAttribute.variantReferenceId);
-    }
-
-    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
-        return a == b
-                || (a != null
-                        && b != null
-                        && a.isPresent()
-                        && b.isPresent()
-                        && Objects.deepEquals(a.get(), b.get()));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code, type, values, variantReferenceId);
-    }
-
-    private static <T> int hashCodeNullable(JsonNullable<T> a) {
-        if (a == null) {
-            return 1;
-        }
-        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
+    public String getValue() {
+      return value;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ProductAttribute {\n");
-        sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    values: ").append(toIndentedString(values)).append("\n");
-        sb.append("    variantReferenceId: ")
-                .append(toIndentedString(variantReferenceId))
-                .append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
 
-    public static HashSet<String> openapiFields;
-    public static HashSet<String> openapiRequiredFields;
+    public static class Adapter extends TypeAdapter<TypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
 
-    static {
-        // a set of all properties/fields (JSON key names)
-        openapiFields = new HashSet<String>();
-        openapiFields.add("code");
-        openapiFields.add("type");
-        openapiFields.add("values");
-        openapiFields.add("variantReferenceId");
-
-        // a set of required properties/fields (JSON key names)
-        openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("code");
-        openapiRequiredFields.add("type");
-        openapiRequiredFields.add("values");
+      @Override
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return TypeEnum.fromValue(value);
+      }
     }
 
-    /**
-     * Validates the JSON Element and throws an exception if issues found
-     *
-     * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to ProductAttribute
-     */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        if (jsonElement == null) {
-            if (!ProductAttribute.openapiRequiredFields
-                    .isEmpty()) { // has required fields but JSON element is null
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field(s) %s in ProductAttribute is not found in the empty JSON string",
-                                ProductAttribute.openapiRequiredFields.toString()));
-            }
-        }
+      String value = jsonElement.getAsString();
+      TypeEnum.fromValue(value);
+    }
+  }
 
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!ProductAttribute.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the `ProductAttribute` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
+  private TypeEnum type;
 
-        // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : ProductAttribute.openapiRequiredFields) {
-            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field `%s` is not found in the JSON string: %s",
-                                requiredField, jsonElement.toString()));
-            }
+  public static final String SERIALIZED_NAME_VALUES = "values";
+  @SerializedName(SERIALIZED_NAME_VALUES)
+  private List<String> values = new ArrayList<>();
+
+  public static final String SERIALIZED_NAME_VARIANT_REFERENCE_ID = "variantReferenceId";
+  @SerializedName(SERIALIZED_NAME_VARIANT_REFERENCE_ID)
+  private String variantReferenceId;
+
+  public ProductAttribute() {
+  }
+
+  public ProductAttribute code(String code) {
+    this.code = code;
+    return this;
+  }
+
+   /**
+   * Product Attribute Code
+   * @return code
+  **/
+  @javax.annotation.Nonnull
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+
+  public ProductAttribute type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Type of attribute value to be applied during the rendering phase. Validation occurs only when the code is rendered. Invalid values are ignored. - &#x60;BOOLEAN&#x60;: Accept single value: \&quot;true\&quot; or false - &#x60;NUMBER&#x60;: Accept single number,e.g. \&quot;85\&quot;, \&quot;0.42\&quot;, etc. - &#x60;STRING&#x60;: Accept single string,e.g. \&quot;Great day, yall!\&quot; - &#x60;ARRAY&#x60;: Accept list of strings ,e.g. [\&quot;red\&quot;, \&quot;green\&quot;, \&quot;blue\&quot;] - &#x60;OBJECT&#x60;: Accept JSON object &#x60;\&quot;{\&quot;name\&quot;: \&quot;swatch\&quot;, \&quot;color\&quot;: \&quot;red\&quot;}\&quot;&#x60; 
+   * @return type
+  **/
+  @javax.annotation.Nonnull
+  public TypeEnum getType() {
+    return type;
+  }
+
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+
+  public ProductAttribute values(List<String> values) {
+    this.values = values;
+    return this;
+  }
+
+  public ProductAttribute addValuesItem(String valuesItem) {
+    if (this.values == null) {
+      this.values = new ArrayList<>();
+    }
+    this.values.add(valuesItem);
+    return this;
+  }
+
+   /**
+   * A list of value(s) associated with a specified attribute code.
+   * @return values
+  **/
+  @javax.annotation.Nonnull
+  public List<String> getValues() {
+    return values;
+  }
+
+  public void setValues(List<String> values) {
+    this.values = values;
+  }
+
+
+  public ProductAttribute variantReferenceId(String variantReferenceId) {
+    this.variantReferenceId = variantReferenceId;
+    return this;
+  }
+
+   /**
+   * The variant reference ID establishes a link between a product variant and the corresponding [Option Value ID](#operation/createProducts!path&#x3D;options/values/id&amp;t&#x3D;request) in a configurable product.  A variant reference ID can be specified only for a product that represents a variant of a configurable product. 
+   * @return variantReferenceId
+  **/
+  @javax.annotation.Nullable
+  public String getVariantReferenceId() {
+    return variantReferenceId;
+  }
+
+  public void setVariantReferenceId(String variantReferenceId) {
+    this.variantReferenceId = variantReferenceId;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ProductAttribute productAttribute = (ProductAttribute) o;
+    return Objects.equals(this.code, productAttribute.code) &&
+        Objects.equals(this.type, productAttribute.type) &&
+        Objects.equals(this.values, productAttribute.values) &&
+        Objects.equals(this.variantReferenceId, productAttribute.variantReferenceId);
+  }
+
+  private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+    return a == b || (a != null && b != null && a.isPresent() && b.isPresent() && Objects.deepEquals(a.get(), b.get()));
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(code, type, values, variantReferenceId);
+  }
+
+  private static <T> int hashCodeNullable(JsonNullable<T> a) {
+    if (a == null) {
+      return 1;
+    }
+    return a.isPresent() ? Arrays.deepHashCode(new Object[]{a.get()}) : 31;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProductAttribute {\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    values: ").append(toIndentedString(values)).append("\n");
+    sb.append("    variantReferenceId: ").append(toIndentedString(variantReferenceId)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
+
+
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
+
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("code");
+    openapiFields.add("type");
+    openapiFields.add("values");
+    openapiFields.add("variantReferenceId");
+
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("code");
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("values");
+  }
+
+ /**
+  * Validates the JSON Element and throws an exception if issues found
+  *
+  * @param jsonElement JSON Element
+  * @throws IOException if the JSON Element is invalid with respect to ProductAttribute
+  */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ProductAttribute.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ProductAttribute is not found in the empty JSON string", ProductAttribute.openapiRequiredFields.toString()));
         }
+      }
+
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Map.Entry<String, JsonElement> entry : entries) {
+        if (!ProductAttribute.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ProductAttribute` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
+        }
+      }
+
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ProductAttribute.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
+        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("code").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("code").toString()));
-        }
-        if (!jsonObj.get("type").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `type` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("type").toString()));
-        }
-        // validate the required field `type`
-        TypeEnum.validateJsonElement(jsonObj.get("type"));
-        // ensure the required json array is present
-        if (jsonObj.get("values") == null) {
-            throw new IllegalArgumentException(
-                    "Expected the field `linkedContent` to be an array in the JSON string but got `null`");
-        } else if (!jsonObj.get("values").isJsonArray()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `values` to be an array in the JSON string but got `%s`",
-                            jsonObj.get("values").toString()));
-        }
-        if ((jsonObj.get("variantReferenceId") != null
-                        && !jsonObj.get("variantReferenceId").isJsonNull())
-                && !jsonObj.get("variantReferenceId").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `variantReferenceId` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("variantReferenceId").toString()));
-        }
+      if (!jsonObj.get("code").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("code").toString()));
+      }
+      if (!jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      }
+      // validate the required field `type`
+      TypeEnum.validateJsonElement(jsonObj.get("type"));
+      // ensure the required json array is present
+      if (jsonObj.get("values") == null) {
+        throw new IllegalArgumentException("Expected the field `linkedContent` to be an array in the JSON string but got `null`");
+      } else if (!jsonObj.get("values").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `values` to be an array in the JSON string but got `%s`", jsonObj.get("values").toString()));
+      }
+      if ((jsonObj.get("variantReferenceId") != null && !jsonObj.get("variantReferenceId").isJsonNull()) && !jsonObj.get("variantReferenceId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `variantReferenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("variantReferenceId").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!ProductAttribute.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ProductAttribute' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<ProductAttribute> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ProductAttribute.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<ProductAttribute>() {
+           @Override
+           public void write(JsonWriter out, ProductAttribute value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public ProductAttribute read(JsonReader in) throws IOException {
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             return thisAdapter.fromJsonTree(jsonElement);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!ProductAttribute.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'ProductAttribute' and its subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<ProductAttribute> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(ProductAttribute.class));
+ /**
+  * Create an instance of ProductAttribute given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ProductAttribute
+  * @throws IOException if the JSON string is invalid with respect to ProductAttribute
+  */
+  public static ProductAttribute fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ProductAttribute.class);
+  }
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<ProductAttribute>() {
-                        @Override
-                        public void write(JsonWriter out, ProductAttribute value)
-                                throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-                            elementAdapter.write(out, obj);
-                        }
-
-                        @Override
-                        public ProductAttribute read(JsonReader in) throws IOException {
-                            JsonElement jsonElement = elementAdapter.read(in);
-                            validateJsonElement(jsonElement);
-                            return thisAdapter.fromJsonTree(jsonElement);
-                        }
-                    }.nullSafe();
-        }
-    }
-
-    /**
-     * Create an instance of ProductAttribute given an JSON string
-     *
-     * @param jsonString JSON string
-     * @return An instance of ProductAttribute
-     * @throws IOException if the JSON string is invalid with respect to ProductAttribute
-     */
-    public static ProductAttribute fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, ProductAttribute.class);
-    }
-
-    /**
-     * Convert an instance of ProductAttribute to an JSON string
-     *
-     * @return JSON string
-     */
-    public String toJson() {
-        return JSON.getGson().toJson(this);
-    }
+ /**
+  * Convert an instance of ProductAttribute to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+

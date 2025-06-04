@@ -22,232 +22,232 @@
 
 package com.adobe.aco.model;
 
-import com.adobe.aco.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.util.Objects;
 import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-/** Product association */
-@javax.annotation.Generated(
-        value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.4.0")
+import com.adobe.aco.JSON;
+
+/**
+ * Product association
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ProductLink {
-    public static final String SERIALIZED_NAME_TYPE = "type";
+  public static final String SERIALIZED_NAME_TYPE = "type";
+  @SerializedName(SERIALIZED_NAME_TYPE)
+  private String type;
 
-    @SerializedName(SERIALIZED_NAME_TYPE)
-    private String type;
+  public static final String SERIALIZED_NAME_SKU = "sku";
+  @SerializedName(SERIALIZED_NAME_SKU)
+  private String sku;
 
-    public static final String SERIALIZED_NAME_SKU = "sku";
+  public ProductLink() {
+  }
 
-    @SerializedName(SERIALIZED_NAME_SKU)
-    private String sku;
+  public ProductLink type(String type) {
+    this.type = type;
+    return this;
+  }
 
-    public ProductLink() {}
+   /**
+   * Product link type. Merchants can define custom types in addition to the predefined values. - &#x60;VARIANT_OF&#x60; link type must be specified to establish a connection to the configurable product SKU. - &#x60;IN_BUNDLE&#x60; link type must be specified to establish a connection to the bundle product SKU. 
+   * @return type
+  **/
+  @javax.annotation.Nonnull
+  public String getType() {
+    return type;
+  }
 
-    public ProductLink type(String type) {
-        this.type = type;
-        return this;
+  public void setType(String type) {
+    this.type = type;
+  }
+
+
+  public ProductLink sku(String sku) {
+    this.sku = sku;
+    return this;
+  }
+
+   /**
+   * Product SKU
+   * @return sku
+  **/
+  @javax.annotation.Nonnull
+  public String getSku() {
+    return sku;
+  }
+
+  public void setSku(String sku) {
+    this.sku = sku;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Product link type. Merchants can define custom types in addition to the predefined values. -
-     * &#x60;VARIANT_OF&#x60; link type must be specified to establish a connection to the
-     * configurable product SKU. - &#x60;IN_BUNDLE&#x60; link type must be specified to establish a
-     * connection to the bundle product SKU.
-     *
-     * @return type
-     */
-    @javax.annotation.Nonnull
-    public String getType() {
-        return type;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    ProductLink productLink = (ProductLink) o;
+    return Objects.equals(this.type, productLink.type) &&
+        Objects.equals(this.sku, productLink.sku);
+  }
 
-    public void setType(String type) {
-        this.type = type;
+  @Override
+  public int hashCode() {
+    return Objects.hash(type, sku);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProductLink {\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-    public ProductLink sku(String sku) {
-        this.sku = sku;
-        return this;
-    }
 
-    /**
-     * Product SKU
-     *
-     * @return sku
-     */
-    @javax.annotation.Nonnull
-    public String getSku() {
-        return sku;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-    public void setSku(String sku) {
-        this.sku = sku;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("type");
+    openapiFields.add("sku");
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("type");
+    openapiRequiredFields.add("sku");
+  }
+
+ /**
+  * Validates the JSON Element and throws an exception if issues found
+  *
+  * @param jsonElement JSON Element
+  * @throws IOException if the JSON Element is invalid with respect to ProductLink
+  */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ProductLink.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ProductLink is not found in the empty JSON string", ProductLink.openapiRequiredFields.toString()));
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+      }
+
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Map.Entry<String, JsonElement> entry : entries) {
+        if (!ProductLink.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ProductLink` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
-        ProductLink productLink = (ProductLink) o;
-        return Objects.equals(this.type, productLink.type)
-                && Objects.equals(this.sku, productLink.sku);
-    }
+      }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(type, sku);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ProductLink {\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
-        sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ProductLink.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    public static HashSet<String> openapiFields;
-    public static HashSet<String> openapiRequiredFields;
-
-    static {
-        // a set of all properties/fields (JSON key names)
-        openapiFields = new HashSet<String>();
-        openapiFields.add("type");
-        openapiFields.add("sku");
-
-        // a set of required properties/fields (JSON key names)
-        openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("type");
-        openapiRequiredFields.add("sku");
-    }
-
-    /**
-     * Validates the JSON Element and throws an exception if issues found
-     *
-     * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to ProductLink
-     */
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        if (jsonElement == null) {
-            if (!ProductLink.openapiRequiredFields
-                    .isEmpty()) { // has required fields but JSON element is null
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field(s) %s in ProductLink is not found in the empty JSON string",
-                                ProductLink.openapiRequiredFields.toString()));
-            }
-        }
-
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!ProductLink.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the `ProductLink` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
-
-        // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : ProductLink.openapiRequiredFields) {
-            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field `%s` is not found in the JSON string: %s",
-                                requiredField, jsonElement.toString()));
-            }
-        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("type").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `type` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("type").toString()));
-        }
-        if (!jsonObj.get("sku").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `sku` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("sku").toString()));
-        }
+      if (!jsonObj.get("type").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `type` to be a primitive type in the JSON string but got `%s`", jsonObj.get("type").toString()));
+      }
+      if (!jsonObj.get("sku").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `sku` to be a primitive type in the JSON string but got `%s`", jsonObj.get("sku").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!ProductLink.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ProductLink' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<ProductLink> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ProductLink.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<ProductLink>() {
+           @Override
+           public void write(JsonWriter out, ProductLink value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public ProductLink read(JsonReader in) throws IOException {
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             return thisAdapter.fromJsonTree(jsonElement);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!ProductLink.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'ProductLink' and its subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<ProductLink> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(ProductLink.class));
+ /**
+  * Create an instance of ProductLink given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ProductLink
+  * @throws IOException if the JSON string is invalid with respect to ProductLink
+  */
+  public static ProductLink fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ProductLink.class);
+  }
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<ProductLink>() {
-                        @Override
-                        public void write(JsonWriter out, ProductLink value) throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-                            elementAdapter.write(out, obj);
-                        }
-
-                        @Override
-                        public ProductLink read(JsonReader in) throws IOException {
-                            JsonElement jsonElement = elementAdapter.read(in);
-                            validateJsonElement(jsonElement);
-                            return thisAdapter.fromJsonTree(jsonElement);
-                        }
-                    }.nullSafe();
-        }
-    }
-
-    /**
-     * Create an instance of ProductLink given an JSON string
-     *
-     * @param jsonString JSON string
-     * @return An instance of ProductLink
-     * @throws IOException if the JSON string is invalid with respect to ProductLink
-     */
-    public static ProductLink fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, ProductLink.class);
-    }
-
-    /**
-     * Convert an instance of ProductLink to an JSON string
-     *
-     * @return JSON string
-     */
-    public String toJson() {
-        return JSON.getGson().toJson(this);
-    }
+ /**
+  * Convert an instance of ProductLink to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+

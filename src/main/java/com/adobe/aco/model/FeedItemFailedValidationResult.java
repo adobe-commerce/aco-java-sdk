@@ -22,287 +22,278 @@
 
 package com.adobe.aco.model;
 
-import com.adobe.aco.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.util.Objects;
 import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-/** FeedItemFailedValidationResult */
-@javax.annotation.Generated(
-        value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.4.0")
+import com.adobe.aco.JSON;
+
+/**
+ * FeedItemFailedValidationResult
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class FeedItemFailedValidationResult {
-    public static final String SERIALIZED_NAME_CODE = "code";
+  public static final String SERIALIZED_NAME_CODE = "code";
+  @SerializedName(SERIALIZED_NAME_CODE)
+  private String code;
 
-    @SerializedName(SERIALIZED_NAME_CODE)
-    private String code;
+  public static final String SERIALIZED_NAME_ITEM_INDEX = "itemIndex";
+  @SerializedName(SERIALIZED_NAME_ITEM_INDEX)
+  private Integer itemIndex;
 
-    public static final String SERIALIZED_NAME_ITEM_INDEX = "itemIndex";
+  public static final String SERIALIZED_NAME_MESSAGE = "message";
+  @SerializedName(SERIALIZED_NAME_MESSAGE)
+  private String message;
 
-    @SerializedName(SERIALIZED_NAME_ITEM_INDEX)
-    private Integer itemIndex;
+  public static final String SERIALIZED_NAME_VALUE = "value";
+  @SerializedName(SERIALIZED_NAME_VALUE)
+  private String value;
 
-    public static final String SERIALIZED_NAME_MESSAGE = "message";
+  public FeedItemFailedValidationResult() {
+  }
 
-    @SerializedName(SERIALIZED_NAME_MESSAGE)
-    private String message;
+  public FeedItemFailedValidationResult code(String code) {
+    this.code = code;
+    return this;
+  }
 
-    public static final String SERIALIZED_NAME_VALUE = "value";
+   /**
+   * Code name of invalid field.
+   * @return code
+  **/
+  @javax.annotation.Nullable
+  public String getCode() {
+    return code;
+  }
 
-    @SerializedName(SERIALIZED_NAME_VALUE)
-    private String value;
+  public void setCode(String code) {
+    this.code = code;
+  }
 
-    public FeedItemFailedValidationResult() {}
 
-    public FeedItemFailedValidationResult code(String code) {
-        this.code = code;
-        return this;
+  public FeedItemFailedValidationResult itemIndex(Integer itemIndex) {
+    this.itemIndex = itemIndex;
+    return this;
+  }
+
+   /**
+   * Reference to the line item with an invalid payload. The line count begins at 0.
+   * @return itemIndex
+  **/
+  @javax.annotation.Nullable
+  public Integer getItemIndex() {
+    return itemIndex;
+  }
+
+  public void setItemIndex(Integer itemIndex) {
+    this.itemIndex = itemIndex;
+  }
+
+
+  public FeedItemFailedValidationResult message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Error description
+   * @return message
+  **/
+  @javax.annotation.Nullable
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+
+  public FeedItemFailedValidationResult value(String value) {
+    this.value = value;
+    return this;
+  }
+
+   /**
+   * Original value passed in the request.
+   * @return value
+  **/
+  @javax.annotation.Nullable
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Code name of invalid field.
-     *
-     * @return code
-     */
-    @javax.annotation.Nullable
-    public String getCode() {
-        return code;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    FeedItemFailedValidationResult feedItemFailedValidationResult = (FeedItemFailedValidationResult) o;
+    return Objects.equals(this.code, feedItemFailedValidationResult.code) &&
+        Objects.equals(this.itemIndex, feedItemFailedValidationResult.itemIndex) &&
+        Objects.equals(this.message, feedItemFailedValidationResult.message) &&
+        Objects.equals(this.value, feedItemFailedValidationResult.value);
+  }
 
-    public void setCode(String code) {
-        this.code = code;
+  @Override
+  public int hashCode() {
+    return Objects.hash(code, itemIndex, message, value);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FeedItemFailedValidationResult {\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    itemIndex: ").append(toIndentedString(itemIndex)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-    public FeedItemFailedValidationResult itemIndex(Integer itemIndex) {
-        this.itemIndex = itemIndex;
-        return this;
-    }
 
-    /**
-     * Reference to the line item with an invalid payload. The line count begins at 0.
-     *
-     * @return itemIndex
-     */
-    @javax.annotation.Nullable
-    public Integer getItemIndex() {
-        return itemIndex;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-    public void setItemIndex(Integer itemIndex) {
-        this.itemIndex = itemIndex;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("code");
+    openapiFields.add("itemIndex");
+    openapiFields.add("message");
+    openapiFields.add("value");
 
-    public FeedItemFailedValidationResult message(String message) {
-        this.message = message;
-        return this;
-    }
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+  }
 
-    /**
-     * Error description
-     *
-     * @return message
-     */
-    @javax.annotation.Nullable
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public FeedItemFailedValidationResult value(String value) {
-        this.value = value;
-        return this;
-    }
-
-    /**
-     * Original value passed in the request.
-     *
-     * @return value
-     */
-    @javax.annotation.Nullable
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+ /**
+  * Validates the JSON Element and throws an exception if issues found
+  *
+  * @param jsonElement JSON Element
+  * @throws IOException if the JSON Element is invalid with respect to FeedItemFailedValidationResult
+  */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!FeedItemFailedValidationResult.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in FeedItemFailedValidationResult is not found in the empty JSON string", FeedItemFailedValidationResult.openapiRequiredFields.toString()));
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+      }
+
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Map.Entry<String, JsonElement> entry : entries) {
+        if (!FeedItemFailedValidationResult.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `FeedItemFailedValidationResult` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
-        FeedItemFailedValidationResult feedItemFailedValidationResult =
-                (FeedItemFailedValidationResult) o;
-        return Objects.equals(this.code, feedItemFailedValidationResult.code)
-                && Objects.equals(this.itemIndex, feedItemFailedValidationResult.itemIndex)
-                && Objects.equals(this.message, feedItemFailedValidationResult.message)
-                && Objects.equals(this.value, feedItemFailedValidationResult.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code, itemIndex, message, value);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class FeedItemFailedValidationResult {\n");
-        sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    itemIndex: ").append(toIndentedString(itemIndex)).append("\n");
-        sb.append("    message: ").append(toIndentedString(message)).append("\n");
-        sb.append("    value: ").append(toIndentedString(value)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    public static HashSet<String> openapiFields;
-    public static HashSet<String> openapiRequiredFields;
-
-    static {
-        // a set of all properties/fields (JSON key names)
-        openapiFields = new HashSet<String>();
-        openapiFields.add("code");
-        openapiFields.add("itemIndex");
-        openapiFields.add("message");
-        openapiFields.add("value");
-
-        // a set of required properties/fields (JSON key names)
-        openapiRequiredFields = new HashSet<String>();
-    }
-
-    /**
-     * Validates the JSON Element and throws an exception if issues found
-     *
-     * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to
-     *     FeedItemFailedValidationResult
-     */
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        if (jsonElement == null) {
-            if (!FeedItemFailedValidationResult.openapiRequiredFields
-                    .isEmpty()) { // has required fields but JSON element is null
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field(s) %s in FeedItemFailedValidationResult is not found in the empty JSON string",
-                                FeedItemFailedValidationResult.openapiRequiredFields.toString()));
-            }
-        }
-
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!FeedItemFailedValidationResult.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the `FeedItemFailedValidationResult` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if ((jsonObj.get("code") != null && !jsonObj.get("code").isJsonNull())
-                && !jsonObj.get("code").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("code").toString()));
-        }
-        if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull())
-                && !jsonObj.get("message").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `message` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("message").toString()));
-        }
-        if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull())
-                && !jsonObj.get("value").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `value` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("value").toString()));
-        }
+      if ((jsonObj.get("code") != null && !jsonObj.get("code").isJsonNull()) && !jsonObj.get("code").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `code` to be a primitive type in the JSON string but got `%s`", jsonObj.get("code").toString()));
+      }
+      if ((jsonObj.get("message") != null && !jsonObj.get("message").isJsonNull()) && !jsonObj.get("message").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `message` to be a primitive type in the JSON string but got `%s`", jsonObj.get("message").toString()));
+      }
+      if ((jsonObj.get("value") != null && !jsonObj.get("value").isJsonNull()) && !jsonObj.get("value").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `value` to be a primitive type in the JSON string but got `%s`", jsonObj.get("value").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!FeedItemFailedValidationResult.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'FeedItemFailedValidationResult' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<FeedItemFailedValidationResult> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(FeedItemFailedValidationResult.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<FeedItemFailedValidationResult>() {
+           @Override
+           public void write(JsonWriter out, FeedItemFailedValidationResult value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public FeedItemFailedValidationResult read(JsonReader in) throws IOException {
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             return thisAdapter.fromJsonTree(jsonElement);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!FeedItemFailedValidationResult.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'FeedItemFailedValidationResult' and its
-                // subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<FeedItemFailedValidationResult> thisAdapter =
-                    gson.getDelegateAdapter(
-                            this, TypeToken.get(FeedItemFailedValidationResult.class));
+ /**
+  * Create an instance of FeedItemFailedValidationResult given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of FeedItemFailedValidationResult
+  * @throws IOException if the JSON string is invalid with respect to FeedItemFailedValidationResult
+  */
+  public static FeedItemFailedValidationResult fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, FeedItemFailedValidationResult.class);
+  }
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<FeedItemFailedValidationResult>() {
-                        @Override
-                        public void write(JsonWriter out, FeedItemFailedValidationResult value)
-                                throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-                            elementAdapter.write(out, obj);
-                        }
-
-                        @Override
-                        public FeedItemFailedValidationResult read(JsonReader in)
-                                throws IOException {
-                            JsonElement jsonElement = elementAdapter.read(in);
-                            validateJsonElement(jsonElement);
-                            return thisAdapter.fromJsonTree(jsonElement);
-                        }
-                    }.nullSafe();
-        }
-    }
-
-    /**
-     * Create an instance of FeedItemFailedValidationResult given an JSON string
-     *
-     * @param jsonString JSON string
-     * @return An instance of FeedItemFailedValidationResult
-     * @throws IOException if the JSON string is invalid with respect to
-     *     FeedItemFailedValidationResult
-     */
-    public static FeedItemFailedValidationResult fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, FeedItemFailedValidationResult.class);
-    }
-
-    /**
-     * Convert an instance of FeedItemFailedValidationResult to an JSON string
-     *
-     * @return JSON string
-     */
-    public String toJson() {
-        return JSON.getGson().toJson(this);
-    }
+ /**
+  * Convert an instance of FeedItemFailedValidationResult to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+

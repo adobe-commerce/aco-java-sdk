@@ -21,205 +21,133 @@
  **************************************************************************/
 package com.adobe.aco.client;
 
-import com.adobe.aco.model.FeedMetadata;
-import com.adobe.aco.model.FeedMetadataDelete;
-import com.adobe.aco.model.FeedMetadataUpdate;
-import com.adobe.aco.model.FeedPricebook;
-import com.adobe.aco.model.FeedPrices;
-import com.adobe.aco.model.FeedPricesDelete;
-import com.adobe.aco.model.FeedPricesUpdate;
-import com.adobe.aco.model.FeedProduct;
-import com.adobe.aco.model.FeedProductDelete;
-import com.adobe.aco.model.FeedProductUpdate;
-import com.adobe.aco.model.ProcessFeedResponse;
+        import com.adobe.aco.model.DiscountsFinalPrice;
+        import com.adobe.aco.model.DiscountsPercentage;
+        import com.adobe.aco.model.FeedItemFailedValidationResult;
+        import com.adobe.aco.model.FeedMetadata;
+        import com.adobe.aco.model.FeedMetadataDelete;
+        import com.adobe.aco.model.FeedMetadataUpdate;
+        import com.adobe.aco.model.FeedPricebook;
+        import com.adobe.aco.model.FeedPrices;
+        import com.adobe.aco.model.FeedPricesDelete;
+        import com.adobe.aco.model.FeedPricesDiscountsInner;
+        import com.adobe.aco.model.FeedPricesUpdate;
+        import com.adobe.aco.model.FeedProduct;
+        import com.adobe.aco.model.FeedProductDelete;
+        import com.adobe.aco.model.FeedProductUpdate;
+        import com.adobe.aco.model.ItemFailedValidationResult;
+        import com.adobe.aco.model.Model400ProcessFeedResponse;
+        import com.adobe.aco.model.Model401Response;
+        import com.adobe.aco.model.Model403Response;
+        import com.adobe.aco.model.ProcessFeedResponse;
+        import com.adobe.aco.model.ProductAttribute;
+        import com.adobe.aco.model.ProductBundle;
+        import com.adobe.aco.model.ProductBundleItem;
+        import com.adobe.aco.model.ProductConfiguration;
+        import com.adobe.aco.model.ProductImage;
+        import com.adobe.aco.model.ProductLink;
+        import com.adobe.aco.model.ProductMetaAttribute;
+        import com.adobe.aco.model.ProductOptionValue;
+        import com.adobe.aco.model.ProductRoutes;
+        import com.adobe.aco.model.Scope;
+
 import java.util.List;
 
 public interface Client {
-    /**
-     * Create product attribute metadata To ensure product data is indexed for discovery, create or
-     * replace existing product attribute metadata resources before creating products. For each
-     * Commerce project, you must define metadata for the following attributes for each scope
-     * (`locale`): - `sku` - `name` - `description` - `shortDescription` - `price` Also, you can
-     * define metadata for custom attributes. When creating product attribute metadata: - Each
-     * product attribute requires a unique `code` and `scope`. - Use the `dataType` field to define
-     * the data type for the product attribute. - Use the `visibleIn` field to define where the
-     * product attribute is displayed on the storefront. - Use the `filterable`, `sortable`, and
-     * `searchable` fields to define how the product attribute is used for filtering, sorting, and
-     * searching. - Use the `searchWeight` field to define the search weight for the product
-     * attribute. - Use the `searchTypes` field to define the search type for the product attribute.
-     * To update existing product attribute metadata, use the update operation.
-     *
-     * @param data payload of type List<FeedMetadata>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse createProductMetadata(List<FeedMetadata> data);
-    /**
-     * Delete product attributes metadata Remove product attribute metadata resources from the
-     * catalog data.
-     *
-     * @param data payload of type List<FeedMetadataDelete>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data);
-    /**
-     * Update product attribute metadata Update existing product attribute metadata with new values.
-     * When the update is processed, the merge strategy is used to apply changes to `scalar` and
-     * `object` type fields. The replace strategy is used to apply changes for fields in an `array`.
-     *
-     * @param data payload of type List<FeedMetadataUpdate>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data);
-    /**
-     * Create price books Create or replace existing price books. Use the [update price books
-     * operation](#operation/updatePriceBooks) to modify values for existing price books.
-     *
-     * @param data payload of type List<FeedPricebook>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse createPriceBooks(List<FeedPricebook> data);
-    /**
-     * Delete price books Delete existing price books When you delete a price book, all associated
-     * prices assigned to the `priceBookId` are also deleted. If a product does not have any other
-     * price books assigned, the prices default to the pricing schedule defined in the default,
-     * `main` price book. Note that you cannot delete the default price book with id `main`.
-     *
-     * @param data payload of type List<FeedPricebook>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse deletePriceBooks(List<FeedPricebook> data);
-    /**
-     * Update price books Update existing price books to change the name or the currency used for
-     * pricing. When the update is processed, the merge strategy is used to apply changes to
-     * `scalar` and `object` type fields. The replace strategy is used to apply changes for fields
-     * in an `array`. To update the currency for the default price book, use the price book id
-     * `main`.
-     *
-     * @param data payload of type List<FeedPricebook>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse updatePriceBooks(List<FeedPricebook> data);
-    /**
-     * Create prices Create or replace existing product prices. A price must be associated with at
-     * least the default price book with id `main`.
-     *
-     * <h3>Configurable Products</h3>
-     *
-     * Because configurable product price is calculated based on the price of the selected product
-     * variant, you don't need to send price data for configurable product skus. Sending price data
-     * for these skus can cause incorrect price calculations.
-     *
-     * @param data payload of type List<FeedPrices>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse createPrices(List<FeedPrices> data);
-    /**
-     * Delete prices Delete existing product prices
-     *
-     * @param data payload of type List<FeedPricesDelete>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse deletePrices(List<FeedPricesDelete> data);
-    /**
-     * Update prices Change existing product prices When the update is processed, the merge strategy
-     * is used to apply changes to `scalar` and `object` type fields. The replace strategy is used
-     * to apply changes for fields in an `array`.
-     *
-     * @param data payload of type List<FeedPricesUpdate>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data);
-    /**
-     * Create or replace products You can create different types of products, such as simple
-     * products and configurable products. When creating products: - Each product requires a unique
-     * SKU identifier. - Products must have a defined scope, for example `locale`. - Add values for
-     * the required `name`, `slug`, and `status` fields. - Define optional fields such as
-     * descriptions, images, and custom attributes as needed. - Use the `links` field to define
-     * relationships between products, such as linking a product variant to its parent configurable
-     * product. - You can create multiple products in a single request, and also create product
-     * variants for configurable products in the same request.
-     *
-     * <h3 id=\"simpleProducts\">Simple Products</h3>
-     *
-     * Create products or replace existing products with a specified `sku` and `scope`. If a product
-     * with the same data exists with the same SKU and scope, the product update request is ignored.
-     * Use the [update operation](#operation/updateProducts) to modify values for an existing
-     * product.
-     *
-     * <h3 id=\"configurableProducts\">Configurable Products</h3>
-     *
-     * A configurable product is a product that offers multiple options, such as color and size.
-     * Each unique combination of these options, like 'color green' and 'size large,' defines a
-     * product variant. This variant is an independent product with its own SKU, price, and
-     * inventory. The configurable product acts as a container for these product variants. To create
-     * a configurable product, you need the following: - [Product
-     * attributes](#operation/ProductMetadataPut): Define the product attributes used to define a
-     * configurable product, such as \"color\", \"size\", etc. - Configurable product: Define the
-     * configurable product.
-     * [Configurations](#operation/createProducts!path=configurations&t=request) is a required
-     * field. It defines the choices that a shopper can select. - [Product
-     * variant](#operation/createProducts): Define a product variant for a configurable product. The
-     * variant definition must have [Attributes](createProducts!path=attributes&t=request) with
-     * [variantReferenceId](#operation/createProducts!path=attributes/variantReferenceId&t=request)
-     * and [links](#operation/createProducts!path=links&t=request) of type `VARIANT_OF`. Each
-     * product variant links back to the configurable product through its `variantReferenceId`,
-     * which corresponds to specific `configurations[].values[].variantReferenceId` in the
-     * configurable product. To unassign a product variant from a configurable product, do one of
-     * the following: - Use the [Delete products API](#operation/deleteProducts) to delete the
-     * product variant. - Use the [Update products API](#operation/updateProducts)to set the
-     * [\"variantReferenceId\"](#operation/createProducts!path=attributes/variantReferenceId&t=request)
-     * to `null` and unassign the product variant from the configurable product by removing the
-     * [\"links\"](#operation/createProducts!path=links&t=request) association.
-     *
-     * <h3>Bundle Products</h3>
-     *
-     * A bundle product combines several simple products into one sellable unit. Items within the
-     * bundle can be categorized into logical categories (groups) like`tops`, `bottoms`, and
-     * `accessories`. Each group can have multiple items, and shoppers can select items from each
-     * group to create a customized bundle. To create a bundle product, you need the following: -
-     * Bundle product: Use the Create products API to define the bundle product.
-     * [Bundles](#operation/createProducts!path=bundles&t=request) is a required field that defines
-     * the groups and items included in the bundle. - [Simple products](#simpleProducts): Define the
-     * simple products that are included in the bundle. Each simple product must be created
-     * separately using the create product API. In the field [\"links\"](#), the type `IN_BUNDLE`
-     * must be defined for simple products that belong to bundle products with reference to it.
-     * <strong>Note:</strong> A simple product can be included only once in each bundle. If the same
-     * item is specified in multiple groups, the API returns a `Duplicate SKU found in bundle items`
-     * error. To update a bundle product, do one of the following: - Use [Update products
-     * API](#operation/updateProducts) to modify the groups and items in the bundle. - Use [Delete
-     * products API](#operation/deleteProducts) to remove items from the bundle.
-     *
-     * @param data payload of type List<FeedProduct>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse createProducts(List<FeedProduct> data);
-    /**
-     * Delete products Delete products with specified \"sku\" and \"scope\".
-     *
-     * @param data payload of type List<FeedProductDelete>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse deleteProducts(List<FeedProductDelete> data);
-    /**
-     * Update products Update products with specified \"sku\" and \"scope\" to replace existing
-     * field data with the data supplied in the request. When the update is processed, the merge
-     * strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy
-     * is used to apply changes for fields in an `array`.
-     *
-     * @param data payload of type List<FeedProductUpdate>
-     * @return ProcessFeedResponse indicating the result of the ingestion.
-     * @throws RuntimeException if the API request fails
-     */
-    ProcessFeedResponse updateProducts(List<FeedProductUpdate> data);
+                    /**
+                    * Create product attribute metadata
+                        * To ensure product data is indexed for discovery, create or replace existing product attribute metadata resources before creating products.  For each Commerce project, you must define metadata for the following attributes for each scope (`locale`):   - `sku`   - `name`   - `description`   - `shortDescription`   - `price`  Also, you can define metadata for custom attributes.  When creating product attribute metadata:   - Each product attribute requires a unique `code` and `scope`.   - Use the `dataType` field to define the data type for the product attribute.   - Use the `visibleIn` field to define where the product attribute is displayed on the storefront.   - Use the `filterable`, `sortable`, and `searchable` fields to define how the product attribute     is used for filtering, sorting, and searching.   - Use the `searchWeight` field to define the search weight for the product attribute.   - Use the `searchTypes` field to define the search type for the product attribute.  To update existing product attribute metadata, use the update operation. 
+                    * @param data payload of type List<FeedMetadata>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse createProductMetadata(List<FeedMetadata> data);
+                    /**
+                    * Delete product attributes metadata
+                        * Remove product attribute metadata resources from the catalog data.
+                    * @param data payload of type List<FeedMetadataDelete>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data);
+                    /**
+                    * Update product attribute metadata
+                        * Update existing product attribute metadata with new values. When the update is processed, the merge strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy is used to apply changes for fields in an `array`. 
+                    * @param data payload of type List<FeedMetadataUpdate>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data);
+                    /**
+                    * Create price books
+                        * Create or replace existing price books.  Use the [update price books operation](#operation/updatePriceBooks) to modify values for existing price books. 
+                    * @param data payload of type List<FeedPricebook>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse createPriceBooks(List<FeedPricebook> data);
+                    /**
+                    * Delete price books
+                        * Delete existing price books When you delete a price book, all associated prices assigned to the `priceBookId` are also deleted. If a product does not have any other price books assigned, the prices default to the pricing schedule defined in the default, `main` price book. Note that you cannot delete the default price book with id `main`. 
+                    * @param data payload of type List<FeedPricebook>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse deletePriceBooks(List<FeedPricebook> data);
+                    /**
+                    * Update price books
+                        * Update existing price books to change the name or the currency used for pricing. When the update is processed, the merge strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy is used to apply changes for fields in an `array`.  To update the currency for the default price book, use the price book id `main`.
+                    * @param data payload of type List<FeedPricebook>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse updatePriceBooks(List<FeedPricebook> data);
+                    /**
+                    * Create prices
+                        * Create or replace existing product prices.  A price must be associated with at least the default price book with id `main`.  <h3>Configurable Products</h3> Because configurable product price is calculated based on the price of the selected product variant, you don't need to send price data for configurable product skus. Sending price data for these skus can cause incorrect price calculations. 
+                    * @param data payload of type List<FeedPrices>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse createPrices(List<FeedPrices> data);
+                    /**
+                    * Delete prices
+                        * Delete existing product prices 
+                    * @param data payload of type List<FeedPricesDelete>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse deletePrices(List<FeedPricesDelete> data);
+                    /**
+                    * Update prices
+                        * Change existing product prices When the update is processed, the merge strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy is used to apply changes for fields in an `array`. 
+                    * @param data payload of type List<FeedPricesUpdate>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data);
+                    /**
+                    * Create or replace products
+                        * You can create different types of products, such as simple products and configurable products.  When creating products:  - Each product requires a unique SKU identifier.  - Products must have a defined scope, for example `locale`.  - Add values for the required `name`, `slug`, and `status` fields.  - Define optional fields such as descriptions, images, and custom attributes as needed.  - Use the `links` field to define relationships between products, such as linking a product variant to its parent  configurable product.  - You can create multiple products in a single request, and also create product variants for configurable products in the same request.  <h3 id=\"simpleProducts\">Simple Products</h3> Create products or replace existing products with a specified `sku` and `scope`. If a product with the same data exists with the same SKU and scope, the product update request is ignored.  Use the [update operation](#operation/updateProducts) to modify values for an existing product.  <h3 id=\"configurableProducts\">Configurable Products</h3> A configurable product is a product that offers multiple options, such as color and size. Each unique combination of these options, like 'color green' and 'size large,' defines a product variant. This variant is an independent product with its own SKU, price, and inventory. The configurable product acts as a container for these product variants.  To create a configurable product, you need the following: - [Product attributes](#operation/ProductMetadataPut): Define the product attributes used to define a configurable product, such as \"color\", \"size\", etc. - Configurable product: Define the configurable product. [Configurations](#operation/createProducts!path=configurations&t=request) is a required field. It defines the choices that a shopper can select. - [Product variant](#operation/createProducts): Define a product variant for a configurable product. The variant definition must have [Attributes](createProducts!path=attributes&t=request) with [variantReferenceId](#operation/createProducts!path=attributes/variantReferenceId&t=request) and [links](#operation/createProducts!path=links&t=request) of type `VARIANT_OF`.  Each product variant links back to the configurable product through its `variantReferenceId`, which corresponds to specific `configurations[].values[].variantReferenceId` in the configurable product.  To unassign a product variant from a configurable product, do one of the following: - Use the [Delete products API](#operation/deleteProducts) to delete the product variant. - Use the [Update products API](#operation/updateProducts)to set the [\"variantReferenceId\"](#operation/createProducts!path=attributes/variantReferenceId&t=request) to `null` and unassign the product variant from the configurable product by removing the [\"links\"](#operation/createProducts!path=links&t=request) association.  <h3>Bundle Products</h3> A bundle product combines several simple products into one sellable unit. Items within the bundle can be categorized into logical categories (groups) like`tops`, `bottoms`, and `accessories`. Each group can have multiple items, and shoppers can select items from each group to create a customized bundle.  To create a bundle product, you need the following: - Bundle product: Use the Create products API to define the bundle product. [Bundles](#operation/createProducts!path=bundles&t=request) is a required field that defines the groups and items included in the bundle. - [Simple products](#simpleProducts): Define the simple products that are included in the bundle. Each simple product must be created separately using the create product API. In the field [\"links\"](#), the type `IN_BUNDLE` must be defined for simple products that belong to bundle products with reference to it.  <strong>Note:</strong> A simple product can be included only once in each bundle. If the same item is specified in multiple groups, the API returns a `Duplicate SKU found in bundle items` error.  To update a bundle product, do one of the following: - Use [Update products API](#operation/updateProducts) to modify the groups and items in the bundle. - Use [Delete products API](#operation/deleteProducts) to remove items from the bundle. 
+                    * @param data payload of type List<FeedProduct>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse createProducts(List<FeedProduct> data);
+                    /**
+                    * Delete products
+                        * Delete products with specified \"sku\" and \"scope\". 
+                    * @param data payload of type List<FeedProductDelete>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse deleteProducts(List<FeedProductDelete> data);
+                    /**
+                    * Update products
+                        * Update products with specified \"sku\" and \"scope\" to replace existing field data with the data supplied in the request. When the update is processed, the merge strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy is used to apply changes for fields in an `array`. 
+                    * @param data payload of type List<FeedProductUpdate>
+                    * @return ProcessFeedResponse indicating the result of the ingestion.
+                    * @throws RuntimeException if the API request fails
+                    */
+                    ProcessFeedResponse updateProducts(List<FeedProductUpdate> data);
 }

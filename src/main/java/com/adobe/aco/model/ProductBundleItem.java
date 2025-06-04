@@ -22,250 +22,254 @@
 
 package com.adobe.aco.model;
 
-import com.adobe.aco.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.util.Objects;
 import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-/** ProductBundleItem */
-@javax.annotation.Generated(
-        value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.4.0")
+import com.adobe.aco.JSON;
+
+/**
+ * ProductBundleItem
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ProductBundleItem {
-    public static final String SERIALIZED_NAME_SKU = "sku";
+  public static final String SERIALIZED_NAME_SKU = "sku";
+  @SerializedName(SERIALIZED_NAME_SKU)
+  private String sku;
 
-    @SerializedName(SERIALIZED_NAME_SKU)
-    private String sku;
+  public static final String SERIALIZED_NAME_QTY = "qty";
+  @SerializedName(SERIALIZED_NAME_QTY)
+  private Float qty;
 
-    public static final String SERIALIZED_NAME_QTY = "qty";
+  public static final String SERIALIZED_NAME_USER_DEFINED_QTY = "userDefinedQty";
+  @SerializedName(SERIALIZED_NAME_USER_DEFINED_QTY)
+  private Boolean userDefinedQty;
 
-    @SerializedName(SERIALIZED_NAME_QTY)
-    private Float qty;
+  public ProductBundleItem() {
+  }
 
-    public static final String SERIALIZED_NAME_USER_DEFINED_QTY = "userDefinedQty";
+  public ProductBundleItem sku(String sku) {
+    this.sku = sku;
+    return this;
+  }
 
-    @SerializedName(SERIALIZED_NAME_USER_DEFINED_QTY)
-    private Boolean userDefinedQty;
+   /**
+   * Product SKU of the bundle item.
+   * @return sku
+  **/
+  @javax.annotation.Nonnull
+  public String getSku() {
+    return sku;
+  }
 
-    public ProductBundleItem() {}
+  public void setSku(String sku) {
+    this.sku = sku;
+  }
 
-    public ProductBundleItem sku(String sku) {
-        this.sku = sku;
-        return this;
+
+  public ProductBundleItem qty(Float qty) {
+    this.qty = qty;
+    return this;
+  }
+
+   /**
+   * Quantity of the item in the bundle.
+   * @return qty
+  **/
+  @javax.annotation.Nullable
+  public Float getQty() {
+    return qty;
+  }
+
+  public void setQty(Float qty) {
+    this.qty = qty;
+  }
+
+
+  public ProductBundleItem userDefinedQty(Boolean userDefinedQty) {
+    this.userDefinedQty = userDefinedQty;
+    return this;
+  }
+
+   /**
+   * Indicates whether the quantity of the item in the bundle can be defined by a shopper.
+   * @return userDefinedQty
+  **/
+  @javax.annotation.Nullable
+  public Boolean getUserDefinedQty() {
+    return userDefinedQty;
+  }
+
+  public void setUserDefinedQty(Boolean userDefinedQty) {
+    this.userDefinedQty = userDefinedQty;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Product SKU of the bundle item.
-     *
-     * @return sku
-     */
-    @javax.annotation.Nonnull
-    public String getSku() {
-        return sku;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    ProductBundleItem productBundleItem = (ProductBundleItem) o;
+    return Objects.equals(this.sku, productBundleItem.sku) &&
+        Objects.equals(this.qty, productBundleItem.qty) &&
+        Objects.equals(this.userDefinedQty, productBundleItem.userDefinedQty);
+  }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+  @Override
+  public int hashCode() {
+    return Objects.hash(sku, qty, userDefinedQty);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProductBundleItem {\n");
+    sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
+    sb.append("    qty: ").append(toIndentedString(qty)).append("\n");
+    sb.append("    userDefinedQty: ").append(toIndentedString(userDefinedQty)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-    public ProductBundleItem qty(Float qty) {
-        this.qty = qty;
-        return this;
-    }
 
-    /**
-     * Quantity of the item in the bundle.
-     *
-     * @return qty
-     */
-    @javax.annotation.Nullable
-    public Float getQty() {
-        return qty;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-    public void setQty(Float qty) {
-        this.qty = qty;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("sku");
+    openapiFields.add("qty");
+    openapiFields.add("userDefinedQty");
 
-    public ProductBundleItem userDefinedQty(Boolean userDefinedQty) {
-        this.userDefinedQty = userDefinedQty;
-        return this;
-    }
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("sku");
+  }
 
-    /**
-     * Indicates whether the quantity of the item in the bundle can be defined by a shopper.
-     *
-     * @return userDefinedQty
-     */
-    @javax.annotation.Nullable
-    public Boolean getUserDefinedQty() {
-        return userDefinedQty;
-    }
-
-    public void setUserDefinedQty(Boolean userDefinedQty) {
-        this.userDefinedQty = userDefinedQty;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+ /**
+  * Validates the JSON Element and throws an exception if issues found
+  *
+  * @param jsonElement JSON Element
+  * @throws IOException if the JSON Element is invalid with respect to ProductBundleItem
+  */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ProductBundleItem.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ProductBundleItem is not found in the empty JSON string", ProductBundleItem.openapiRequiredFields.toString()));
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+      }
+
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Map.Entry<String, JsonElement> entry : entries) {
+        if (!ProductBundleItem.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ProductBundleItem` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
-        ProductBundleItem productBundleItem = (ProductBundleItem) o;
-        return Objects.equals(this.sku, productBundleItem.sku)
-                && Objects.equals(this.qty, productBundleItem.qty)
-                && Objects.equals(this.userDefinedQty, productBundleItem.userDefinedQty);
-    }
+      }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(sku, qty, userDefinedQty);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ProductBundleItem {\n");
-        sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
-        sb.append("    qty: ").append(toIndentedString(qty)).append("\n");
-        sb.append("    userDefinedQty: ").append(toIndentedString(userDefinedQty)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ProductBundleItem.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    public static HashSet<String> openapiFields;
-    public static HashSet<String> openapiRequiredFields;
-
-    static {
-        // a set of all properties/fields (JSON key names)
-        openapiFields = new HashSet<String>();
-        openapiFields.add("sku");
-        openapiFields.add("qty");
-        openapiFields.add("userDefinedQty");
-
-        // a set of required properties/fields (JSON key names)
-        openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("sku");
-    }
-
-    /**
-     * Validates the JSON Element and throws an exception if issues found
-     *
-     * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to ProductBundleItem
-     */
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        if (jsonElement == null) {
-            if (!ProductBundleItem.openapiRequiredFields
-                    .isEmpty()) { // has required fields but JSON element is null
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field(s) %s in ProductBundleItem is not found in the empty JSON string",
-                                ProductBundleItem.openapiRequiredFields.toString()));
-            }
-        }
-
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!ProductBundleItem.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the `ProductBundleItem` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
-
-        // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : ProductBundleItem.openapiRequiredFields) {
-            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field `%s` is not found in the JSON string: %s",
-                                requiredField, jsonElement.toString()));
-            }
-        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("sku").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `sku` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("sku").toString()));
-        }
+      if (!jsonObj.get("sku").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `sku` to be a primitive type in the JSON string but got `%s`", jsonObj.get("sku").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!ProductBundleItem.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ProductBundleItem' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<ProductBundleItem> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ProductBundleItem.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<ProductBundleItem>() {
+           @Override
+           public void write(JsonWriter out, ProductBundleItem value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public ProductBundleItem read(JsonReader in) throws IOException {
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             return thisAdapter.fromJsonTree(jsonElement);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!ProductBundleItem.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'ProductBundleItem' and its subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<ProductBundleItem> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(ProductBundleItem.class));
+ /**
+  * Create an instance of ProductBundleItem given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ProductBundleItem
+  * @throws IOException if the JSON string is invalid with respect to ProductBundleItem
+  */
+  public static ProductBundleItem fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ProductBundleItem.class);
+  }
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<ProductBundleItem>() {
-                        @Override
-                        public void write(JsonWriter out, ProductBundleItem value)
-                                throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-                            elementAdapter.write(out, obj);
-                        }
-
-                        @Override
-                        public ProductBundleItem read(JsonReader in) throws IOException {
-                            JsonElement jsonElement = elementAdapter.read(in);
-                            validateJsonElement(jsonElement);
-                            return thisAdapter.fromJsonTree(jsonElement);
-                        }
-                    }.nullSafe();
-        }
-    }
-
-    /**
-     * Create an instance of ProductBundleItem given an JSON string
-     *
-     * @param jsonString JSON string
-     * @return An instance of ProductBundleItem
-     * @throws IOException if the JSON string is invalid with respect to ProductBundleItem
-     */
-    public static ProductBundleItem fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, ProductBundleItem.class);
-    }
-
-    /**
-     * Convert an instance of ProductBundleItem to an JSON string
-     *
-     * @return JSON string
-     */
-    public String toJson() {
-        return JSON.getGson().toJson(this);
-    }
+ /**
+  * Convert an instance of ProductBundleItem to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+

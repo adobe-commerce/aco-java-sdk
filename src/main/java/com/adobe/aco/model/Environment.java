@@ -29,10 +29,10 @@ public enum Environment {
     private final String value;
 
     Environment(String value) {
-        this.value = value;
+    this.value = value;
     }
 
     public String getValue() {
-        return value;
+    return value;
     }
 }

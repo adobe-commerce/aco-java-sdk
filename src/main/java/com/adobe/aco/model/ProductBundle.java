@@ -22,350 +22,340 @@
 
 package com.adobe.aco.model;
 
-import com.adobe.aco.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.util.Objects;
+import com.adobe.aco.model.ProductBundleItem;
 import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-/** ProductBundle */
-@javax.annotation.Generated(
-        value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.4.0")
+import com.adobe.aco.JSON;
+
+/**
+ * ProductBundle
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class ProductBundle {
-    public static final String SERIALIZED_NAME_GROUP = "group";
+  public static final String SERIALIZED_NAME_GROUP = "group";
+  @SerializedName(SERIALIZED_NAME_GROUP)
+  private String group;
 
-    @SerializedName(SERIALIZED_NAME_GROUP)
-    private String group;
+  public static final String SERIALIZED_NAME_REQUIRED = "required";
+  @SerializedName(SERIALIZED_NAME_REQUIRED)
+  private Boolean required;
 
-    public static final String SERIALIZED_NAME_REQUIRED = "required";
+  public static final String SERIALIZED_NAME_MULTI_SELECT = "multiSelect";
+  @SerializedName(SERIALIZED_NAME_MULTI_SELECT)
+  private Boolean multiSelect;
 
-    @SerializedName(SERIALIZED_NAME_REQUIRED)
-    private Boolean required;
+  public static final String SERIALIZED_NAME_DEFAULT_ITEM_SKUS = "defaultItemSkus";
+  @SerializedName(SERIALIZED_NAME_DEFAULT_ITEM_SKUS)
+  private List<String> defaultItemSkus;
 
-    public static final String SERIALIZED_NAME_MULTI_SELECT = "multiSelect";
+  public static final String SERIALIZED_NAME_ITEMS = "items";
+  @SerializedName(SERIALIZED_NAME_ITEMS)
+  private List<ProductBundleItem> items = new ArrayList<>();
 
-    @SerializedName(SERIALIZED_NAME_MULTI_SELECT)
-    private Boolean multiSelect;
+  public ProductBundle() {
+  }
 
-    public static final String SERIALIZED_NAME_DEFAULT_ITEM_SKUS = "defaultItemSkus";
+  public ProductBundle group(String group) {
+    this.group = group;
+    return this;
+  }
 
-    @SerializedName(SERIALIZED_NAME_DEFAULT_ITEM_SKUS)
-    private List<String> defaultItemSkus;
+   /**
+   * Name of the group that organizes the bundle items. This helps in categorizing the items within the bundle for better organization. For example, groups can be \&quot;shirts\&quot;, \&quot;pants\&quot;, \&quot;accessories\&quot;, etc. 
+   * @return group
+  **/
+  @javax.annotation.Nonnull
+  public String getGroup() {
+    return group;
+  }
 
-    public static final String SERIALIZED_NAME_ITEMS = "items";
+  public void setGroup(String group) {
+    this.group = group;
+  }
 
-    @SerializedName(SERIALIZED_NAME_ITEMS)
-    private List<ProductBundleItem> items = new ArrayList<>();
 
-    public ProductBundle() {}
+  public ProductBundle required(Boolean required) {
+    this.required = required;
+    return this;
+  }
 
-    public ProductBundle group(String group) {
-        this.group = group;
-        return this;
+   /**
+   * Indicates whether a shopper is required to select any products from this group to add the bundle to the shopping cart.
+   * @return required
+  **/
+  @javax.annotation.Nullable
+  public Boolean getRequired() {
+    return required;
+  }
+
+  public void setRequired(Boolean required) {
+    this.required = required;
+  }
+
+
+  public ProductBundle multiSelect(Boolean multiSelect) {
+    this.multiSelect = multiSelect;
+    return this;
+  }
+
+   /**
+   * Indicates whether multiple products can be selected by a shopper.
+   * @return multiSelect
+  **/
+  @javax.annotation.Nullable
+  public Boolean getMultiSelect() {
+    return multiSelect;
+  }
+
+  public void setMultiSelect(Boolean multiSelect) {
+    this.multiSelect = multiSelect;
+  }
+
+
+  public ProductBundle defaultItemSkus(List<String> defaultItemSkus) {
+    this.defaultItemSkus = defaultItemSkus;
+    return this;
+  }
+
+  public ProductBundle addDefaultItemSkusItem(String defaultItemSkusItem) {
+    if (this.defaultItemSkus == null) {
+      this.defaultItemSkus = new ArrayList<>();
     }
+    this.defaultItemSkus.add(defaultItemSkusItem);
+    return this;
+  }
 
-    /**
-     * Name of the group that organizes the bundle items. This helps in categorizing the items
-     * within the bundle for better organization. For example, groups can be \&quot;shirts\&quot;,
-     * \&quot;pants\&quot;, \&quot;accessories\&quot;, etc.
-     *
-     * @return group
-     */
-    @javax.annotation.Nonnull
-    public String getGroup() {
-        return group;
+   /**
+   * A list of default product SKUs that are selected in this bundle group.
+   * @return defaultItemSkus
+  **/
+  @javax.annotation.Nullable
+  public List<String> getDefaultItemSkus() {
+    return defaultItemSkus;
+  }
+
+  public void setDefaultItemSkus(List<String> defaultItemSkus) {
+    this.defaultItemSkus = defaultItemSkus;
+  }
+
+
+  public ProductBundle items(List<ProductBundleItem> items) {
+    this.items = items;
+    return this;
+  }
+
+  public ProductBundle addItemsItem(ProductBundleItem itemsItem) {
+    if (this.items == null) {
+      this.items = new ArrayList<>();
     }
+    this.items.add(itemsItem);
+    return this;
+  }
 
-    public void setGroup(String group) {
-        this.group = group;
+   /**
+   * A list of individual products that are part of the bundle. Each item in the list represents a product that can be selected as part of the bundle. 
+   * @return items
+  **/
+  @javax.annotation.Nonnull
+  public List<ProductBundleItem> getItems() {
+    return items;
+  }
+
+  public void setItems(List<ProductBundleItem> items) {
+    this.items = items;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    public ProductBundle required(Boolean required) {
-        this.required = required;
-        return this;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    ProductBundle productBundle = (ProductBundle) o;
+    return Objects.equals(this.group, productBundle.group) &&
+        Objects.equals(this.required, productBundle.required) &&
+        Objects.equals(this.multiSelect, productBundle.multiSelect) &&
+        Objects.equals(this.defaultItemSkus, productBundle.defaultItemSkus) &&
+        Objects.equals(this.items, productBundle.items);
+  }
 
-    /**
-     * Indicates whether a shopper is required to select any products from this group to add the
-     * bundle to the shopping cart.
-     *
-     * @return required
-     */
-    @javax.annotation.Nullable
-    public Boolean getRequired() {
-        return required;
+  @Override
+  public int hashCode() {
+    return Objects.hash(group, required, multiSelect, defaultItemSkus, items);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class ProductBundle {\n");
+    sb.append("    group: ").append(toIndentedString(group)).append("\n");
+    sb.append("    required: ").append(toIndentedString(required)).append("\n");
+    sb.append("    multiSelect: ").append(toIndentedString(multiSelect)).append("\n");
+    sb.append("    defaultItemSkus: ").append(toIndentedString(defaultItemSkus)).append("\n");
+    sb.append("    items: ").append(toIndentedString(items)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-    public void setRequired(Boolean required) {
-        this.required = required;
-    }
 
-    public ProductBundle multiSelect(Boolean multiSelect) {
-        this.multiSelect = multiSelect;
-        return this;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-    /**
-     * Indicates whether multiple products can be selected by a shopper.
-     *
-     * @return multiSelect
-     */
-    @javax.annotation.Nullable
-    public Boolean getMultiSelect() {
-        return multiSelect;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("group");
+    openapiFields.add("required");
+    openapiFields.add("multiSelect");
+    openapiFields.add("defaultItemSkus");
+    openapiFields.add("items");
 
-    public void setMultiSelect(Boolean multiSelect) {
-        this.multiSelect = multiSelect;
-    }
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("group");
+    openapiRequiredFields.add("items");
+  }
 
-    public ProductBundle defaultItemSkus(List<String> defaultItemSkus) {
-        this.defaultItemSkus = defaultItemSkus;
-        return this;
-    }
-
-    public ProductBundle addDefaultItemSkusItem(String defaultItemSkusItem) {
-        if (this.defaultItemSkus == null) {
-            this.defaultItemSkus = new ArrayList<>();
+ /**
+  * Validates the JSON Element and throws an exception if issues found
+  *
+  * @param jsonElement JSON Element
+  * @throws IOException if the JSON Element is invalid with respect to ProductBundle
+  */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!ProductBundle.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in ProductBundle is not found in the empty JSON string", ProductBundle.openapiRequiredFields.toString()));
         }
-        this.defaultItemSkus.add(defaultItemSkusItem);
-        return this;
-    }
+      }
 
-    /**
-     * A list of default product SKUs that are selected in this bundle group.
-     *
-     * @return defaultItemSkus
-     */
-    @javax.annotation.Nullable
-    public List<String> getDefaultItemSkus() {
-        return defaultItemSkus;
-    }
-
-    public void setDefaultItemSkus(List<String> defaultItemSkus) {
-        this.defaultItemSkus = defaultItemSkus;
-    }
-
-    public ProductBundle items(List<ProductBundleItem> items) {
-        this.items = items;
-        return this;
-    }
-
-    public ProductBundle addItemsItem(ProductBundleItem itemsItem) {
-        if (this.items == null) {
-            this.items = new ArrayList<>();
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Map.Entry<String, JsonElement> entry : entries) {
+        if (!ProductBundle.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ProductBundle` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
-        this.items.add(itemsItem);
-        return this;
-    }
+      }
 
-    /**
-     * A list of individual products that are part of the bundle. Each item in the list represents a
-     * product that can be selected as part of the bundle.
-     *
-     * @return items
-     */
-    @javax.annotation.Nonnull
-    public List<ProductBundleItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ProductBundleItem> items) {
-        this.items = items;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : ProductBundle.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        ProductBundle productBundle = (ProductBundle) o;
-        return Objects.equals(this.group, productBundle.group)
-                && Objects.equals(this.required, productBundle.required)
-                && Objects.equals(this.multiSelect, productBundle.multiSelect)
-                && Objects.equals(this.defaultItemSkus, productBundle.defaultItemSkus)
-                && Objects.equals(this.items, productBundle.items);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(group, required, multiSelect, defaultItemSkus, items);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class ProductBundle {\n");
-        sb.append("    group: ").append(toIndentedString(group)).append("\n");
-        sb.append("    required: ").append(toIndentedString(required)).append("\n");
-        sb.append("    multiSelect: ").append(toIndentedString(multiSelect)).append("\n");
-        sb.append("    defaultItemSkus: ").append(toIndentedString(defaultItemSkus)).append("\n");
-        sb.append("    items: ").append(toIndentedString(items)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
-        }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    public static HashSet<String> openapiFields;
-    public static HashSet<String> openapiRequiredFields;
-
-    static {
-        // a set of all properties/fields (JSON key names)
-        openapiFields = new HashSet<String>();
-        openapiFields.add("group");
-        openapiFields.add("required");
-        openapiFields.add("multiSelect");
-        openapiFields.add("defaultItemSkus");
-        openapiFields.add("items");
-
-        // a set of required properties/fields (JSON key names)
-        openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("group");
-        openapiRequiredFields.add("items");
-    }
-
-    /**
-     * Validates the JSON Element and throws an exception if issues found
-     *
-     * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to ProductBundle
-     */
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        if (jsonElement == null) {
-            if (!ProductBundle.openapiRequiredFields
-                    .isEmpty()) { // has required fields but JSON element is null
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field(s) %s in ProductBundle is not found in the empty JSON string",
-                                ProductBundle.openapiRequiredFields.toString()));
-            }
-        }
-
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!ProductBundle.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the `ProductBundle` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
-
-        // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : ProductBundle.openapiRequiredFields) {
-            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field `%s` is not found in the JSON string: %s",
-                                requiredField, jsonElement.toString()));
-            }
-        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("group").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `group` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("group").toString()));
-        }
-        // ensure the optional json data is an array if present
-        if (jsonObj.get("defaultItemSkus") != null
-                && !jsonObj.get("defaultItemSkus").isJsonNull()
-                && !jsonObj.get("defaultItemSkus").isJsonArray()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `defaultItemSkus` to be an array in the JSON string but got `%s`",
-                            jsonObj.get("defaultItemSkus").toString()));
-        }
-        // ensure the json data is an array
-        if (!jsonObj.get("items").isJsonArray()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `items` to be an array in the JSON string but got `%s`",
-                            jsonObj.get("items").toString()));
-        }
+      if (!jsonObj.get("group").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `group` to be a primitive type in the JSON string but got `%s`", jsonObj.get("group").toString()));
+      }
+      // ensure the optional json data is an array if present
+      if (jsonObj.get("defaultItemSkus") != null && !jsonObj.get("defaultItemSkus").isJsonNull() && !jsonObj.get("defaultItemSkus").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `defaultItemSkus` to be an array in the JSON string but got `%s`", jsonObj.get("defaultItemSkus").toString()));
+      }
+      // ensure the json data is an array
+      if (!jsonObj.get("items").isJsonArray()) {
+        throw new IllegalArgumentException(String.format("Expected the field `items` to be an array in the JSON string but got `%s`", jsonObj.get("items").toString()));
+      }
 
-        JsonArray jsonArrayitems = jsonObj.getAsJsonArray("items");
-        // validate the required field `items` (array)
-        for (int i = 0; i < jsonArrayitems.size(); i++) {
-            ProductBundleItem.validateJsonElement(jsonArrayitems.get(i));
-        }
-        ;
+      JsonArray jsonArrayitems = jsonObj.getAsJsonArray("items");
+      // validate the required field `items` (array)
+      for (int i = 0; i < jsonArrayitems.size(); i++) {
+        ProductBundleItem.validateJsonElement(jsonArrayitems.get(i));
+      };
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!ProductBundle.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'ProductBundle' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<ProductBundle> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(ProductBundle.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<ProductBundle>() {
+           @Override
+           public void write(JsonWriter out, ProductBundle value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public ProductBundle read(JsonReader in) throws IOException {
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             return thisAdapter.fromJsonTree(jsonElement);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!ProductBundle.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'ProductBundle' and its subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<ProductBundle> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(ProductBundle.class));
+ /**
+  * Create an instance of ProductBundle given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of ProductBundle
+  * @throws IOException if the JSON string is invalid with respect to ProductBundle
+  */
+  public static ProductBundle fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, ProductBundle.class);
+  }
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<ProductBundle>() {
-                        @Override
-                        public void write(JsonWriter out, ProductBundle value) throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-                            elementAdapter.write(out, obj);
-                        }
-
-                        @Override
-                        public ProductBundle read(JsonReader in) throws IOException {
-                            JsonElement jsonElement = elementAdapter.read(in);
-                            validateJsonElement(jsonElement);
-                            return thisAdapter.fromJsonTree(jsonElement);
-                        }
-                    }.nullSafe();
-        }
-    }
-
-    /**
-     * Create an instance of ProductBundle given an JSON string
-     *
-     * @param jsonString JSON string
-     * @return An instance of ProductBundle
-     * @throws IOException if the JSON string is invalid with respect to ProductBundle
-     */
-    public static ProductBundle fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, ProductBundle.class);
-    }
-
-    /**
-     * Convert an instance of ProductBundle to an JSON string
-     *
-     * @return JSON string
-     */
-    public String toJson() {
-        return JSON.getGson().toJson(this);
-    }
+ /**
+  * Convert an instance of ProductBundle to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+
