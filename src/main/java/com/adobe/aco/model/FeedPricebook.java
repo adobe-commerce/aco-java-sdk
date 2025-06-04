@@ -22,263 +22,260 @@
 
 package com.adobe.aco.model;
 
-import com.adobe.aco.JSON;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import java.util.Objects;
 import com.google.gson.TypeAdapter;
-import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
+import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.TypeAdapter;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import java.io.IOException;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
-/** Price book information */
-@javax.annotation.Generated(
-        value = "org.openapitools.codegen.languages.JavaClientCodegen",
-        comments = "Generator version: 7.4.0")
+import com.adobe.aco.JSON;
+
+/**
+ * Price book information
+ */
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
 public class FeedPricebook {
-    public static final String SERIALIZED_NAME_PRICE_BOOK_ID = "priceBookId";
+  public static final String SERIALIZED_NAME_PRICE_BOOK_ID = "priceBookId";
+  @SerializedName(SERIALIZED_NAME_PRICE_BOOK_ID)
+  private String priceBookId;
 
-    @SerializedName(SERIALIZED_NAME_PRICE_BOOK_ID)
-    private String priceBookId;
+  public static final String SERIALIZED_NAME_NAME = "name";
+  @SerializedName(SERIALIZED_NAME_NAME)
+  private String name;
 
-    public static final String SERIALIZED_NAME_NAME = "name";
+  public static final String SERIALIZED_NAME_CURRENCY = "currency";
+  @SerializedName(SERIALIZED_NAME_CURRENCY)
+  private String currency;
 
-    @SerializedName(SERIALIZED_NAME_NAME)
-    private String name;
+  public FeedPricebook() {
+  }
 
-    public static final String SERIALIZED_NAME_CURRENCY = "currency";
+  public FeedPricebook priceBookId(String priceBookId) {
+    this.priceBookId = priceBookId;
+    return this;
+  }
 
-    @SerializedName(SERIALIZED_NAME_CURRENCY)
-    private String currency;
+   /**
+   * Price book id
+   * @return priceBookId
+  **/
+  @javax.annotation.Nonnull
+  public String getPriceBookId() {
+    return priceBookId;
+  }
 
-    public FeedPricebook() {}
+  public void setPriceBookId(String priceBookId) {
+    this.priceBookId = priceBookId;
+  }
 
-    public FeedPricebook priceBookId(String priceBookId) {
-        this.priceBookId = priceBookId;
-        return this;
+
+  public FeedPricebook name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Price book name
+   * @return name
+  **/
+  @javax.annotation.Nullable
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+
+  public FeedPricebook currency(String currency) {
+    this.currency = currency;
+    return this;
+  }
+
+   /**
+   * Price book currency
+   * @return currency
+  **/
+  @javax.annotation.Nullable
+  public String getCurrency() {
+    return currency;
+  }
+
+  public void setCurrency(String currency) {
+    this.currency = currency;
+  }
+
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
-
-    /**
-     * Price book id
-     *
-     * @return priceBookId
-     */
-    @javax.annotation.Nonnull
-    public String getPriceBookId() {
-        return priceBookId;
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
+    FeedPricebook feedPricebook = (FeedPricebook) o;
+    return Objects.equals(this.priceBookId, feedPricebook.priceBookId) &&
+        Objects.equals(this.name, feedPricebook.name) &&
+        Objects.equals(this.currency, feedPricebook.currency);
+  }
 
-    public void setPriceBookId(String priceBookId) {
-        this.priceBookId = priceBookId;
+  @Override
+  public int hashCode() {
+    return Objects.hash(priceBookId, name, currency);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class FeedPricebook {\n");
+    sb.append("    priceBookId: ").append(toIndentedString(priceBookId)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
     }
+    return o.toString().replace("\n", "\n    ");
+  }
 
-    public FeedPricebook name(String name) {
-        this.name = name;
-        return this;
-    }
 
-    /**
-     * Price book name
-     *
-     * @return name
-     */
-    @javax.annotation.Nullable
-    public String getName() {
-        return name;
-    }
+  public static HashSet<String> openapiFields;
+  public static HashSet<String> openapiRequiredFields;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  static {
+    // a set of all properties/fields (JSON key names)
+    openapiFields = new HashSet<String>();
+    openapiFields.add("priceBookId");
+    openapiFields.add("name");
+    openapiFields.add("currency");
 
-    public FeedPricebook currency(String currency) {
-        this.currency = currency;
-        return this;
-    }
+    // a set of required properties/fields (JSON key names)
+    openapiRequiredFields = new HashSet<String>();
+    openapiRequiredFields.add("priceBookId");
+  }
 
-    /**
-     * Price book currency
-     *
-     * @return currency
-     */
-    @javax.annotation.Nullable
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+ /**
+  * Validates the JSON Element and throws an exception if issues found
+  *
+  * @param jsonElement JSON Element
+  * @throws IOException if the JSON Element is invalid with respect to FeedPricebook
+  */
+  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+      if (jsonElement == null) {
+        if (!FeedPricebook.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
+          throw new IllegalArgumentException(String.format("The required field(s) %s in FeedPricebook is not found in the empty JSON string", FeedPricebook.openapiRequiredFields.toString()));
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
+      }
+
+      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+      // check to see if the JSON string contains additional fields
+      for (Map.Entry<String, JsonElement> entry : entries) {
+        if (!FeedPricebook.openapiFields.contains(entry.getKey())) {
+          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `FeedPricebook` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
         }
-        FeedPricebook feedPricebook = (FeedPricebook) o;
-        return Objects.equals(this.priceBookId, feedPricebook.priceBookId)
-                && Objects.equals(this.name, feedPricebook.name)
-                && Objects.equals(this.currency, feedPricebook.currency);
-    }
+      }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(priceBookId, name, currency);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class FeedPricebook {\n");
-        sb.append("    priceBookId: ").append(toIndentedString(priceBookId)).append("\n");
-        sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
-        sb.append("}");
-        return sb.toString();
-    }
-
-    /**
-     * Convert the given object to string with each line indented by 4 spaces (except the first
-     * line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+      // check to make sure all required properties/fields are present in the JSON string
+      for (String requiredField : FeedPricebook.openapiRequiredFields) {
+        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
         }
-        return o.toString().replace("\n", "\n    ");
-    }
-
-    public static HashSet<String> openapiFields;
-    public static HashSet<String> openapiRequiredFields;
-
-    static {
-        // a set of all properties/fields (JSON key names)
-        openapiFields = new HashSet<String>();
-        openapiFields.add("priceBookId");
-        openapiFields.add("name");
-        openapiFields.add("currency");
-
-        // a set of required properties/fields (JSON key names)
-        openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("priceBookId");
-    }
-
-    /**
-     * Validates the JSON Element and throws an exception if issues found
-     *
-     * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to FeedPricebook
-     */
-    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-        if (jsonElement == null) {
-            if (!FeedPricebook.openapiRequiredFields
-                    .isEmpty()) { // has required fields but JSON element is null
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field(s) %s in FeedPricebook is not found in the empty JSON string",
-                                FeedPricebook.openapiRequiredFields.toString()));
-            }
-        }
-
-        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-        // check to see if the JSON string contains additional fields
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!FeedPricebook.openapiFields.contains(entry.getKey())) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The field `%s` in the JSON string is not defined in the `FeedPricebook` properties. JSON: %s",
-                                entry.getKey(), jsonElement.toString()));
-            }
-        }
-
-        // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : FeedPricebook.openapiRequiredFields) {
-            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-                throw new IllegalArgumentException(
-                        String.format(
-                                "The required field `%s` is not found in the JSON string: %s",
-                                requiredField, jsonElement.toString()));
-            }
-        }
+      }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("priceBookId").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `priceBookId` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("priceBookId").toString()));
-        }
-        if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull())
-                && !jsonObj.get("name").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `name` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("name").toString()));
-        }
-        if ((jsonObj.get("currency") != null && !jsonObj.get("currency").isJsonNull())
-                && !jsonObj.get("currency").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `currency` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("currency").toString()));
-        }
+      if (!jsonObj.get("priceBookId").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `priceBookId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("priceBookId").toString()));
+      }
+      if ((jsonObj.get("name") != null && !jsonObj.get("name").isJsonNull()) && !jsonObj.get("name").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `name` to be a primitive type in the JSON string but got `%s`", jsonObj.get("name").toString()));
+      }
+      if ((jsonObj.get("currency") != null && !jsonObj.get("currency").isJsonNull()) && !jsonObj.get("currency").isJsonPrimitive()) {
+        throw new IllegalArgumentException(String.format("Expected the field `currency` to be a primitive type in the JSON string but got `%s`", jsonObj.get("currency").toString()));
+      }
+  }
+
+  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+       if (!FeedPricebook.class.isAssignableFrom(type.getRawType())) {
+         return null; // this class only serializes 'FeedPricebook' and its subtypes
+       }
+       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+       final TypeAdapter<FeedPricebook> thisAdapter
+                        = gson.getDelegateAdapter(this, TypeToken.get(FeedPricebook.class));
+
+       return (TypeAdapter<T>) new TypeAdapter<FeedPricebook>() {
+           @Override
+           public void write(JsonWriter out, FeedPricebook value) throws IOException {
+             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+             elementAdapter.write(out, obj);
+           }
+
+           @Override
+           public FeedPricebook read(JsonReader in) throws IOException {
+             JsonElement jsonElement = elementAdapter.read(in);
+             validateJsonElement(jsonElement);
+             return thisAdapter.fromJsonTree(jsonElement);
+           }
+
+       }.nullSafe();
     }
+  }
 
-    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-        @SuppressWarnings("unchecked")
-        @Override
-        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!FeedPricebook.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'FeedPricebook' and its subtypes
-            }
-            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<FeedPricebook> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(FeedPricebook.class));
+ /**
+  * Create an instance of FeedPricebook given an JSON string
+  *
+  * @param jsonString JSON string
+  * @return An instance of FeedPricebook
+  * @throws IOException if the JSON string is invalid with respect to FeedPricebook
+  */
+  public static FeedPricebook fromJson(String jsonString) throws IOException {
+    return JSON.getGson().fromJson(jsonString, FeedPricebook.class);
+  }
 
-            return (TypeAdapter<T>)
-                    new TypeAdapter<FeedPricebook>() {
-                        @Override
-                        public void write(JsonWriter out, FeedPricebook value) throws IOException {
-                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-                            elementAdapter.write(out, obj);
-                        }
-
-                        @Override
-                        public FeedPricebook read(JsonReader in) throws IOException {
-                            JsonElement jsonElement = elementAdapter.read(in);
-                            validateJsonElement(jsonElement);
-                            return thisAdapter.fromJsonTree(jsonElement);
-                        }
-                    }.nullSafe();
-        }
-    }
-
-    /**
-     * Create an instance of FeedPricebook given an JSON string
-     *
-     * @param jsonString JSON string
-     * @return An instance of FeedPricebook
-     * @throws IOException if the JSON string is invalid with respect to FeedPricebook
-     */
-    public static FeedPricebook fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, FeedPricebook.class);
-    }
-
-    /**
-     * Convert an instance of FeedPricebook to an JSON string
-     *
-     * @return JSON string
-     */
-    public String toJson() {
-        return JSON.getGson().toJson(this);
-    }
+ /**
+  * Convert an instance of FeedPricebook to an JSON string
+  *
+  * @return JSON string
+  */
+  public String toJson() {
+    return JSON.getGson().toJson(this);
+  }
 }
+

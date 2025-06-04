@@ -28,10 +28,10 @@ public enum Region {
     private final String value;
 
     Region(String value) {
-        this.value = value;
+    this.value = value;
     }
 
     public String getValue() {
-        return value;
+    return value;
     }
 }
