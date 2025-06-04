@@ -20,3 +20,7 @@ target
 .gradle
 build
 /.idea/
+/src/main/AndroidManifest.xml
+/.openapi-generator/
+/api/openapi.yaml
+/.github/workflows/maven.yml
