@@ -26,9 +26,9 @@ jobs:
           sudo apt update
           sudo apt install -y gh jq
 
-      - name: Generate SDK
-        id: generate
-        run: mvn clean generate-sources
+      - name: Generate SDK and format code
+        run: |
+          mvn clean verify
 
       - name: Check for changes
         if: steps.generate.outcome == 'success'
