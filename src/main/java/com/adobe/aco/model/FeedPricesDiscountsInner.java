@@ -22,53 +22,24 @@
 
 package com.adobe.aco.model;
 
-import java.util.Objects;
-import com.adobe.aco.model.DiscountsFinalPrice;
-import com.adobe.aco.model.DiscountsPercentage;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-import java.util.Arrays;
-
-
-
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.adobe.aco.JSON;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParseException;
+import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParseException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.adobe.aco.JSON;
-
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+@javax.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.4.0")
 public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
     private static final Logger log = Logger.getLogger(FeedPricesDiscountsInner.class.getName());
 
@@ -77,73 +48,98 @@ public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
             if (!FeedPricesDiscountsInner.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'FeedPricesDiscountsInner' and its subtypes
+                return null; // this class only serializes 'FeedPricesDiscountsInner' and its
+                // subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<DiscountsFinalPrice> adapterDiscountsFinalPrice = gson.getDelegateAdapter(this, TypeToken.get(DiscountsFinalPrice.class));
-            final TypeAdapter<DiscountsPercentage> adapterDiscountsPercentage = gson.getDelegateAdapter(this, TypeToken.get(DiscountsPercentage.class));
+            final TypeAdapter<DiscountsFinalPrice> adapterDiscountsFinalPrice =
+                    gson.getDelegateAdapter(this, TypeToken.get(DiscountsFinalPrice.class));
+            final TypeAdapter<DiscountsPercentage> adapterDiscountsPercentage =
+                    gson.getDelegateAdapter(this, TypeToken.get(DiscountsPercentage.class));
 
-            return (TypeAdapter<T>) new TypeAdapter<FeedPricesDiscountsInner>() {
-                @Override
-                public void write(JsonWriter out, FeedPricesDiscountsInner value) throws IOException {
-                    if (value == null || value.getActualInstance() == null) {
-                        elementAdapter.write(out, null);
-                        return;
-                    }
+            return (TypeAdapter<T>)
+                    new TypeAdapter<FeedPricesDiscountsInner>() {
+                        @Override
+                        public void write(JsonWriter out, FeedPricesDiscountsInner value)
+                                throws IOException {
+                            if (value == null || value.getActualInstance() == null) {
+                                elementAdapter.write(out, null);
+                                return;
+                            }
 
-                    // check if the actual instance is of the type `DiscountsFinalPrice`
-                    if (value.getActualInstance() instanceof DiscountsFinalPrice) {
-                      JsonElement element = adapterDiscountsFinalPrice.toJsonTree((DiscountsFinalPrice)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
-                    }
-                    // check if the actual instance is of the type `DiscountsPercentage`
-                    if (value.getActualInstance() instanceof DiscountsPercentage) {
-                      JsonElement element = adapterDiscountsPercentage.toJsonTree((DiscountsPercentage)value.getActualInstance());
-                      elementAdapter.write(out, element);
-                      return;
-                    }
-                    throw new IOException("Failed to serialize as the type doesn't match anyOf schemae: DiscountsFinalPrice, DiscountsPercentage");
-                }
+                            // check if the actual instance is of the type `DiscountsFinalPrice`
+                            if (value.getActualInstance() instanceof DiscountsFinalPrice) {
+                                JsonElement element =
+                                        adapterDiscountsFinalPrice.toJsonTree(
+                                                (DiscountsFinalPrice) value.getActualInstance());
+                                elementAdapter.write(out, element);
+                                return;
+                            }
+                            // check if the actual instance is of the type `DiscountsPercentage`
+                            if (value.getActualInstance() instanceof DiscountsPercentage) {
+                                JsonElement element =
+                                        adapterDiscountsPercentage.toJsonTree(
+                                                (DiscountsPercentage) value.getActualInstance());
+                                elementAdapter.write(out, element);
+                                return;
+                            }
+                            throw new IOException(
+                                    "Failed to serialize as the type doesn't match anyOf schemae: DiscountsFinalPrice, DiscountsPercentage");
+                        }
 
-                @Override
-                public FeedPricesDiscountsInner read(JsonReader in) throws IOException {
-                    Object deserialized = null;
-                    JsonElement jsonElement = elementAdapter.read(in);
+                        @Override
+                        public FeedPricesDiscountsInner read(JsonReader in) throws IOException {
+                            Object deserialized = null;
+                            JsonElement jsonElement = elementAdapter.read(in);
 
-                    ArrayList<String> errorMessages = new ArrayList<>();
-                    TypeAdapter actualAdapter = elementAdapter;
+                            ArrayList<String> errorMessages = new ArrayList<>();
+                            TypeAdapter actualAdapter = elementAdapter;
 
-                    // deserialize DiscountsFinalPrice
-                    try {
-                      // validate the JSON object to see if any exception is thrown
-                      DiscountsFinalPrice.validateJsonElement(jsonElement);
-                      actualAdapter = adapterDiscountsFinalPrice;
-                      FeedPricesDiscountsInner ret = new FeedPricesDiscountsInner();
-                      ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
-                      return ret;
-                    } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for DiscountsFinalPrice failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'DiscountsFinalPrice'", e);
-                    }
-                    // deserialize DiscountsPercentage
-                    try {
-                      // validate the JSON object to see if any exception is thrown
-                      DiscountsPercentage.validateJsonElement(jsonElement);
-                      actualAdapter = adapterDiscountsPercentage;
-                      FeedPricesDiscountsInner ret = new FeedPricesDiscountsInner();
-                      ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
-                      return ret;
-                    } catch (Exception e) {
-                      // deserialization failed, continue
-                      errorMessages.add(String.format("Deserialization for DiscountsPercentage failed with `%s`.", e.getMessage()));
-                      log.log(Level.FINER, "Input data does not match schema 'DiscountsPercentage'", e);
-                    }
+                            // deserialize DiscountsFinalPrice
+                            try {
+                                // validate the JSON object to see if any exception is thrown
+                                DiscountsFinalPrice.validateJsonElement(jsonElement);
+                                actualAdapter = adapterDiscountsFinalPrice;
+                                FeedPricesDiscountsInner ret = new FeedPricesDiscountsInner();
+                                ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
+                                return ret;
+                            } catch (Exception e) {
+                                // deserialization failed, continue
+                                errorMessages.add(
+                                        String.format(
+                                                "Deserialization for DiscountsFinalPrice failed with `%s`.",
+                                                e.getMessage()));
+                                log.log(
+                                        Level.FINER,
+                                        "Input data does not match schema 'DiscountsFinalPrice'",
+                                        e);
+                            }
+                            // deserialize DiscountsPercentage
+                            try {
+                                // validate the JSON object to see if any exception is thrown
+                                DiscountsPercentage.validateJsonElement(jsonElement);
+                                actualAdapter = adapterDiscountsPercentage;
+                                FeedPricesDiscountsInner ret = new FeedPricesDiscountsInner();
+                                ret.setActualInstance(actualAdapter.fromJsonTree(jsonElement));
+                                return ret;
+                            } catch (Exception e) {
+                                // deserialization failed, continue
+                                errorMessages.add(
+                                        String.format(
+                                                "Deserialization for DiscountsPercentage failed with `%s`.",
+                                                e.getMessage()));
+                                log.log(
+                                        Level.FINER,
+                                        "Input data does not match schema 'DiscountsPercentage'",
+                                        e);
+                            }
 
-                    throw new IOException(String.format("Failed deserialization for FeedPricesDiscountsInner: no class matches result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
-                }
-            }.nullSafe();
+                            throw new IOException(
+                                    String.format(
+                                            "Failed deserialization for FeedPricesDiscountsInner: no class matches result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s",
+                                            errorMessages, jsonElement.toString()));
+                        }
+                    }.nullSafe();
         }
     }
 
@@ -175,11 +171,10 @@ public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
     }
 
     /**
-     * Set the instance that matches the anyOf child schema, check
-     * the instance parameter is valid against the anyOf child schemas:
-     * DiscountsFinalPrice, DiscountsPercentage
+     * Set the instance that matches the anyOf child schema, check the instance parameter is valid
+     * against the anyOf child schemas: DiscountsFinalPrice, DiscountsPercentage
      *
-     * It could be an instance of the 'anyOf' schemas.
+     * <p>It could be an instance of the 'anyOf' schemas.
      */
     @Override
     public void setActualInstance(Object instance) {
@@ -193,12 +188,12 @@ public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
             return;
         }
 
-        throw new RuntimeException("Invalid instance type. Must be DiscountsFinalPrice, DiscountsPercentage");
+        throw new RuntimeException(
+                "Invalid instance type. Must be DiscountsFinalPrice, DiscountsPercentage");
     }
 
     /**
-     * Get the actual instance, which can be the following:
-     * DiscountsFinalPrice, DiscountsPercentage
+     * Get the actual instance, which can be the following: DiscountsFinalPrice, DiscountsPercentage
      *
      * @return The actual instance (DiscountsFinalPrice, DiscountsPercentage)
      */
@@ -208,73 +203,80 @@ public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
     }
 
     /**
-     * Get the actual instance of `DiscountsFinalPrice`. If the actual instance is not `DiscountsFinalPrice`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `DiscountsFinalPrice`. If the actual instance is not
+     * `DiscountsFinalPrice`, the ClassCastException will be thrown.
      *
      * @return The actual instance of `DiscountsFinalPrice`
      * @throws ClassCastException if the instance is not `DiscountsFinalPrice`
      */
     public DiscountsFinalPrice getDiscountsFinalPrice() throws ClassCastException {
-        return (DiscountsFinalPrice)super.getActualInstance();
+        return (DiscountsFinalPrice) super.getActualInstance();
     }
     /**
-     * Get the actual instance of `DiscountsPercentage`. If the actual instance is not `DiscountsPercentage`,
-     * the ClassCastException will be thrown.
+     * Get the actual instance of `DiscountsPercentage`. If the actual instance is not
+     * `DiscountsPercentage`, the ClassCastException will be thrown.
      *
      * @return The actual instance of `DiscountsPercentage`
      * @throws ClassCastException if the instance is not `DiscountsPercentage`
      */
     public DiscountsPercentage getDiscountsPercentage() throws ClassCastException {
-        return (DiscountsPercentage)super.getActualInstance();
+        return (DiscountsPercentage) super.getActualInstance();
     }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to FeedPricesDiscountsInner
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-    // validate anyOf schemas one by one
-    ArrayList<String> errorMessages = new ArrayList<>();
-    // validate the json string with DiscountsFinalPrice
-    try {
-      DiscountsFinalPrice.validateJsonElement(jsonElement);
-      return;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for DiscountsFinalPrice failed with `%s`.", e.getMessage()));
-      // continue to the next one
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to FeedPricesDiscountsInner
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        // validate anyOf schemas one by one
+        ArrayList<String> errorMessages = new ArrayList<>();
+        // validate the json string with DiscountsFinalPrice
+        try {
+            DiscountsFinalPrice.validateJsonElement(jsonElement);
+            return;
+        } catch (Exception e) {
+            errorMessages.add(
+                    String.format(
+                            "Deserialization for DiscountsFinalPrice failed with `%s`.",
+                            e.getMessage()));
+            // continue to the next one
+        }
+        // validate the json string with DiscountsPercentage
+        try {
+            DiscountsPercentage.validateJsonElement(jsonElement);
+            return;
+        } catch (Exception e) {
+            errorMessages.add(
+                    String.format(
+                            "Deserialization for DiscountsPercentage failed with `%s`.",
+                            e.getMessage()));
+            // continue to the next one
+        }
+        throw new IOException(
+                String.format(
+                        "The JSON string is invalid for FeedPricesDiscountsInner with anyOf schemas: DiscountsFinalPrice, DiscountsPercentage. no class match the result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s",
+                        errorMessages, jsonElement.toString()));
     }
-    // validate the json string with DiscountsPercentage
-    try {
-      DiscountsPercentage.validateJsonElement(jsonElement);
-      return;
-    } catch (Exception e) {
-      errorMessages.add(String.format("Deserialization for DiscountsPercentage failed with `%s`.", e.getMessage()));
-      // continue to the next one
+
+    /**
+     * Create an instance of FeedPricesDiscountsInner given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of FeedPricesDiscountsInner
+     * @throws IOException if the JSON string is invalid with respect to FeedPricesDiscountsInner
+     */
+    public static FeedPricesDiscountsInner fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, FeedPricesDiscountsInner.class);
     }
-    throw new IOException(String.format("The JSON string is invalid for FeedPricesDiscountsInner with anyOf schemas: DiscountsFinalPrice, DiscountsPercentage. no class match the result, expected at least 1. Detailed failure message for anyOf schemas: %s. JSON: %s", errorMessages, jsonElement.toString()));
-    
-  }
 
- /**
-  * Create an instance of FeedPricesDiscountsInner given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of FeedPricesDiscountsInner
-  * @throws IOException if the JSON string is invalid with respect to FeedPricesDiscountsInner
-  */
-  public static FeedPricesDiscountsInner fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, FeedPricesDiscountsInner.class);
-  }
-
- /**
-  * Convert an instance of FeedPricesDiscountsInner to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    /**
+     * Convert an instance of FeedPricesDiscountsInner to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
-

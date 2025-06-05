@@ -25,16 +25,12 @@ package com.adobe.aco;
 import com.fasterxml.jackson.databind.util.StdDateFormat;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import com.google.gson.JsonElement;
 import io.gsonfire.GsonFireBuilder;
-import io.gsonfire.TypeSelector;
-
-import okio.ByteString;
-
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Type;
@@ -46,10 +42,9 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Map;
-import java.util.HashMap;
 import java.util.TimeZone;
+import okio.ByteString;
 
 /*
  * A JSON utility class
@@ -62,42 +57,48 @@ public class JSON {
     private static boolean isLenientOnJson = false;
     private static DateTypeAdapter dateTypeAdapter = new DateTypeAdapter();
     private static SqlDateTypeAdapter sqlDateTypeAdapter = new SqlDateTypeAdapter();
-    private static OffsetDateTimeTypeAdapter offsetDateTimeTypeAdapter = new OffsetDateTimeTypeAdapter();
+    private static OffsetDateTimeTypeAdapter offsetDateTimeTypeAdapter =
+            new OffsetDateTimeTypeAdapter();
     private static LocalDateTypeAdapter localDateTypeAdapter = new LocalDateTypeAdapter();
     private static ByteArrayAdapter byteArrayAdapter = new ByteArrayAdapter();
 
-    private static final StdDateFormat sdf = new StdDateFormat()
-        .withTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()))
-        .withColonInTimeZone(true);
+    private static final StdDateFormat sdf =
+            new StdDateFormat()
+                    .withTimeZone(TimeZone.getTimeZone(ZoneId.systemDefault()))
+                    .withColonInTimeZone(true);
     private static final DateTimeFormatter dtf = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
     @SuppressWarnings("unchecked")
     public static GsonBuilder createGson() {
-        GsonFireBuilder fireBuilder = new GsonFireBuilder()
-        ;
+        GsonFireBuilder fireBuilder = new GsonFireBuilder();
         GsonBuilder builder = fireBuilder.createGsonBuilder();
         return builder;
     }
 
-    private static String getDiscriminatorValue(JsonElement readElement, String discriminatorField) {
+    private static String getDiscriminatorValue(
+            JsonElement readElement, String discriminatorField) {
         JsonElement element = readElement.getAsJsonObject().get(discriminatorField);
         if (null == element) {
-            throw new IllegalArgumentException("missing discriminator field: <" + discriminatorField + ">");
+            throw new IllegalArgumentException(
+                    "missing discriminator field: <" + discriminatorField + ">");
         }
         return element.getAsString();
     }
 
     /**
-     * Returns the Java class that implements the OpenAPI schema for the specified discriminator value.
+     * Returns the Java class that implements the OpenAPI schema for the specified discriminator
+     * value.
      *
      * @param classByDiscriminatorValue The map of discriminator values to Java classes.
      * @param discriminatorValue The value of the OpenAPI discriminator in the input data.
      * @return The Java class that implements the OpenAPI schema
      */
-    private static Class getClassByDiscriminator(Map classByDiscriminatorValue, String discriminatorValue) {
+    private static Class getClassByDiscriminator(
+            Map classByDiscriminatorValue, String discriminatorValue) {
         Class clazz = (Class) classByDiscriminatorValue.get(discriminatorValue);
         if (null == clazz) {
-            throw new IllegalArgumentException("cannot determine model class of name: <" + discriminatorValue + ">");
+            throw new IllegalArgumentException(
+                    "cannot determine model class of name: <" + discriminatorValue + ">");
         }
         return clazz;
     }
@@ -109,35 +110,64 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(OffsetDateTime.class, offsetDateTimeTypeAdapter);
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.DiscountsFinalPrice.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.DiscountsPercentage.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedItemFailedValidationResult.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedMetadata.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedMetadataDelete.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedMetadataUpdate.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedPricebook.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedPrices.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedPricesDelete.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedPricesDiscountsInner.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedPricesUpdate.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedProduct.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedProductDelete.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.FeedProductUpdate.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ItemFailedValidationResult.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.Model400ProcessFeedResponse.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.Model401Response.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.Model403Response.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProcessFeedResponse.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductAttribute.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductBundle.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductBundleItem.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductConfiguration.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductImage.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductLink.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductMetaAttribute.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductOptionValue.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.ProductRoutes.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(new com.adobe.aco.model.Scope.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.DiscountsFinalPrice.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.DiscountsPercentage.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedItemFailedValidationResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedMetadata.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedMetadataDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedMetadataUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPricebook.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPrices.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPricesDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPricesDiscountsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPricesUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedProduct.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedProductDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedProductUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ItemFailedValidationResult.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.Model400ProcessFeedResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.Model401Response.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.Model403Response.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProcessFeedResponse.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductAttribute.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductBundle.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductBundleItem.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductConfiguration.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductImage.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductLink.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductMetaAttribute.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductOptionValue.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductRoutes.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.Scope.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 
@@ -176,8 +206,8 @@ public class JSON {
     /**
      * Deserialize the given JSON string to Java object.
      *
-     * @param <T>        Type
-     * @param body       The JSON string
+     * @param <T> Type
+     * @param body The JSON string
      * @param returnType The type to deserialize into
      * @return The deserialized Java object
      */
@@ -186,7 +216,8 @@ public class JSON {
         try {
             if (isLenientOnJson) {
                 JsonReader jsonReader = new JsonReader(new StringReader(body));
-                // see https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
+                // see
+                // https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/stream/JsonReader.html#setLenient(boolean)
                 jsonReader.setLenient(true);
                 return gson.fromJson(jsonReader, returnType);
             } else {
@@ -203,9 +234,7 @@ public class JSON {
         }
     }
 
-    /**
-     * Gson TypeAdapter for Byte Array type
-     */
+    /** Gson TypeAdapter for Byte Array type */
     public static class ByteArrayAdapter extends TypeAdapter<byte[]> {
 
         @Override
@@ -231,9 +260,7 @@ public class JSON {
         }
     }
 
-    /**
-     * Gson TypeAdapter for JSR310 OffsetDateTime type
-     */
+    /** Gson TypeAdapter for JSR310 OffsetDateTime type */
     public static class OffsetDateTimeTypeAdapter extends TypeAdapter<OffsetDateTime> {
 
         private DateTimeFormatter formatter;
@@ -268,16 +295,14 @@ public class JSON {
                 default:
                     String date = in.nextString();
                     if (date.endsWith("+0000")) {
-                        date = date.substring(0, date.length()-5) + "Z";
+                        date = date.substring(0, date.length() - 5) + "Z";
                     }
                     return OffsetDateTime.parse(date, formatter);
             }
         }
     }
 
-    /**
-     * Gson TypeAdapter for JSR310 LocalDate type
-     */
+    /** Gson TypeAdapter for JSR310 LocalDate type */
     public static class LocalDateTypeAdapter extends TypeAdapter<LocalDate> {
 
         private DateTimeFormatter formatter;
@@ -325,9 +350,8 @@ public class JSON {
     }
 
     /**
-     * Gson TypeAdapter for java.sql.Date type
-     * If the dateFormat is null, a simple "yyyy-MM-dd" format will be used
-     * (more efficient than SimpleDateFormat).
+     * Gson TypeAdapter for java.sql.Date type If the dateFormat is null, a simple "yyyy-MM-dd"
+     * format will be used (more efficient than SimpleDateFormat).
      */
     public static class SqlDateTypeAdapter extends TypeAdapter<java.sql.Date> {
 
@@ -379,8 +403,8 @@ public class JSON {
     }
 
     /**
-     * Gson TypeAdapter for java.util.Date type
-     * If the dateFormat is null, DateTimeFormatter will be used.
+     * Gson TypeAdapter for java.util.Date type If the dateFormat is null, DateTimeFormatter will be
+     * used.
      */
     public static class DateTypeAdapter extends TypeAdapter<Date> {
 
