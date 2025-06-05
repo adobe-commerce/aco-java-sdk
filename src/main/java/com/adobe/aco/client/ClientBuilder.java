@@ -31,18 +31,17 @@ import com.adobe.aco.model.ClientConfig;
 public class ClientBuilder {
 
     public static Client createClient(ClientConfig config) {
-        AuthService auth = AuthServiceFactory.createAuthService(
-            config.getCredentials(),
-            System.getenv("IMS_BASE_URL_OVERRIDE")
-        );
+        AuthService auth =
+                AuthServiceFactory.createAuthService(
+                        config.getCredentials(), System.getenv("IMS_BASE_URL_OVERRIDE"));
 
-        CommerceHttpClient http = CommerceHttpClientFactory.createHttpClient(
-            auth,
-            config.getTenantId(),
-            config.getRegion(),
-            config.getEnvironment(),
-            System.getenv("BASE_URL_OVERRIDE")
-            );
+        CommerceHttpClient http =
+                CommerceHttpClientFactory.createHttpClient(
+                        auth,
+                        config.getTenantId(),
+                        config.getRegion(),
+                        config.getEnvironment(),
+                        System.getenv("BASE_URL_OVERRIDE"));
 
         return new ClientImpl(http);
     }

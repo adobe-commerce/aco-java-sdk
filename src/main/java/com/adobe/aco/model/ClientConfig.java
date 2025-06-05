@@ -22,9 +22,7 @@
 
 package com.adobe.aco.model;
 
-/**
-* Client configuration
-*/
+/** Client configuration */
 public class ClientConfig {
 
     private AdobeCredentials credentials;
@@ -32,7 +30,8 @@ public class ClientConfig {
     private Region region;
     private Environment environment;
 
-    public ClientConfig(AdobeCredentials credentials, String tenantId, Region region, Environment environment) {
+    public ClientConfig(
+            AdobeCredentials credentials, String tenantId, Region region, Environment environment) {
         this.credentials = credentials;
         this.tenantId = tenantId;
         this.region = region;

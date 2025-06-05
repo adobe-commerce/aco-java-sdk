@@ -22,9 +22,7 @@
 
 package com.adobe.aco.model;
 
-/**
- * Adobe IMS credentials
- */
+/** Adobe IMS credentials */
 public class AdobeCredentials {
 
     private String clientId;

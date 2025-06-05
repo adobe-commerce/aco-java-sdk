@@ -22,263 +22,266 @@
 
 package com.adobe.aco.model;
 
-import java.util.Objects;
+import com.adobe.aco.JSON;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.TypeAdapterFactory;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.TypeAdapter;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
-import com.adobe.aco.JSON;
-
-/**
- * ProductMetaAttribute
- */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+/** ProductMetaAttribute */
+@javax.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.4.0")
 public class ProductMetaAttribute {
-  public static final String SERIALIZED_NAME_TITLE = "title";
-  @SerializedName(SERIALIZED_NAME_TITLE)
-  private String title;
+    public static final String SERIALIZED_NAME_TITLE = "title";
 
-  public static final String SERIALIZED_NAME_KEYWORDS = "keywords";
-  @SerializedName(SERIALIZED_NAME_KEYWORDS)
-  private List<String> keywords;
+    @SerializedName(SERIALIZED_NAME_TITLE)
+    private String title;
 
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
+    public static final String SERIALIZED_NAME_KEYWORDS = "keywords";
 
-  public ProductMetaAttribute() {
-  }
+    @SerializedName(SERIALIZED_NAME_KEYWORDS)
+    private List<String> keywords;
 
-  public ProductMetaAttribute title(String title) {
-    this.title = title;
-    return this;
-  }
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
 
-   /**
-   * A meta title
-   * @return title
-  **/
-  @javax.annotation.Nullable
-  public String getTitle() {
-    return title;
-  }
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
+    public ProductMetaAttribute() {}
 
-
-  public ProductMetaAttribute keywords(List<String> keywords) {
-    this.keywords = keywords;
-    return this;
-  }
-
-  public ProductMetaAttribute addKeywordsItem(String keywordsItem) {
-    if (this.keywords == null) {
-      this.keywords = new ArrayList<>();
+    public ProductMetaAttribute title(String title) {
+        this.title = title;
+        return this;
     }
-    this.keywords.add(keywordsItem);
-    return this;
-  }
 
-   /**
-   * A meta keywords
-   * @return keywords
-  **/
-  @javax.annotation.Nullable
-  public List<String> getKeywords() {
-    return keywords;
-  }
-
-  public void setKeywords(List<String> keywords) {
-    this.keywords = keywords;
-  }
-
-
-  public ProductMetaAttribute description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * A meta description
-   * @return description
-  **/
-  @javax.annotation.Nullable
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    /**
+     * A meta title
+     *
+     * @return title
+     */
+    @javax.annotation.Nullable
+    public String getTitle() {
+        return title;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
-    ProductMetaAttribute productMetaAttribute = (ProductMetaAttribute) o;
-    return Objects.equals(this.title, productMetaAttribute.title) &&
-        Objects.equals(this.keywords, productMetaAttribute.keywords) &&
-        Objects.equals(this.description, productMetaAttribute.description);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(title, keywords, description);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProductMetaAttribute {\n");
-    sb.append("    title: ").append(toIndentedString(title)).append("\n");
-    sb.append("    keywords: ").append(toIndentedString(keywords)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public ProductMetaAttribute keywords(List<String> keywords) {
+        this.keywords = keywords;
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
-
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
-
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("title");
-    openapiFields.add("keywords");
-    openapiFields.add("description");
-
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-  }
-
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProductMetaAttribute
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      if (jsonElement == null) {
-        if (!ProductMetaAttribute.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ProductMetaAttribute is not found in the empty JSON string", ProductMetaAttribute.openapiRequiredFields.toString()));
+    public ProductMetaAttribute addKeywordsItem(String keywordsItem) {
+        if (this.keywords == null) {
+            this.keywords = new ArrayList<>();
         }
-      }
+        this.keywords.add(keywordsItem);
+        return this;
+    }
 
-      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-      // check to see if the JSON string contains additional fields
-      for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ProductMetaAttribute.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ProductMetaAttribute` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
-        }
-      }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if ((jsonObj.get("title") != null && !jsonObj.get("title").isJsonNull()) && !jsonObj.get("title").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `title` to be a primitive type in the JSON string but got `%s`", jsonObj.get("title").toString()));
-      }
-      // ensure the optional json data is an array if present
-      if (jsonObj.get("keywords") != null && !jsonObj.get("keywords").isJsonNull() && !jsonObj.get("keywords").isJsonArray()) {
-        throw new IllegalArgumentException(String.format("Expected the field `keywords` to be an array in the JSON string but got `%s`", jsonObj.get("keywords").toString()));
-      }
-      if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull()) && !jsonObj.get("description").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `description` to be a primitive type in the JSON string but got `%s`", jsonObj.get("description").toString()));
-      }
-  }
+    /**
+     * A meta keywords
+     *
+     * @return keywords
+     */
+    @javax.annotation.Nullable
+    public List<String> getKeywords() {
+        return keywords;
+    }
 
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    public ProductMetaAttribute description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * A meta description
+     *
+     * @return description
+     */
+    @javax.annotation.Nullable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ProductMetaAttribute.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ProductMetaAttribute' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ProductMetaAttribute> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ProductMetaAttribute.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ProductMetaAttribute>() {
-           @Override
-           public void write(JsonWriter out, ProductMetaAttribute value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ProductMetaAttribute read(JsonReader in) throws IOException {
-             JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
-             return thisAdapter.fromJsonTree(jsonElement);
-           }
-
-       }.nullSafe();
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProductMetaAttribute productMetaAttribute = (ProductMetaAttribute) o;
+        return Objects.equals(this.title, productMetaAttribute.title)
+                && Objects.equals(this.keywords, productMetaAttribute.keywords)
+                && Objects.equals(this.description, productMetaAttribute.description);
     }
-  }
 
- /**
-  * Create an instance of ProductMetaAttribute given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProductMetaAttribute
-  * @throws IOException if the JSON string is invalid with respect to ProductMetaAttribute
-  */
-  public static ProductMetaAttribute fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ProductMetaAttribute.class);
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, keywords, description);
+    }
 
- /**
-  * Convert an instance of ProductMetaAttribute to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProductMetaAttribute {\n");
+        sb.append("    title: ").append(toIndentedString(title)).append("\n");
+        sb.append("    keywords: ").append(toIndentedString(keywords)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    public static HashSet<String> openapiFields;
+    public static HashSet<String> openapiRequiredFields;
+
+    static {
+        // a set of all properties/fields (JSON key names)
+        openapiFields = new HashSet<String>();
+        openapiFields.add("title");
+        openapiFields.add("keywords");
+        openapiFields.add("description");
+
+        // a set of required properties/fields (JSON key names)
+        openapiRequiredFields = new HashSet<String>();
+    }
+
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to ProductMetaAttribute
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        if (jsonElement == null) {
+            if (!ProductMetaAttribute.openapiRequiredFields
+                    .isEmpty()) { // has required fields but JSON element is null
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The required field(s) %s in ProductMetaAttribute is not found in the empty JSON string",
+                                ProductMetaAttribute.openapiRequiredFields.toString()));
+            }
+        }
+
+        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+        // check to see if the JSON string contains additional fields
+        for (Map.Entry<String, JsonElement> entry : entries) {
+            if (!ProductMetaAttribute.openapiFields.contains(entry.getKey())) {
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The field `%s` in the JSON string is not defined in the `ProductMetaAttribute` properties. JSON: %s",
+                                entry.getKey(), jsonElement.toString()));
+            }
+        }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+        if ((jsonObj.get("title") != null && !jsonObj.get("title").isJsonNull())
+                && !jsonObj.get("title").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `title` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("title").toString()));
+        }
+        // ensure the optional json data is an array if present
+        if (jsonObj.get("keywords") != null
+                && !jsonObj.get("keywords").isJsonNull()
+                && !jsonObj.get("keywords").isJsonArray()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `keywords` to be an array in the JSON string but got `%s`",
+                            jsonObj.get("keywords").toString()));
+        }
+        if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull())
+                && !jsonObj.get("description").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `description` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("description").toString()));
+        }
+    }
+
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!ProductMetaAttribute.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'ProductMetaAttribute' and its subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<ProductMetaAttribute> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(ProductMetaAttribute.class));
+
+            return (TypeAdapter<T>)
+                    new TypeAdapter<ProductMetaAttribute>() {
+                        @Override
+                        public void write(JsonWriter out, ProductMetaAttribute value)
+                                throws IOException {
+                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+                            elementAdapter.write(out, obj);
+                        }
+
+                        @Override
+                        public ProductMetaAttribute read(JsonReader in) throws IOException {
+                            JsonElement jsonElement = elementAdapter.read(in);
+                            validateJsonElement(jsonElement);
+                            return thisAdapter.fromJsonTree(jsonElement);
+                        }
+                    }.nullSafe();
+        }
+    }
+
+    /**
+     * Create an instance of ProductMetaAttribute given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of ProductMetaAttribute
+     * @throws IOException if the JSON string is invalid with respect to ProductMetaAttribute
+     */
+    public static ProductMetaAttribute fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, ProductMetaAttribute.class);
+    }
+
+    /**
+     * Convert an instance of ProductMetaAttribute to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
-

@@ -24,7 +24,6 @@ package com.adobe.aco.client;
 import com.adobe.aco.http.CommerceHttpClient;
 import com.adobe.aco.model.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.net.http.HttpRequest;
 import java.net.http.HttpRequest.BodyPublishers;
 import java.util.List;
@@ -33,164 +32,169 @@ public class ClientImpl implements Client {
     private final CommerceHttpClient http;
     private final ObjectMapper mapper = new ObjectMapper();
 
-public ClientImpl(CommerceHttpClient http) {
-    this.http = http;
-}
+    public ClientImpl(CommerceHttpClient http) {
+        this.http = http;
+    }
 
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse createProductMetadata(List<FeedMetadata> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse createProductMetadata(List<FeedMetadata> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request(
+                    "/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/metadata/delete", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/metadata/delete failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("PATCH", BodyPublishers.ofString(body));
+            return http.request(
+                    "/v1/catalog/products/metadata/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/metadata/delete failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse createPriceBooks(List<FeedPricebook> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request(
+                    "/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse createPriceBooks(List<FeedPricebook> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/price-books", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/price-books failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse deletePriceBooks(List<FeedPricebook> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request("/v1/catalog/price-books", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/price-books failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deletePriceBooks(List<FeedPricebook> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/price-books/delete", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/price-books/delete failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse updatePriceBooks(List<FeedPricebook> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("PATCH", BodyPublishers.ofString(body));
+            return http.request(
+                    "/v1/catalog/price-books/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/price-books/delete failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse updatePriceBooks(List<FeedPricebook> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/price-books", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/price-books failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse createPrices(List<FeedPrices> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request("/v1/catalog/price-books", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/price-books failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse createPrices(List<FeedPrices> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/prices", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/prices failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse deletePrices(List<FeedPricesDelete> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request("/v1/catalog/products/prices", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/prices failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deletePrices(List<FeedPricesDelete> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/prices/delete", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/prices/delete failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("PATCH", BodyPublishers.ofString(body));
+            return http.request(
+                    "/v1/catalog/products/prices/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/prices/delete failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/prices", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/prices failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse createProducts(List<FeedProduct> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request("/v1/catalog/products/prices", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/prices failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse createProducts(List<FeedProduct> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse deleteProducts(List<FeedProductDelete> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("POST", BodyPublishers.ofString(body));
+            return http.request("/v1/catalog/products", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deleteProducts(List<FeedProductDelete> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products/delete", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products/delete failed", e);
-                    }
-                }
-                /** {@inheritDoc} */
-                @Override
-                public ProcessFeedResponse updateProducts(List<FeedProductUpdate> data) {
-                    try {
-                        String body = mapper.writeValueAsString(data);
-                        HttpRequest.Builder builder = HttpRequest.newBuilder()
-                            .method("PATCH", BodyPublishers.ofString(body));
+            return http.request("/v1/catalog/products/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/delete failed", e);
+        }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse updateProducts(List<FeedProductUpdate> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
 
-                        return http.request("/v1/catalog/products", builder, ProcessFeedResponse.class);
-                    } catch (Exception e) {
-                        throw new RuntimeException("Request to /v1/catalog/products failed", e);
-                    }
-                }
+            return http.request("/v1/catalog/products", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products failed", e);
+        }
+    }
 }

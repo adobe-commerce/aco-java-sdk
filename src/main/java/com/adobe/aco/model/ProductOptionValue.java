@@ -22,289 +22,304 @@
 
 package com.adobe.aco.model;
 
-import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import java.io.IOException;
-import java.util.Arrays;
-
+import com.adobe.aco.JSON;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
-import com.google.gson.TypeAdapterFactory;
-import com.google.gson.reflect.TypeToken;
 import com.google.gson.TypeAdapter;
+import com.google.gson.TypeAdapterFactory;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
-import com.adobe.aco.JSON;
-
-/**
- * ProductOptionValue
- */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.JavaClientCodegen", comments = "Generator version: 7.4.0")
+/** ProductOptionValue */
+@javax.annotation.Generated(
+        value = "org.openapitools.codegen.languages.JavaClientCodegen",
+        comments = "Generator version: 7.4.0")
 public class ProductOptionValue {
-  public static final String SERIALIZED_NAME_VARIANT_REFERENCE_ID = "variantReferenceId";
-  @SerializedName(SERIALIZED_NAME_VARIANT_REFERENCE_ID)
-  private String variantReferenceId;
+    public static final String SERIALIZED_NAME_VARIANT_REFERENCE_ID = "variantReferenceId";
 
-  public static final String SERIALIZED_NAME_LABEL = "label";
-  @SerializedName(SERIALIZED_NAME_LABEL)
-  private String label;
+    @SerializedName(SERIALIZED_NAME_VARIANT_REFERENCE_ID)
+    private String variantReferenceId;
 
-  public static final String SERIALIZED_NAME_COLOR_HEX = "colorHex";
-  @SerializedName(SERIALIZED_NAME_COLOR_HEX)
-  private String colorHex;
+    public static final String SERIALIZED_NAME_LABEL = "label";
 
-  public static final String SERIALIZED_NAME_IMAGE_URL = "imageUrl";
-  @SerializedName(SERIALIZED_NAME_IMAGE_URL)
-  private String imageUrl;
+    @SerializedName(SERIALIZED_NAME_LABEL)
+    private String label;
 
-  public ProductOptionValue() {
-  }
+    public static final String SERIALIZED_NAME_COLOR_HEX = "colorHex";
 
-  public ProductOptionValue variantReferenceId(String variantReferenceId) {
-    this.variantReferenceId = variantReferenceId;
-    return this;
-  }
+    @SerializedName(SERIALIZED_NAME_COLOR_HEX)
+    private String colorHex;
 
-   /**
-   * Option value ID. For &#x60;CONFIGURABLE&#x60; or &#x60;SWATCH&#x60; option types, this ID must match the [\&quot;variantReferenceId\&quot;](#operation/createProducts!path&#x3D;attributes/variantReferenceId&amp;t&#x3D;request) defined in the product variant. 
-   * @return variantReferenceId
-  **/
-  @javax.annotation.Nonnull
-  public String getVariantReferenceId() {
-    return variantReferenceId;
-  }
+    public static final String SERIALIZED_NAME_IMAGE_URL = "imageUrl";
 
-  public void setVariantReferenceId(String variantReferenceId) {
-    this.variantReferenceId = variantReferenceId;
-  }
+    @SerializedName(SERIALIZED_NAME_IMAGE_URL)
+    private String imageUrl;
 
+    public ProductOptionValue() {}
 
-  public ProductOptionValue label(String label) {
-    this.label = label;
-    return this;
-  }
-
-   /**
-   * Option value label
-   * @return label
-  **/
-  @javax.annotation.Nullable
-  public String getLabel() {
-    return label;
-  }
-
-  public void setLabel(String label) {
-    this.label = label;
-  }
-
-
-  public ProductOptionValue colorHex(String colorHex) {
-    this.colorHex = colorHex;
-    return this;
-  }
-
-   /**
-   * A hex representation of the color of the option value. Can be used for option with a SWATCH type.
-   * @return colorHex
-  **/
-  @javax.annotation.Nullable
-  public String getColorHex() {
-    return colorHex;
-  }
-
-  public void setColorHex(String colorHex) {
-    this.colorHex = colorHex;
-  }
-
-
-  public ProductOptionValue imageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-    return this;
-  }
-
-   /**
-   * Image URL of the option value. Can be used for option with a SWATCH type.
-   * @return imageUrl
-  **/
-  @javax.annotation.Nullable
-  public String getImageUrl() {
-    return imageUrl;
-  }
-
-  public void setImageUrl(String imageUrl) {
-    this.imageUrl = imageUrl;
-  }
-
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
+    public ProductOptionValue variantReferenceId(String variantReferenceId) {
+        this.variantReferenceId = variantReferenceId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Option value ID. For &#x60;CONFIGURABLE&#x60; or &#x60;SWATCH&#x60; option types, this ID
+     * must match the
+     * [\&quot;variantReferenceId\&quot;](#operation/createProducts!path&#x3D;attributes/variantReferenceId&amp;t&#x3D;request)
+     * defined in the product variant.
+     *
+     * @return variantReferenceId
+     */
+    @javax.annotation.Nonnull
+    public String getVariantReferenceId() {
+        return variantReferenceId;
     }
-    ProductOptionValue productOptionValue = (ProductOptionValue) o;
-    return Objects.equals(this.variantReferenceId, productOptionValue.variantReferenceId) &&
-        Objects.equals(this.label, productOptionValue.label) &&
-        Objects.equals(this.colorHex, productOptionValue.colorHex) &&
-        Objects.equals(this.imageUrl, productOptionValue.imageUrl);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(variantReferenceId, label, colorHex, imageUrl);
-  }
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ProductOptionValue {\n");
-    sb.append("    variantReferenceId: ").append(toIndentedString(variantReferenceId)).append("\n");
-    sb.append("    label: ").append(toIndentedString(label)).append("\n");
-    sb.append("    colorHex: ").append(toIndentedString(colorHex)).append("\n");
-    sb.append("    imageUrl: ").append(toIndentedString(imageUrl)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(Object o) {
-    if (o == null) {
-      return "null";
+    public void setVariantReferenceId(String variantReferenceId) {
+        this.variantReferenceId = variantReferenceId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
 
+    public ProductOptionValue label(String label) {
+        this.label = label;
+        return this;
+    }
 
-  public static HashSet<String> openapiFields;
-  public static HashSet<String> openapiRequiredFields;
+    /**
+     * Option value label
+     *
+     * @return label
+     */
+    @javax.annotation.Nullable
+    public String getLabel() {
+        return label;
+    }
 
-  static {
-    // a set of all properties/fields (JSON key names)
-    openapiFields = new HashSet<String>();
-    openapiFields.add("variantReferenceId");
-    openapiFields.add("label");
-    openapiFields.add("colorHex");
-    openapiFields.add("imageUrl");
+    public void setLabel(String label) {
+        this.label = label;
+    }
 
-    // a set of required properties/fields (JSON key names)
-    openapiRequiredFields = new HashSet<String>();
-    openapiRequiredFields.add("variantReferenceId");
-  }
+    public ProductOptionValue colorHex(String colorHex) {
+        this.colorHex = colorHex;
+        return this;
+    }
 
- /**
-  * Validates the JSON Element and throws an exception if issues found
-  *
-  * @param jsonElement JSON Element
-  * @throws IOException if the JSON Element is invalid with respect to ProductOptionValue
-  */
-  public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-      if (jsonElement == null) {
-        if (!ProductOptionValue.openapiRequiredFields.isEmpty()) { // has required fields but JSON element is null
-          throw new IllegalArgumentException(String.format("The required field(s) %s in ProductOptionValue is not found in the empty JSON string", ProductOptionValue.openapiRequiredFields.toString()));
-        }
-      }
+    /**
+     * A hex representation of the color of the option value. Can be used for option with a SWATCH
+     * type.
+     *
+     * @return colorHex
+     */
+    @javax.annotation.Nullable
+    public String getColorHex() {
+        return colorHex;
+    }
 
-      Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
-      // check to see if the JSON string contains additional fields
-      for (Map.Entry<String, JsonElement> entry : entries) {
-        if (!ProductOptionValue.openapiFields.contains(entry.getKey())) {
-          throw new IllegalArgumentException(String.format("The field `%s` in the JSON string is not defined in the `ProductOptionValue` properties. JSON: %s", entry.getKey(), jsonElement.toString()));
-        }
-      }
+    public void setColorHex(String colorHex) {
+        this.colorHex = colorHex;
+    }
 
-      // check to make sure all required properties/fields are present in the JSON string
-      for (String requiredField : ProductOptionValue.openapiRequiredFields) {
-        if (jsonElement.getAsJsonObject().get(requiredField) == null) {
-          throw new IllegalArgumentException(String.format("The required field `%s` is not found in the JSON string: %s", requiredField, jsonElement.toString()));
-        }
-      }
-        JsonObject jsonObj = jsonElement.getAsJsonObject();
-      if (!jsonObj.get("variantReferenceId").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `variantReferenceId` to be a primitive type in the JSON string but got `%s`", jsonObj.get("variantReferenceId").toString()));
-      }
-      if ((jsonObj.get("label") != null && !jsonObj.get("label").isJsonNull()) && !jsonObj.get("label").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `label` to be a primitive type in the JSON string but got `%s`", jsonObj.get("label").toString()));
-      }
-      if ((jsonObj.get("colorHex") != null && !jsonObj.get("colorHex").isJsonNull()) && !jsonObj.get("colorHex").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `colorHex` to be a primitive type in the JSON string but got `%s`", jsonObj.get("colorHex").toString()));
-      }
-      if ((jsonObj.get("imageUrl") != null && !jsonObj.get("imageUrl").isJsonNull()) && !jsonObj.get("imageUrl").isJsonPrimitive()) {
-        throw new IllegalArgumentException(String.format("Expected the field `imageUrl` to be a primitive type in the JSON string but got `%s`", jsonObj.get("imageUrl").toString()));
-      }
-  }
+    public ProductOptionValue imageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
 
-  public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
-    @SuppressWarnings("unchecked")
+    /**
+     * Image URL of the option value. Can be used for option with a SWATCH type.
+     *
+     * @return imageUrl
+     */
+    @javax.annotation.Nullable
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
-    public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-       if (!ProductOptionValue.class.isAssignableFrom(type.getRawType())) {
-         return null; // this class only serializes 'ProductOptionValue' and its subtypes
-       }
-       final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-       final TypeAdapter<ProductOptionValue> thisAdapter
-                        = gson.getDelegateAdapter(this, TypeToken.get(ProductOptionValue.class));
-
-       return (TypeAdapter<T>) new TypeAdapter<ProductOptionValue>() {
-           @Override
-           public void write(JsonWriter out, ProductOptionValue value) throws IOException {
-             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
-             elementAdapter.write(out, obj);
-           }
-
-           @Override
-           public ProductOptionValue read(JsonReader in) throws IOException {
-             JsonElement jsonElement = elementAdapter.read(in);
-             validateJsonElement(jsonElement);
-             return thisAdapter.fromJsonTree(jsonElement);
-           }
-
-       }.nullSafe();
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ProductOptionValue productOptionValue = (ProductOptionValue) o;
+        return Objects.equals(this.variantReferenceId, productOptionValue.variantReferenceId)
+                && Objects.equals(this.label, productOptionValue.label)
+                && Objects.equals(this.colorHex, productOptionValue.colorHex)
+                && Objects.equals(this.imageUrl, productOptionValue.imageUrl);
     }
-  }
 
- /**
-  * Create an instance of ProductOptionValue given an JSON string
-  *
-  * @param jsonString JSON string
-  * @return An instance of ProductOptionValue
-  * @throws IOException if the JSON string is invalid with respect to ProductOptionValue
-  */
-  public static ProductOptionValue fromJson(String jsonString) throws IOException {
-    return JSON.getGson().fromJson(jsonString, ProductOptionValue.class);
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(variantReferenceId, label, colorHex, imageUrl);
+    }
 
- /**
-  * Convert an instance of ProductOptionValue to an JSON string
-  *
-  * @return JSON string
-  */
-  public String toJson() {
-    return JSON.getGson().toJson(this);
-  }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ProductOptionValue {\n");
+        sb.append("    variantReferenceId: ")
+                .append(toIndentedString(variantReferenceId))
+                .append("\n");
+        sb.append("    label: ").append(toIndentedString(label)).append("\n");
+        sb.append("    colorHex: ").append(toIndentedString(colorHex)).append("\n");
+        sb.append("    imageUrl: ").append(toIndentedString(imageUrl)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first
+     * line).
+     */
+    private String toIndentedString(Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
+
+    public static HashSet<String> openapiFields;
+    public static HashSet<String> openapiRequiredFields;
+
+    static {
+        // a set of all properties/fields (JSON key names)
+        openapiFields = new HashSet<String>();
+        openapiFields.add("variantReferenceId");
+        openapiFields.add("label");
+        openapiFields.add("colorHex");
+        openapiFields.add("imageUrl");
+
+        // a set of required properties/fields (JSON key names)
+        openapiRequiredFields = new HashSet<String>();
+        openapiRequiredFields.add("variantReferenceId");
+    }
+
+    /**
+     * Validates the JSON Element and throws an exception if issues found
+     *
+     * @param jsonElement JSON Element
+     * @throws IOException if the JSON Element is invalid with respect to ProductOptionValue
+     */
+    public static void validateJsonElement(JsonElement jsonElement) throws IOException {
+        if (jsonElement == null) {
+            if (!ProductOptionValue.openapiRequiredFields
+                    .isEmpty()) { // has required fields but JSON element is null
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The required field(s) %s in ProductOptionValue is not found in the empty JSON string",
+                                ProductOptionValue.openapiRequiredFields.toString()));
+            }
+        }
+
+        Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
+        // check to see if the JSON string contains additional fields
+        for (Map.Entry<String, JsonElement> entry : entries) {
+            if (!ProductOptionValue.openapiFields.contains(entry.getKey())) {
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The field `%s` in the JSON string is not defined in the `ProductOptionValue` properties. JSON: %s",
+                                entry.getKey(), jsonElement.toString()));
+            }
+        }
+
+        // check to make sure all required properties/fields are present in the JSON string
+        for (String requiredField : ProductOptionValue.openapiRequiredFields) {
+            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The required field `%s` is not found in the JSON string: %s",
+                                requiredField, jsonElement.toString()));
+            }
+        }
+        JsonObject jsonObj = jsonElement.getAsJsonObject();
+        if (!jsonObj.get("variantReferenceId").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `variantReferenceId` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("variantReferenceId").toString()));
+        }
+        if ((jsonObj.get("label") != null && !jsonObj.get("label").isJsonNull())
+                && !jsonObj.get("label").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `label` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("label").toString()));
+        }
+        if ((jsonObj.get("colorHex") != null && !jsonObj.get("colorHex").isJsonNull())
+                && !jsonObj.get("colorHex").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `colorHex` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("colorHex").toString()));
+        }
+        if ((jsonObj.get("imageUrl") != null && !jsonObj.get("imageUrl").isJsonNull())
+                && !jsonObj.get("imageUrl").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `imageUrl` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("imageUrl").toString()));
+        }
+    }
+
+    public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
+        @SuppressWarnings("unchecked")
+        @Override
+        public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
+            if (!ProductOptionValue.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'ProductOptionValue' and its subtypes
+            }
+            final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
+            final TypeAdapter<ProductOptionValue> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(ProductOptionValue.class));
+
+            return (TypeAdapter<T>)
+                    new TypeAdapter<ProductOptionValue>() {
+                        @Override
+                        public void write(JsonWriter out, ProductOptionValue value)
+                                throws IOException {
+                            JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
+                            elementAdapter.write(out, obj);
+                        }
+
+                        @Override
+                        public ProductOptionValue read(JsonReader in) throws IOException {
+                            JsonElement jsonElement = elementAdapter.read(in);
+                            validateJsonElement(jsonElement);
+                            return thisAdapter.fromJsonTree(jsonElement);
+                        }
+                    }.nullSafe();
+        }
+    }
+
+    /**
+     * Create an instance of ProductOptionValue given an JSON string
+     *
+     * @param jsonString JSON string
+     * @return An instance of ProductOptionValue
+     * @throws IOException if the JSON string is invalid with respect to ProductOptionValue
+     */
+    public static ProductOptionValue fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, ProductOptionValue.class);
+    }
+
+    /**
+     * Convert an instance of ProductOptionValue to an JSON string
+     *
+     * @return JSON string
+     */
+    public String toJson() {
+        return JSON.getGson().toJson(this);
+    }
 }
-
