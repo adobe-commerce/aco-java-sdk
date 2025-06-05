@@ -27,6 +27,7 @@ jobs:
           sudo apt install -y gh jq
 
       - name: Generate SDK and format code
+        id: generate
         run: |
           mvn clean verify
 
