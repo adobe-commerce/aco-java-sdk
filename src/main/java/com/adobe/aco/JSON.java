@@ -125,6 +125,8 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPricebook.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPricebookDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPrices.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPricesDelete.CustomTypeAdapterFactory());
@@ -146,6 +148,10 @@ public class JSON {
                 new com.adobe.aco.model.Model401Response.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.Model403Response.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.PriceBookBase.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.PriceBookChild.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.ProcessFeedResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
