@@ -48,10 +48,10 @@ public class FeedMetadataDelete {
     @SerializedName(SERIALIZED_NAME_CODE)
     private String code;
 
-    public static final String SERIALIZED_NAME_SCOPE = "scope";
+    public static final String SERIALIZED_NAME_SOURCE = "source";
 
-    @SerializedName(SERIALIZED_NAME_SCOPE)
-    private Scope scope;
+    @SerializedName(SERIALIZED_NAME_SOURCE)
+    private Source source;
 
     public FeedMetadataDelete() {}
 
@@ -74,23 +74,23 @@ public class FeedMetadataDelete {
         this.code = code;
     }
 
-    public FeedMetadataDelete scope(Scope scope) {
-        this.scope = scope;
+    public FeedMetadataDelete source(Source source) {
+        this.source = source;
         return this;
     }
 
     /**
-     * Get scope
+     * Get source
      *
-     * @return scope
+     * @return source
      */
     @javax.annotation.Nonnull
-    public Scope getScope() {
-        return scope;
+    public Source getSource() {
+        return source;
     }
 
-    public void setScope(Scope scope) {
-        this.scope = scope;
+    public void setSource(Source source) {
+        this.source = source;
     }
 
     @Override
@@ -103,12 +103,12 @@ public class FeedMetadataDelete {
         }
         FeedMetadataDelete feedMetadataDelete = (FeedMetadataDelete) o;
         return Objects.equals(this.code, feedMetadataDelete.code)
-                && Objects.equals(this.scope, feedMetadataDelete.scope);
+                && Objects.equals(this.source, feedMetadataDelete.source);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, scope);
+        return Objects.hash(code, source);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class FeedMetadataDelete {
         StringBuilder sb = new StringBuilder();
         sb.append("class FeedMetadataDelete {\n");
         sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
+        sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -139,12 +139,12 @@ public class FeedMetadataDelete {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
         openapiFields.add("code");
-        openapiFields.add("scope");
+        openapiFields.add("source");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("code");
-        openapiRequiredFields.add("scope");
+        openapiRequiredFields.add("source");
     }
 
     /**
@@ -191,8 +191,8 @@ public class FeedMetadataDelete {
                             "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
                             jsonObj.get("code").toString()));
         }
-        // validate the required field `scope`
-        Scope.validateJsonElement(jsonObj.get("scope"));
+        // validate the required field `source`
+        Source.validateJsonElement(jsonObj.get("source"));
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {

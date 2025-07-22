@@ -65,7 +65,7 @@ public class DiscountsFinalPrice {
      *
      * @return code
      */
-    @javax.annotation.Nullable
+    @javax.annotation.Nonnull
     public String getCode() {
         return code;
     }
@@ -84,7 +84,7 @@ public class DiscountsFinalPrice {
      *
      * @return price
      */
-    @javax.annotation.Nullable
+    @javax.annotation.Nonnull
     public Float getPrice() {
         return price;
     }
@@ -143,6 +143,8 @@ public class DiscountsFinalPrice {
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
+        openapiRequiredFields.add("code");
+        openapiRequiredFields.add("price");
     }
 
     /**
@@ -172,9 +174,18 @@ public class DiscountsFinalPrice {
                                 entry.getKey(), jsonElement.toString()));
             }
         }
+
+        // check to make sure all required properties/fields are present in the JSON string
+        for (String requiredField : DiscountsFinalPrice.openapiRequiredFields) {
+            if (jsonElement.getAsJsonObject().get(requiredField) == null) {
+                throw new IllegalArgumentException(
+                        String.format(
+                                "The required field `%s` is not found in the JSON string: %s",
+                                requiredField, jsonElement.toString()));
+            }
+        }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if ((jsonObj.get("code") != null && !jsonObj.get("code").isJsonNull())
-                && !jsonObj.get("code").isJsonPrimitive()) {
+        if (!jsonObj.get("code").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
                             "Expected the field `code` to be a primitive type in the JSON string but got `%s`",

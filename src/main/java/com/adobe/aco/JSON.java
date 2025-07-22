@@ -163,6 +163,8 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.ProductConfiguration.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.ProductExternalId.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.ProductImage.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.ProductLink.CustomTypeAdapterFactory());
@@ -173,7 +175,7 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.ProductRoutes.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.Scope.CustomTypeAdapterFactory());
+                new com.adobe.aco.model.Source.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 

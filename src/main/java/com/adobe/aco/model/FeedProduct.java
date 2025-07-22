@@ -36,11 +36,13 @@ import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 /** FeedProduct */
 @javax.annotation.Generated(
@@ -52,10 +54,10 @@ public class FeedProduct {
     @SerializedName(SERIALIZED_NAME_SKU)
     private String sku;
 
-    public static final String SERIALIZED_NAME_SCOPE = "scope";
+    public static final String SERIALIZED_NAME_SOURCE = "source";
 
-    @SerializedName(SERIALIZED_NAME_SCOPE)
-    private Scope scope;
+    @SerializedName(SERIALIZED_NAME_SOURCE)
+    private Source source;
 
     public static final String SERIALIZED_NAME_NAME = "name";
 
@@ -195,7 +197,7 @@ public class FeedProduct {
     public static final String SERIALIZED_NAME_META_TAGS = "metaTags";
 
     @SerializedName(SERIALIZED_NAME_META_TAGS)
-    private List<ProductMetaAttribute> metaTags;
+    private ProductMetaAttribute metaTags;
 
     public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
 
@@ -227,6 +229,11 @@ public class FeedProduct {
     @SerializedName(SERIALIZED_NAME_BUNDLES)
     private List<ProductBundle> bundles;
 
+    public static final String SERIALIZED_NAME_EXTERNAL_IDS = "externalIds";
+
+    @SerializedName(SERIALIZED_NAME_EXTERNAL_IDS)
+    private List<ProductExternalId> externalIds;
+
     public FeedProduct() {}
 
     public FeedProduct sku(String sku) {
@@ -248,23 +255,23 @@ public class FeedProduct {
         this.sku = sku;
     }
 
-    public FeedProduct scope(Scope scope) {
-        this.scope = scope;
+    public FeedProduct source(Source source) {
+        this.source = source;
         return this;
     }
 
     /**
-     * Get scope
+     * Get source
      *
-     * @return scope
+     * @return source
      */
     @javax.annotation.Nonnull
-    public Scope getScope() {
-        return scope;
+    public Source getSource() {
+        return source;
     }
 
-    public void setScope(Scope scope) {
-        this.scope = scope;
+    public void setSource(Source source) {
+        this.source = source;
     }
 
     public FeedProduct name(String name) {
@@ -393,30 +400,22 @@ public class FeedProduct {
         this.visibleIn = visibleIn;
     }
 
-    public FeedProduct metaTags(List<ProductMetaAttribute> metaTags) {
+    public FeedProduct metaTags(ProductMetaAttribute metaTags) {
         this.metaTags = metaTags;
         return this;
     }
 
-    public FeedProduct addMetaTagsItem(ProductMetaAttribute metaTagsItem) {
-        if (this.metaTags == null) {
-            this.metaTags = new ArrayList<>();
-        }
-        this.metaTags.add(metaTagsItem);
-        return this;
-    }
-
     /**
-     * Meta attributes that are specified in &lt;meta&gt; tags.
+     * Get metaTags
      *
      * @return metaTags
      */
     @javax.annotation.Nullable
-    public List<ProductMetaAttribute> getMetaTags() {
+    public ProductMetaAttribute getMetaTags() {
         return metaTags;
     }
 
-    public void setMetaTags(List<ProductMetaAttribute> metaTags) {
+    public void setMetaTags(ProductMetaAttribute metaTags) {
         this.metaTags = metaTags;
     }
 
@@ -585,6 +584,33 @@ public class FeedProduct {
         this.bundles = bundles;
     }
 
+    public FeedProduct externalIds(List<ProductExternalId> externalIds) {
+        this.externalIds = externalIds;
+        return this;
+    }
+
+    public FeedProduct addExternalIdsItem(ProductExternalId externalIdsItem) {
+        if (this.externalIds == null) {
+            this.externalIds = new ArrayList<>();
+        }
+        this.externalIds.add(externalIdsItem);
+        return this;
+    }
+
+    /**
+     * A list of external IDs for the product.
+     *
+     * @return externalIds
+     */
+    @javax.annotation.Nullable
+    public List<ProductExternalId> getExternalIds() {
+        return externalIds;
+    }
+
+    public void setExternalIds(List<ProductExternalId> externalIds) {
+        this.externalIds = externalIds;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -595,7 +621,7 @@ public class FeedProduct {
         }
         FeedProduct feedProduct = (FeedProduct) o;
         return Objects.equals(this.sku, feedProduct.sku)
-                && Objects.equals(this.scope, feedProduct.scope)
+                && Objects.equals(this.source, feedProduct.source)
                 && Objects.equals(this.name, feedProduct.name)
                 && Objects.equals(this.slug, feedProduct.slug)
                 && Objects.equals(this.description, feedProduct.description)
@@ -608,14 +634,24 @@ public class FeedProduct {
                 && Objects.equals(this.links, feedProduct.links)
                 && Objects.equals(this.routes, feedProduct.routes)
                 && Objects.equals(this.configurations, feedProduct.configurations)
-                && Objects.equals(this.bundles, feedProduct.bundles);
+                && Objects.equals(this.bundles, feedProduct.bundles)
+                && Objects.equals(this.externalIds, feedProduct.externalIds);
+    }
+
+    private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
+        return a == b
+                || (a != null
+                        && b != null
+                        && a.isPresent()
+                        && b.isPresent()
+                        && Objects.deepEquals(a.get(), b.get()));
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
                 sku,
-                scope,
+                source,
                 name,
                 slug,
                 description,
@@ -628,7 +664,15 @@ public class FeedProduct {
                 links,
                 routes,
                 configurations,
-                bundles);
+                bundles,
+                externalIds);
+    }
+
+    private static <T> int hashCodeNullable(JsonNullable<T> a) {
+        if (a == null) {
+            return 1;
+        }
+        return a.isPresent() ? Arrays.deepHashCode(new Object[] {a.get()}) : 31;
     }
 
     @Override
@@ -636,7 +680,7 @@ public class FeedProduct {
         StringBuilder sb = new StringBuilder();
         sb.append("class FeedProduct {\n");
         sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
-        sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
+        sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -650,6 +694,7 @@ public class FeedProduct {
         sb.append("    routes: ").append(toIndentedString(routes)).append("\n");
         sb.append("    configurations: ").append(toIndentedString(configurations)).append("\n");
         sb.append("    bundles: ").append(toIndentedString(bundles)).append("\n");
+        sb.append("    externalIds: ").append(toIndentedString(externalIds)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -672,7 +717,7 @@ public class FeedProduct {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
         openapiFields.add("sku");
-        openapiFields.add("scope");
+        openapiFields.add("source");
         openapiFields.add("name");
         openapiFields.add("slug");
         openapiFields.add("description");
@@ -686,11 +731,12 @@ public class FeedProduct {
         openapiFields.add("routes");
         openapiFields.add("configurations");
         openapiFields.add("bundles");
+        openapiFields.add("externalIds");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("sku");
-        openapiRequiredFields.add("scope");
+        openapiRequiredFields.add("source");
         openapiRequiredFields.add("name");
         openapiRequiredFields.add("slug");
         openapiRequiredFields.add("status");
@@ -740,8 +786,8 @@ public class FeedProduct {
                             "Expected the field `sku` to be a primitive type in the JSON string but got `%s`",
                             jsonObj.get("sku").toString()));
         }
-        // validate the required field `scope`
-        Scope.validateJsonElement(jsonObj.get("scope"));
+        // validate the required field `source`
+        Source.validateJsonElement(jsonObj.get("source"));
         if (!jsonObj.get("name").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
@@ -786,23 +832,9 @@ public class FeedProduct {
                             "Expected the field `visibleIn` to be an array in the JSON string but got `%s`",
                             jsonObj.get("visibleIn").toString()));
         }
+        // validate the optional field `metaTags`
         if (jsonObj.get("metaTags") != null && !jsonObj.get("metaTags").isJsonNull()) {
-            JsonArray jsonArraymetaTags = jsonObj.getAsJsonArray("metaTags");
-            if (jsonArraymetaTags != null) {
-                // ensure the json data is an array
-                if (!jsonObj.get("metaTags").isJsonArray()) {
-                    throw new IllegalArgumentException(
-                            String.format(
-                                    "Expected the field `metaTags` to be an array in the JSON string but got `%s`",
-                                    jsonObj.get("metaTags").toString()));
-                }
-
-                // validate the optional field `metaTags` (array)
-                for (int i = 0; i < jsonArraymetaTags.size(); i++) {
-                    ProductMetaAttribute.validateJsonElement(jsonArraymetaTags.get(i));
-                }
-                ;
-            }
+            ProductMetaAttribute.validateJsonElement(jsonObj.get("metaTags"));
         }
         if (jsonObj.get("attributes") != null && !jsonObj.get("attributes").isJsonNull()) {
             JsonArray jsonArrayattributes = jsonObj.getAsJsonArray("attributes");
@@ -908,6 +940,24 @@ public class FeedProduct {
                 // validate the optional field `bundles` (array)
                 for (int i = 0; i < jsonArraybundles.size(); i++) {
                     ProductBundle.validateJsonElement(jsonArraybundles.get(i));
+                }
+                ;
+            }
+        }
+        if (jsonObj.get("externalIds") != null && !jsonObj.get("externalIds").isJsonNull()) {
+            JsonArray jsonArrayexternalIds = jsonObj.getAsJsonArray("externalIds");
+            if (jsonArrayexternalIds != null) {
+                // ensure the json data is an array
+                if (!jsonObj.get("externalIds").isJsonArray()) {
+                    throw new IllegalArgumentException(
+                            String.format(
+                                    "Expected the field `externalIds` to be an array in the JSON string but got `%s`",
+                                    jsonObj.get("externalIds").toString()));
+                }
+
+                // validate the optional field `externalIds` (array)
+                for (int i = 0; i < jsonArrayexternalIds.size(); i++) {
+                    ProductExternalId.validateJsonElement(jsonArrayexternalIds.get(i));
                 }
                 ;
             }

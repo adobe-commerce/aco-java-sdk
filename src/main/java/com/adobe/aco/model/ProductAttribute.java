@@ -28,7 +28,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -52,77 +51,6 @@ public class ProductAttribute {
 
     @SerializedName(SERIALIZED_NAME_CODE)
     private String code;
-
-    /**
-     * Type of attribute value to be applied during the rendering phase. Validation occurs only when
-     * the code is rendered. Invalid values are ignored. - &#x60;BOOLEAN&#x60;: Accept single value:
-     * \&quot;true\&quot; or false - &#x60;NUMBER&#x60;: Accept single number,e.g. \&quot;85\&quot;,
-     * \&quot;0.42\&quot;, etc. - &#x60;STRING&#x60;: Accept single string,e.g. \&quot;Great day,
-     * yall!\&quot; - &#x60;ARRAY&#x60;: Accept list of strings ,e.g. [\&quot;red\&quot;,
-     * \&quot;green\&quot;, \&quot;blue\&quot;] - &#x60;OBJECT&#x60;: Accept JSON object
-     * &#x60;\&quot;{\&quot;name\&quot;: \&quot;swatch\&quot;, \&quot;color\&quot;:
-     * \&quot;red\&quot;}\&quot;&#x60;
-     */
-    @JsonAdapter(TypeEnum.Adapter.class)
-    public enum TypeEnum {
-        BOOLEAN("BOOLEAN"),
-
-        NUMBER("NUMBER"),
-
-        STRING("STRING"),
-
-        ARRAY("ARRAY"),
-
-        OBJECT("OBJECT");
-
-        private String value;
-
-        TypeEnum(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static TypeEnum fromValue(String value) {
-            for (TypeEnum b : TypeEnum.values()) {
-                if (b.value.equals(value)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + value + "'");
-        }
-
-        public static class Adapter extends TypeAdapter<TypeEnum> {
-            @Override
-            public void write(final JsonWriter jsonWriter, final TypeEnum enumeration)
-                    throws IOException {
-                jsonWriter.value(enumeration.getValue());
-            }
-
-            @Override
-            public TypeEnum read(final JsonReader jsonReader) throws IOException {
-                String value = jsonReader.nextString();
-                return TypeEnum.fromValue(value);
-            }
-        }
-
-        public static void validateJsonElement(JsonElement jsonElement) throws IOException {
-            String value = jsonElement.getAsString();
-            TypeEnum.fromValue(value);
-        }
-    }
-
-    public static final String SERIALIZED_NAME_TYPE = "type";
-
-    @SerializedName(SERIALIZED_NAME_TYPE)
-    private TypeEnum type;
 
     public static final String SERIALIZED_NAME_VALUES = "values";
 
@@ -153,32 +81,6 @@ public class ProductAttribute {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public ProductAttribute type(TypeEnum type) {
-        this.type = type;
-        return this;
-    }
-
-    /**
-     * Type of attribute value to be applied during the rendering phase. Validation occurs only when
-     * the code is rendered. Invalid values are ignored. - &#x60;BOOLEAN&#x60;: Accept single value:
-     * \&quot;true\&quot; or false - &#x60;NUMBER&#x60;: Accept single number,e.g. \&quot;85\&quot;,
-     * \&quot;0.42\&quot;, etc. - &#x60;STRING&#x60;: Accept single string,e.g. \&quot;Great day,
-     * yall!\&quot; - &#x60;ARRAY&#x60;: Accept list of strings ,e.g. [\&quot;red\&quot;,
-     * \&quot;green\&quot;, \&quot;blue\&quot;] - &#x60;OBJECT&#x60;: Accept JSON object
-     * &#x60;\&quot;{\&quot;name\&quot;: \&quot;swatch\&quot;, \&quot;color\&quot;:
-     * \&quot;red\&quot;}\&quot;&#x60;
-     *
-     * @return type
-     */
-    @javax.annotation.Nonnull
-    public TypeEnum getType() {
-        return type;
-    }
-
-    public void setType(TypeEnum type) {
-        this.type = type;
     }
 
     public ProductAttribute values(List<String> values) {
@@ -240,7 +142,6 @@ public class ProductAttribute {
         }
         ProductAttribute productAttribute = (ProductAttribute) o;
         return Objects.equals(this.code, productAttribute.code)
-                && Objects.equals(this.type, productAttribute.type)
                 && Objects.equals(this.values, productAttribute.values)
                 && Objects.equals(this.variantReferenceId, productAttribute.variantReferenceId);
     }
@@ -256,7 +157,7 @@ public class ProductAttribute {
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, type, values, variantReferenceId);
+        return Objects.hash(code, values, variantReferenceId);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -271,7 +172,6 @@ public class ProductAttribute {
         StringBuilder sb = new StringBuilder();
         sb.append("class ProductAttribute {\n");
         sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    values: ").append(toIndentedString(values)).append("\n");
         sb.append("    variantReferenceId: ")
                 .append(toIndentedString(variantReferenceId))
@@ -298,14 +198,12 @@ public class ProductAttribute {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
         openapiFields.add("code");
-        openapiFields.add("type");
         openapiFields.add("values");
         openapiFields.add("variantReferenceId");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("code");
-        openapiRequiredFields.add("type");
         openapiRequiredFields.add("values");
     }
 
@@ -353,14 +251,6 @@ public class ProductAttribute {
                             "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
                             jsonObj.get("code").toString()));
         }
-        if (!jsonObj.get("type").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `type` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("type").toString()));
-        }
-        // validate the required field `type`
-        TypeEnum.validateJsonElement(jsonObj.get("type"));
         // ensure the required json array is present
         if (jsonObj.get("values") == null) {
             throw new IllegalArgumentException(

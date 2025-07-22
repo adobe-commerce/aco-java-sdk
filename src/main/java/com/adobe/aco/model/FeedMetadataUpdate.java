@@ -51,10 +51,10 @@ public class FeedMetadataUpdate {
     @SerializedName(SERIALIZED_NAME_CODE)
     private String code;
 
-    public static final String SERIALIZED_NAME_SCOPE = "scope";
+    public static final String SERIALIZED_NAME_SOURCE = "source";
 
-    @SerializedName(SERIALIZED_NAME_SCOPE)
-    private Scope scope;
+    @SerializedName(SERIALIZED_NAME_SOURCE)
+    private Source source;
 
     /** Gets or Sets visibleIn */
     @JsonAdapter(VisibleInEnum.Adapter.class)
@@ -280,23 +280,23 @@ public class FeedMetadataUpdate {
         this.code = code;
     }
 
-    public FeedMetadataUpdate scope(Scope scope) {
-        this.scope = scope;
+    public FeedMetadataUpdate source(Source source) {
+        this.source = source;
         return this;
     }
 
     /**
-     * Get scope
+     * Get source
      *
-     * @return scope
+     * @return source
      */
     @javax.annotation.Nonnull
-    public Scope getScope() {
-        return scope;
+    public Source getSource() {
+        return source;
     }
 
-    public void setScope(Scope scope) {
-        this.scope = scope;
+    public void setSource(Source source) {
+        this.source = source;
     }
 
     public FeedMetadataUpdate visibleIn(List<VisibleInEnum> visibleIn) {
@@ -483,7 +483,7 @@ public class FeedMetadataUpdate {
         }
         FeedMetadataUpdate feedMetadataUpdate = (FeedMetadataUpdate) o;
         return Objects.equals(this.code, feedMetadataUpdate.code)
-                && Objects.equals(this.scope, feedMetadataUpdate.scope)
+                && Objects.equals(this.source, feedMetadataUpdate.source)
                 && Objects.equals(this.visibleIn, feedMetadataUpdate.visibleIn)
                 && Objects.equals(this.label, feedMetadataUpdate.label)
                 && Objects.equals(this.dataType, feedMetadataUpdate.dataType)
@@ -498,7 +498,7 @@ public class FeedMetadataUpdate {
     public int hashCode() {
         return Objects.hash(
                 code,
-                scope,
+                source,
                 visibleIn,
                 label,
                 dataType,
@@ -514,7 +514,7 @@ public class FeedMetadataUpdate {
         StringBuilder sb = new StringBuilder();
         sb.append("class FeedMetadataUpdate {\n");
         sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    scope: ").append(toIndentedString(scope)).append("\n");
+        sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    visibleIn: ").append(toIndentedString(visibleIn)).append("\n");
         sb.append("    label: ").append(toIndentedString(label)).append("\n");
         sb.append("    dataType: ").append(toIndentedString(dataType)).append("\n");
@@ -545,7 +545,7 @@ public class FeedMetadataUpdate {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
         openapiFields.add("code");
-        openapiFields.add("scope");
+        openapiFields.add("source");
         openapiFields.add("visibleIn");
         openapiFields.add("label");
         openapiFields.add("dataType");
@@ -558,7 +558,7 @@ public class FeedMetadataUpdate {
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
         openapiRequiredFields.add("code");
-        openapiRequiredFields.add("scope");
+        openapiRequiredFields.add("source");
     }
 
     /**
@@ -605,8 +605,8 @@ public class FeedMetadataUpdate {
                             "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
                             jsonObj.get("code").toString()));
         }
-        // validate the required field `scope`
-        Scope.validateJsonElement(jsonObj.get("scope"));
+        // validate the required field `source`
+        Source.validateJsonElement(jsonObj.get("source"));
         // ensure the optional json data is an array if present
         if (jsonObj.get("visibleIn") != null
                 && !jsonObj.get("visibleIn").isJsonNull()
