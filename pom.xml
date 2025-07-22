@@ -1,33 +1,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.openapitools</groupId>
+    <groupId>io.github.adobe-commerce</groupId>
     <artifactId>aco-java-sdk</artifactId>
     <packaging>jar</packaging>
     <name>aco-java-sdk</name>
     <version>1.0.0-SNAPSHOT</version>
-    <url>https://github.com/openapitools/openapi-generator</url>
-    <description>OpenAPI Java</description>
+    <url>https://github.com/adobe-commerce/aco-java-sdk</url>
+    <description>Java SDK for Adobe Commerce Optimizer (ACO), generated from OpenAPI specification.</description>
     <scm>
-        <connection>scm:git:git@github.com:openapitools/openapi-generator.git</connection>
-        <developerConnection>scm:git:git@github.com:openapitools/openapi-generator.git</developerConnection>
-        <url>https://github.com/openapitools/openapi-generator</url>
+        <connection>scm:git:git://github.com/adobe-commerce/aco-java-sdk.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:adobe-commerce/aco-java-sdk.git</developerConnection>
+        <url>https://github.com/adobe-commerce/aco-java-sdk</url>
     </scm>
 
     <licenses>
         <license>
-            <name>Adobe Proprietary License</name>
-            <url>https://www.adobe.com/legal/terms.html</url>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>OpenAPI-Generator Contributors</name>
-            <email>team@openapitools.org</email>
-            <organization>OpenAPITools.org</organization>
-            <organizationUrl>http://openapitools.org</organizationUrl>
+            <id>adobe-commerce</id>
+            <name>Adobe Corsairs Team</name>
+            <email>corsairsmvn@adobe.com</email>
+            <organization>Adobe</organization>
+            <organizationUrl>https://www.adobe.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Jose Luis Manas</name>
+            <email>jmanasnofuen@adobe.com</email>
+            <organization>Adobe</organization>
+            <organizationUrl>https://www.adobe.com</organizationUrl>
+        </developer>
+        <developer>
+            <name>Ross Brandon</name>
+            <email>wbrandon@adobe.com</email>
+            <organization>Adobe</organization>
+            <organizationUrl>https://www.adobe.com</organizationUrl>
         </developer>
     </developers>
 
@@ -98,7 +111,7 @@
                 <configuration>
                     <java>
                         <googleJavaFormat>
-                            <version>1.8</version>
+                            <version>1.17.0</version>
                             <style>AOSP</style>
                         </googleJavaFormat>
                         <removeUnusedImports/>
@@ -121,6 +134,36 @@
                     <source>11</source>
                     <target>11</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven-source-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals><goal>jar</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven-javadoc-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <quiet>true</quiet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
@@ -200,5 +243,45 @@
         <jakarta.ws.rs-api-version>2.1.6</jakarta.ws.rs-api-version>
         <jsr311-api-version>1.1.1</jsr311-api-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>sign-release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <keyname>1B74F23D78E78B7A</keyname>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                            <useAgent>false</useAgent>
+                            <passphrase>${env.GPG_PASSPHRASE}</passphrase>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 </project>
