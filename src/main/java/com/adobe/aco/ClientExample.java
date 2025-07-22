@@ -40,11 +40,12 @@ public class ClientExample {
 
         Client client = ClientBuilder.createClient(config);
 
+        // Product 1
         FeedProduct product1 = new FeedProduct();
         product1.setSku("EXAMPLE-SKU-001");
-        Scope scope1 = new Scope();
-        scope1.setLocale("en-US");
-        product1.setScope(scope1);
+        Source source1 = new Source();
+        source1.setLocale("en-US");
+        product1.setSource(source1);
         product1.setName("Example Product 1");
         product1.setSlug("example-product-1");
         product1.setDescription("This is an example product created via the SDK");
@@ -52,36 +53,44 @@ public class ClientExample {
         product1.setVisibleIn(
                 Arrays.asList(FeedProduct.VisibleInEnum.CATALOG, FeedProduct.VisibleInEnum.SEARCH));
 
-        ProductAttribute productAttribute = new ProductAttribute();
-        productAttribute.setType(ProductAttribute.TypeEnum.STRING);
-        productAttribute.setValues(List.of("Example Brand"));
-        product1.setAttributes(List.of(productAttribute));
+        ProductAttribute brandAttr1 = new ProductAttribute();
+        brandAttr1.setCode("brand");
+        brandAttr1.setValues(List.of("Example Brand"));
 
+        ProductAttribute categoryAttr1 = new ProductAttribute();
+        categoryAttr1.setCode("category");
+        categoryAttr1.setValues(List.of("Electronics"));
+
+        product1.setAttributes(List.of(brandAttr1, categoryAttr1));
+
+        // Product 2
         FeedProduct product2 = new FeedProduct();
         product2.setSku("EXAMPLE-SKU-002");
-        Scope scope2 = new Scope();
-        scope2.setLocale("en-US");
-        product2.setScope(scope2);
+        Source source2 = new Source();
+        source2.setLocale("en-US");
+        product2.setSource(source2);
         product2.setName("Example Product 2");
         product2.setSlug("example-product-2");
         product2.setDescription("This is another example product created via the SDK");
-        product2.setStatus(FeedProduct.StatusEnum.DISABLED);
+        product2.setStatus(FeedProduct.StatusEnum.ENABLED);
         product2.setVisibleIn(
                 Arrays.asList(FeedProduct.VisibleInEnum.CATALOG, FeedProduct.VisibleInEnum.SEARCH));
 
-        ProductAttribute productAttribute2 = new ProductAttribute();
-        productAttribute2.setType(ProductAttribute.TypeEnum.STRING);
-        productAttribute2.setValues(List.of("Example Brand"));
-        product2.setAttributes(List.of(productAttribute2));
+        ProductAttribute brandAttr2 = new ProductAttribute();
+        brandAttr2.setCode("brand");
+        brandAttr2.setValues(List.of("Example Brand"));
+
+        ProductAttribute categoryAttr2 = new ProductAttribute();
+        categoryAttr2.setCode("category");
+        categoryAttr2.setValues(List.of("Electronics"));
+
+        product2.setAttributes(List.of(brandAttr2, categoryAttr2));
 
         try {
-
             ProcessFeedResponse response = client.createProducts(List.of(product1, product2));
-
             System.out.println("Products created successfully: " + response);
         } catch (Exception e) {
             Throwable cause = e.getCause();
-
             if (cause instanceof ApiError) {
                 ApiError apiError = (ApiError) cause;
                 System.err.println("API error: " + apiError.getStatusCode());
