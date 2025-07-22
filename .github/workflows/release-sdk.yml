@@ -4,21 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  read-version:
+  noop:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up xmllint
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libxml2-utils
-
-      - name: Read version from pom.xml
-        id: get_version
-        run: |
-          VERSION=$(xmllint --xpath "//*[local-name()='project']/*[local-name()='version']/text()" pom.xml)
-          echo "Current version is: $VERSION"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - name: Placeholder step
+        run: echo "Release workflow ready"
