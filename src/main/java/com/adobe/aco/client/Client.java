@@ -39,10 +39,10 @@ public interface Client {
     /**
      * Create product attribute metadata To ensure product data is indexed for discovery, create or
      * replace existing product attribute metadata resources before creating products. For each
-     * Commerce project, you must define metadata for the following attributes for each scope
-     * (`locale`): - `sku` - `name` - `description` - `shortDescription` - `price` Also, you can
-     * define metadata for custom attributes. When creating product attribute metadata: - Each
-     * product attribute requires a unique `code` and `scope`. - Use the `dataType` field to define
+     * Commerce project, you must define metadata for the following attributes for each catalog
+     * source (`locale`): - `sku` - `name` - `description` - `shortDescription` - `price` Also, you
+     * can define metadata for custom attributes. When creating product attribute metadata: - Each
+     * product attribute requires a unique `code` and `source`. - Use the `dataType` field to define
      * the data type for the product attribute. - Use the `visibleIn` field to define where the
      * product attribute is displayed on the storefront. - Use the `filterable`, `sortable`, and
      * `searchable` fields to define how the product attribute is used for filtering, sorting, and
@@ -147,8 +147,8 @@ public interface Client {
     /**
      * Create or replace products You can create different types of products, such as simple
      * products and configurable products. When creating products: - Each product requires a unique
-     * SKU identifier. - Products must have a defined scope, for example `locale`. - Add values for
-     * the required `name`, `slug`, and `status` fields. - Define optional fields such as
+     * SKU identifier. - Products must have a defined catalog source, for example `locale`. - Add
+     * values for the required `name`, `slug`, and `status` fields. - Define optional fields such as
      * descriptions, images, and custom attributes as needed. - Use the `links` field to define
      * relationships between products, such as linking a product variant to its parent configurable
      * product. - You can create multiple products in a single request, and also create product
@@ -156,10 +156,9 @@ public interface Client {
      *
      * <h3 id=\"simpleProducts\">Simple Products</h3>
      *
-     * Create products or replace existing products with specified `sku` and `scope` values. If a
-     * product with the same data exists with the same SKU and scope, the product update request is
-     * ignored. Use the <strong>[update operation](#operation/updateProducts)</strong> to modify
-     * values for an existing product.
+     * Create products or replace existing products with specified `sku` and `source` values. Use
+     * the <strong>[update operation](#operation/updateProducts)</strong> to modify values for an
+     * existing product.
      *
      * <h3>Configurable Products</h3>
      *
@@ -188,7 +187,7 @@ public interface Client {
      * `VARIANT_OF` pointing to the configurable product. For example:
      *
      * <pre>
-     *    {     \"sku\": \"pants-red-32\",     \"attributes\": [       {         \"code\": \"color\",         \"type\": \"STRING\",         \"values\": [\"Red\"],         \"variantReferenceId\": \"pants-color-red\"       }     ],     \"links\": [       {         \"type\": \"VARIANT_OF\",         \"sku\": \"pants\"       }     ]   }
+     *    {     \"sku\": \"pants-red-32\",     \"attributes\": [       {         \"code\": \"color\",         \"values\": [\"Red\"],         \"variantReferenceId\": \"pants-color-red\"       }     ],     \"links\": [       {         \"type\": \"VARIANT_OF\",         \"sku\": \"pants\"       }     ]   }
      * </pre>
      *
      * Each product variant links back to the configurable product through its `variantReferenceId`,
@@ -228,7 +227,7 @@ public interface Client {
      */
     ProcessFeedResponse createProducts(List<FeedProduct> data);
     /**
-     * Delete products Delete products with specified `sku`` and `scope`` values
+     * Delete products Delete products with specified `sku`` and `source`` values
      *
      * @param data payload of type List<FeedProductDelete>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -236,7 +235,7 @@ public interface Client {
      */
     ProcessFeedResponse deleteProducts(List<FeedProductDelete> data);
     /**
-     * Update products Update products with specified `sku` and `scope` values to replace existing
+     * Update products Update products with specified `sku` and `source` values to replace existing
      * field data with the data supplied in the request. When the update is processed, the merge
      * strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy
      * is used to apply changes for fields in an `array`.
