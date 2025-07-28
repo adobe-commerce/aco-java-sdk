@@ -2,6 +2,11 @@ name: Release SDK
 
 on:
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'If true, simulate the commands without executing them'
+        required: false
+        default: 'true'
 
 jobs:
   read-version:
@@ -35,9 +40,15 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION"
           echo "release-version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Simulate git tag command
+      - name: Tag release
         run: |
           RELEASE_VERSION=${{ steps.extract_version.outputs.release-version }}
-          echo "Would tag current commit with: v$RELEASE_VERSION"
-          echo "Command: git tag -a v$RELEASE_VERSION -m 'Release v$RELEASE_VERSION'"
-          
+          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
+            echo "Would tag current commit with: v$RELEASE_VERSION"
+            echo "Command: git tag -a v$RELEASE_VERSION -m 'Release v$RELEASE_VERSION'"
+          else
+            git config user.name "github-actions"
+            git config user.email "github-actions@github.com"
+            git tag -a v$RELEASE_VERSION -m "Release v$RELEASE_VERSION"
+            git push origin v$RELEASE_VERSION
+          fi
