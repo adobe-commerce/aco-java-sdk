@@ -82,3 +82,13 @@ jobs:
               exit 1
             fi
           done
+
+      - name: Deploy to OSSRH (staging)
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+        run: |
+          echo "Running: mvn deploy -Psign-release"
+          mvn deploy -Psign-release \
+            -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
+            -DskipTests=true
