@@ -96,5 +96,8 @@ jobs:
             -DossrhPassword=$OSSRH_PASSWORD \
             -Dmaven.javadoc.skip=true \
             -Dsource.skip=true \
-            -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-            -Dmaven.wagon.http.retryHandler.count=3
+            -DretryFailedDeploymentCount=3 \
+            -Dmaven.wagon.http.timeout=120000 \
+            -Dmaven.wagon.http.retryHandler.count=3 \
+            -Dmaven.wagon.httpconnectionManager.maxPerHost=2 \
+            -Dmaven.wagon.httpconnectionManager.ttlSeconds=60
