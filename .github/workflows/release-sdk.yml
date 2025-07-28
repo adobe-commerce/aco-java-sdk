@@ -88,12 +88,13 @@ jobs:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         run: |
-          echo "Running: mvn deploy -Psign-release"
+          echo "Running: mvn deploy"
           mvn deploy \
-            -DskipTests=true \
             -Dgpg.skip=true \
-            -DperformRelease=true \
+            -DskipTests=true \
             -DossrhUsername=$OSSRH_USERNAME \
             -DossrhPassword=$OSSRH_PASSWORD \
+            -Dmaven.javadoc.skip=true \
+            -Dsource.skip=true \
             -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
             -Dmaven.wagon.http.retryHandler.count=3
