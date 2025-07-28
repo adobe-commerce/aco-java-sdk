@@ -21,6 +21,9 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
+          server-id: central
+          server-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          server-password: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
       - name: Extract version from pom.xml
         id: get_version
@@ -84,16 +87,11 @@ jobs:
           done
 
       - name: Deploy to Maven Central
-        env:
-          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         run: |
           echo "Running: mvn deploy"
           mvn deploy \
             -Dgpg.skip=true \
             -DskipTests=true \
-            -Dusername=$MAVEN_CENTRAL_USERNAME \
-            -Dpassword=$MAVEN_CENTRAL_TOKEN \
             -Dmaven.javadoc.skip=true \
             -Dsource.skip=true \
             -DretryFailedDeploymentCount=3 \
