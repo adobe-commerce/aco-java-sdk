@@ -86,6 +86,11 @@ jobs:
             fi
           done
 
+      - name: Debug settings.xml (safe)
+        run: |
+          echo "Sanitized settings.xml:"
+          cat ~/.m2/settings.xml
+
       - name: Deploy to Maven Central
         run: |
           echo "Running: mvn deploy"
