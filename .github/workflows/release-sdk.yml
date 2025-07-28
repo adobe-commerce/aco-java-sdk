@@ -63,3 +63,22 @@ jobs:
         run: |
           echo "Running: mvn verify -Psign-release"
           mvn verify -Psign-release
+
+      - name: Verify signed artifacts
+        run: |
+          VERSION=${{ steps.extract_version.outputs.release-version }}
+          ARTIFACTS_DIR=target
+          FILES=(
+            "aco-java-sdk-${VERSION}.jar"
+            "aco-java-sdk-${VERSION}-sources.jar"
+            "aco-java-sdk-${VERSION}-javadoc.jar"
+          )
+          
+          for file in "${FILES[@]}"; do
+            if [[ -f "$ARTIFACTS_DIR/$file" && -f "$ARTIFACTS_DIR/$file.asc" ]]; then
+              echo "✅ Signed: $file and $file.asc"
+            else
+              echo "❌ Missing signature for $file"
+              exit 1
+            fi
+          done
