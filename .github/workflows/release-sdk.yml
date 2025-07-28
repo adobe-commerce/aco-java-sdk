@@ -94,4 +94,6 @@ jobs:
             -Dgpg.skip=true \
             -DperformRelease=true \
             -DossrhUsername=$OSSRH_USERNAME \
-            -DossrhPassword=$OSSRH_PASSWORD
+            -DossrhPassword=$OSSRH_PASSWORD \
+            -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
+            -Dmaven.wagon.http.retryHandler.count=3
