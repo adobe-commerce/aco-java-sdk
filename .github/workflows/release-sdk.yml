@@ -1,4 +1,4 @@
-name: Release
+name: Release SDK
 
 on:
   workflow_dispatch:
@@ -34,3 +34,10 @@ jobs:
           RELEASE_VERSION=${RAW_VERSION/-SNAPSHOT/}
           echo "RELEASE_VERSION=$RELEASE_VERSION"
           echo "release-version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Simulate git tag command
+        run: |
+          RELEASE_VERSION=${{ steps.extract_version.outputs.release-version }}
+          echo "Would tag current commit with: v$RELEASE_VERSION"
+          echo "Command: git tag -a v$RELEASE_VERSION -m 'Release v$RELEASE_VERSION'"
+          
