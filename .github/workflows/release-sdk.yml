@@ -40,30 +40,17 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION"
           echo "release-version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Tag release
+      - name: Import GPG key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         run: |
-          RELEASE_VERSION=${{ steps.extract_version.outputs.release-version }}
-          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
-            echo "Would tag current commit with: v$RELEASE_VERSION"
-            echo "Command: git tag -a v$RELEASE_VERSION -m 'Release v$RELEASE_VERSION'"
-          else
-            git config user.name "github-actions"
-            git config user.email "github-actions@github.com"
-            git tag -a v$RELEASE_VERSION -m "Release v$RELEASE_VERSION"
-            git push origin v$RELEASE_VERSION
-          fi
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --yes --import
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
 
-      - name: Bump to next snapshot version
+      - name: Sign artifacts (always runs)
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          RAW_VERSION=${{ steps.get_version.outputs.version }}
-          if [ "${{ github.event.inputs.dry-run }}" = "true" ]; then
-            echo "Would bump version in pom.xml to next snapshot"
-            echo "Command: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextIncrementalVersion}-SNAPSHOT"
-          else
-            mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextIncrementalVersion}-SNAPSHOT
-            mvn versions:commit
-            git config user.name "github-actions"
-            git config user.email "github-actions@github.com"
-            git commit -am "Bump to next snapshot version"
-            git push origin HEAD
-          fi
+          echo "Running: mvn verify -Psign-artifacts"
+          mvn verify -Psign-release
