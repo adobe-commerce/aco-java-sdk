@@ -83,17 +83,17 @@ jobs:
             fi
           done
 
-      - name: Deploy to OSSRH (staging)
+      - name: Deploy to Maven Central
         env:
-          OSSRH_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         run: |
           echo "Running: mvn deploy"
           mvn deploy \
             -Dgpg.skip=true \
             -DskipTests=true \
-            -DossrhUsername=$OSSRH_USERNAME \
-            -DossrhPassword=$OSSRH_PASSWORD \
+            -Dusername=$MAVEN_CENTRAL_USERNAME \
+            -Dpassword=$MAVEN_CENTRAL_TOKEN \
             -Dmaven.javadoc.skip=true \
             -Dsource.skip=true \
             -DretryFailedDeploymentCount=3 \
