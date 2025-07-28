@@ -88,7 +88,10 @@ jobs:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
         run: |
-          echo "Running: mvn deploy -Psign-release"
-          mvn deploy -Psign-release \
-            -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} \
-            -DskipTests=true
+          echo "Running: mvn deploy"
+          mvn deploy \
+            -DskipTests=true \
+            -Dgpg.skip=true \
+            -DperformRelease=true \
+            -DossrhUsername=$OSSRH_USERNAME \
+            -DossrhPassword=$OSSRH_PASSWORD
