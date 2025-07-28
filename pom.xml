@@ -46,79 +46,6 @@
 
     <build>
         <plugins>
-            <!-- Descargar la OpenAPI spec -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>download-openapi-spec</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>curl</executable>
-                            <arguments>
-                                <argument>-s</argument>
-                                <argument>-o</argument>
-                                <argument>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</argument>
-                                <argument>https://raw.githubusercontent.com/AdobeDocs/commerce-services/refs/heads/ccdm-early-access/src/openapi/data-ingestion-schema-v1.yaml</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Generar SDK con OpenAPI -->
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>${openapi.generator.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate-sdk</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</inputSpec>
-                            <templateDirectory>${project.basedir}/generator/templates</templateDirectory>
-                            <output>${project.basedir}</output>
-                            <generatorName>java</generatorName>
-                            <configurationFile>${project.basedir}/generator/generator-config.yaml</configurationFile>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Formatear el código generado -->
-            <plugin>
-                <groupId>com.diffplug.spotless</groupId>
-                <artifactId>spotless-maven-plugin</artifactId>
-                <version>${spotless.version}</version>
-                <executions>
-                    <execution>
-                        <id>format-code</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>apply</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <java>
-                        <googleJavaFormat>
-                            <version>1.17.0</version>
-                            <style>AOSP</style>
-                        </googleJavaFormat>
-                        <removeUnusedImports/>
-                    </java>
-                </configuration>
-            </plugin>
-
            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -135,37 +62,6 @@
                     <target>11</target>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals><goal>jar</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                            <quiet>true</quiet>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -180,16 +76,13 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>${versions-maven-plugin.version}</version>
             </plugin>
-
         </plugins>
     </build>
-
 
     <dependencies>
         <!-- @Nullable annotation -->
@@ -302,9 +195,120 @@
                             <passphrase>${env.GPG_PASSPHRASE}</passphrase>
                         </configuration>
                     </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals><goal>jar</goal></goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <failOnError>false</failOnError>
+                                    <quiet>true</quiet>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>update-sdk</id>
+            <build>
+                <plugins>
+                    <!-- Descargar la OpenAPI spec -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>download-openapi-spec</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>curl</executable>
+                                    <arguments>
+                                        <argument>-s</argument>
+                                        <argument>-o</argument>
+                                        <argument>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</argument>
+                                        <argument>https://raw.githubusercontent.com/AdobeDocs/commerce-services/refs/heads/ccdm-early-access/src/openapi/data-ingestion-schema-v1.yaml</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Generar SDK con OpenAPI -->
+                    <plugin>
+                        <groupId>org.openapitools</groupId>
+                        <artifactId>openapi-generator-maven-plugin</artifactId>
+                        <version>${openapi.generator.version}</version>
+                        <executions>
+                            <execution>
+                                <id>generate-sdk</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <inputSpec>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</inputSpec>
+                                    <templateDirectory>${project.basedir}/generator/templates</templateDirectory>
+                                    <output>${project.basedir}</output>
+                                    <generatorName>java</generatorName>
+                                    <configurationFile>${project.basedir}/generator/generator-config.yaml</configurationFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Formatear el código generado -->
+                    <plugin>
+                        <groupId>com.diffplug.spotless</groupId>
+                        <artifactId>spotless-maven-plugin</artifactId>
+                        <version>${spotless.version}</version>
+                        <executions>
+                            <execution>
+                                <id>format-code</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>apply</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <java>
+                                <googleJavaFormat>
+                                    <version>1.17.0</version>
+                                    <style>AOSP</style>
+                                </googleJavaFormat>
+                                <removeUnusedImports/>
+                            </java>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
     </profiles>
 
     <distributionManagement>
