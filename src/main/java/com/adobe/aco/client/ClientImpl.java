@@ -50,6 +50,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data) {
@@ -64,6 +65,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/metadata/delete failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data) {
@@ -78,6 +80,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse createPriceBooks(List<FeedPricebook> data) {
@@ -91,6 +94,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/price-books failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse deletePriceBooks(List<FeedPricebookDelete> data) {
@@ -105,6 +109,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/price-books/delete failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse updatePriceBooks(List<FeedPricebook> data) {
@@ -118,6 +123,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/price-books failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse createPrices(List<FeedPrices> data) {
@@ -131,6 +137,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/prices failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse deletePrices(List<FeedPricesDelete> data) {
@@ -145,6 +152,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/prices/delete failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data) {
@@ -158,6 +166,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/prices failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse createProducts(List<FeedProduct> data) {
@@ -171,6 +180,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse deleteProducts(List<FeedProductDelete> data) {
@@ -184,6 +194,7 @@ public class ClientImpl implements Client {
             throw new RuntimeException("Request to /v1/catalog/products/delete failed", e);
         }
     }
+
     /** {@inheritDoc} */
     @Override
     public ProcessFeedResponse updateProducts(List<FeedProductUpdate> data) {

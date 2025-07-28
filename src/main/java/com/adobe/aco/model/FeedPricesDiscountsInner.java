@@ -212,6 +212,7 @@ public class FeedPricesDiscountsInner extends AbstractOpenApiSchema {
     public DiscountsFinalPrice getDiscountsFinalPrice() throws ClassCastException {
         return (DiscountsFinalPrice) super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `DiscountsPercentage`. If the actual instance is not
      * `DiscountsPercentage`, the ClassCastException will be thrown.
