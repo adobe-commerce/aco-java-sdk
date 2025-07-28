@@ -85,8 +85,8 @@ jobs:
 
       - name: Deploy to OSSRH (staging)
         env:
-          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          OSSRH_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
         run: |
           echo "Running: mvn deploy"
           mvn deploy \
