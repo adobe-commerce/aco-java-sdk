@@ -40,9 +40,17 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION"
           echo "release-version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
 
+      - name: Set release version in pom.xml (temporary)
+        run: |
+          RELEASE_VERSION=${{ steps.extract_version.outputs.release-version }}
+          echo "Temporarily setting version to $RELEASE_VERSION"
+          mvn versions:set -DnewVersion=$RELEASE_VERSION
+          mvn versions:commit
+
       - name: Import GPG key
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           echo "$GPG_PRIVATE_KEY" | gpg --batch --yes --import
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
@@ -52,5 +60,5 @@ jobs:
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
-          echo "Running: mvn verify -Psign-artifacts"
+          echo "Running: mvn verify -Psign-release"
           mvn verify -Psign-release
