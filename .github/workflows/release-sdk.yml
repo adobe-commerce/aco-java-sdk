@@ -90,11 +90,11 @@ jobs:
         run: |
           echo "Sanitized settings.xml:"
           cat ~/.m2/settings.xml
-
-      - name: Verificar valores de secrets (ocultos)
-        run: |
-          echo "Username empieza por: ${MAVEN_CENTRAL_USERNAME:0:3}***"
-          echo "Token empieza por: ${MAVEN_CENTRAL_TOKEN:0:3}***"
+          
+          echo ""
+          echo "Preview secrets:"
+          echo "MAVEN_CENTRAL_USERNAME starts with: ${MAVEN_CENTRAL_USERNAME:0:3}***"
+          echo "MAVEN_CENTRAL_TOKEN starts with: ${MAVEN_CENTRAL_TOKEN:0:3}***"
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
