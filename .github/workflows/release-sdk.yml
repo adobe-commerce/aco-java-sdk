@@ -63,32 +63,6 @@ jobs:
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           echo RELOADAGENT | gpg-connect-agent
 
-      - name: Sign artifacts (always runs)
-        env:
-          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-        run: |
-          echo "Running: mvn verify -Psign-release"
-          mvn verify -Psign-release
-
-      - name: Verify signed artifacts
-        run: |
-          VERSION=${{ steps.extract_version.outputs.release-version }}
-          ARTIFACTS_DIR=target
-          FILES=(
-            "aco-java-sdk-${VERSION}.jar"
-            "aco-java-sdk-${VERSION}-sources.jar"
-            "aco-java-sdk-${VERSION}-javadoc.jar"
-          )
-          
-          for file in "${FILES[@]}"; do
-            if [[ -f "$ARTIFACTS_DIR/$file" && -f "$ARTIFACTS_DIR/$file.asc" ]]; then
-              echo "✅ Signed: $file and $file.asc"
-            else
-              echo "❌ Missing signature for $file"
-              exit 1
-            fi
-          done
-
       - name: Debug settings.xml (safe)
         run: |
           echo "Sanitized settings.xml:"
@@ -102,25 +76,12 @@ jobs:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
-      - name: Upload signed artifacts and bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: signed-artifacts
-          path: |
-            target/*.jar
-            target/*.asc
-            target/*.pom
-            target/central-publishing/central-bundle.zip
-            target/central-staging/**
 
-      - name: Deploy to Maven Central
+      - name: Deploy to Maven Central (with signing)
         run: |
-          echo "Running: mvn deploy"
-          mvn deploy \
-            -Dgpg.skip=true \
+          echo "Running: mvn deploy -Psign-release"
+          mvn deploy -Psign-release \
             -DskipTests=true \
-            -Dmaven.javadoc.skip=true \
-            -Dsource.skip=true \
             -DretryFailedDeploymentCount=3 \
             -Dmaven.wagon.http.timeout=120000 \
             -Dmaven.wagon.http.retryHandler.count=3 \
