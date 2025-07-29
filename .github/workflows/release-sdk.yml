@@ -102,6 +102,17 @@ jobs:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
+      - name: Upload signed artifacts and bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-artifacts
+          path: |
+            target/*.jar
+            target/*.asc
+            target/*.pom
+            target/central-publishing/central-bundle.zip
+            target/central-staging/**
+
       - name: Deploy to Maven Central
         run: |
           echo "Running: mvn deploy"
