@@ -78,6 +78,8 @@ jobs:
 
 
       - name: Deploy to Maven Central (with signing)
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: |
           echo "Running: mvn deploy -Psign-release"
           mvn deploy -Psign-release \
