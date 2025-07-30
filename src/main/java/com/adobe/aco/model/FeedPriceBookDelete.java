@@ -38,65 +38,35 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * Fixed amount discount that reduces the regular price by a specific monetary value. Example: $100
- * regular price with a $10 fixed discount results in $90 final price.
- */
+/** Price book information */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
-public class DiscountsFinalPrice {
-    public static final String SERIALIZED_NAME_CODE = "code";
+public class FeedPriceBookDelete {
+    public static final String SERIALIZED_NAME_PRICE_BOOK_ID = "priceBookId";
 
-    @SerializedName(SERIALIZED_NAME_CODE)
-    private String code;
+    @SerializedName(SERIALIZED_NAME_PRICE_BOOK_ID)
+    private String priceBookId;
 
-    public static final String SERIALIZED_NAME_PRICE = "price";
+    public FeedPriceBookDelete() {}
 
-    @SerializedName(SERIALIZED_NAME_PRICE)
-    private Float price;
-
-    public DiscountsFinalPrice() {}
-
-    public DiscountsFinalPrice code(String code) {
-        this.code = code;
+    public FeedPriceBookDelete priceBookId(String priceBookId) {
+        this.priceBookId = priceBookId;
         return this;
     }
 
     /**
-     * Unique identifier for the discount. Must be unique within the price record. Use descriptive
-     * codes for easier management (e.g., \&quot;loyalty_discount\&quot;,
-     * \&quot;holiday_sale\&quot;).
+     * Price book id
      *
-     * @return code
+     * @return priceBookId
      */
     @javax.annotation.Nonnull
-    public String getCode() {
-        return code;
+    public String getPriceBookId() {
+        return priceBookId;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public DiscountsFinalPrice price(Float price) {
-        this.price = price;
-        return this;
-    }
-
-    /**
-     * Fixed discount amount in the same currency as the price book. Must be a positive number less
-     * than the regular price.
-     *
-     * @return price
-     */
-    @javax.annotation.Nonnull
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setPriceBookId(String priceBookId) {
+        this.priceBookId = priceBookId;
     }
 
     @Override
@@ -107,22 +77,20 @@ public class DiscountsFinalPrice {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DiscountsFinalPrice discountsFinalPrice = (DiscountsFinalPrice) o;
-        return Objects.equals(this.code, discountsFinalPrice.code)
-                && Objects.equals(this.price, discountsFinalPrice.price);
+        FeedPriceBookDelete feedPriceBookDelete = (FeedPriceBookDelete) o;
+        return Objects.equals(this.priceBookId, feedPriceBookDelete.priceBookId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, price);
+        return Objects.hash(priceBookId);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class DiscountsFinalPrice {\n");
-        sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    price: ").append(toIndentedString(price)).append("\n");
+        sb.append("class FeedPriceBookDelete {\n");
+        sb.append("    priceBookId: ").append(toIndentedString(priceBookId)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -144,45 +112,43 @@ public class DiscountsFinalPrice {
     static {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
-        openapiFields.add("code");
-        openapiFields.add("price");
+        openapiFields.add("priceBookId");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("code");
-        openapiRequiredFields.add("price");
+        openapiRequiredFields.add("priceBookId");
     }
 
     /**
      * Validates the JSON Element and throws an exception if issues found
      *
      * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to DiscountsFinalPrice
+     * @throws IOException if the JSON Element is invalid with respect to FeedPriceBookDelete
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!DiscountsFinalPrice.openapiRequiredFields
+            if (!FeedPriceBookDelete.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in DiscountsFinalPrice is not found in the empty JSON string",
-                                DiscountsFinalPrice.openapiRequiredFields.toString()));
+                                "The required field(s) %s in FeedPriceBookDelete is not found in the empty JSON string",
+                                FeedPriceBookDelete.openapiRequiredFields.toString()));
             }
         }
 
         Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
         // check to see if the JSON string contains additional fields
         for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!DiscountsFinalPrice.openapiFields.contains(entry.getKey())) {
+            if (!FeedPriceBookDelete.openapiFields.contains(entry.getKey())) {
                 throw new IllegalArgumentException(
                         String.format(
-                                "The field `%s` in the JSON string is not defined in the `DiscountsFinalPrice` properties. JSON: %s",
+                                "The field `%s` in the JSON string is not defined in the `FeedPriceBookDelete` properties. JSON: %s",
                                 entry.getKey(), jsonElement.toString()));
             }
         }
 
         // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : DiscountsFinalPrice.openapiRequiredFields) {
+        for (String requiredField : FeedPriceBookDelete.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -191,11 +157,11 @@ public class DiscountsFinalPrice {
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("code").isJsonPrimitive()) {
+        if (!jsonObj.get("priceBookId").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
-                            "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("code").toString()));
+                            "Expected the field `priceBookId` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("priceBookId").toString()));
         }
     }
 
@@ -203,24 +169,24 @@ public class DiscountsFinalPrice {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!DiscountsFinalPrice.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'DiscountsFinalPrice' and its subtypes
+            if (!FeedPriceBookDelete.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'FeedPriceBookDelete' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<DiscountsFinalPrice> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(DiscountsFinalPrice.class));
+            final TypeAdapter<FeedPriceBookDelete> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(FeedPriceBookDelete.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<DiscountsFinalPrice>() {
+                    new TypeAdapter<FeedPriceBookDelete>() {
                         @Override
-                        public void write(JsonWriter out, DiscountsFinalPrice value)
+                        public void write(JsonWriter out, FeedPriceBookDelete value)
                                 throws IOException {
                             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public DiscountsFinalPrice read(JsonReader in) throws IOException {
+                        public FeedPriceBookDelete read(JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             validateJsonElement(jsonElement);
                             return thisAdapter.fromJsonTree(jsonElement);
@@ -230,18 +196,18 @@ public class DiscountsFinalPrice {
     }
 
     /**
-     * Create an instance of DiscountsFinalPrice given an JSON string
+     * Create an instance of FeedPriceBookDelete given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of DiscountsFinalPrice
-     * @throws IOException if the JSON string is invalid with respect to DiscountsFinalPrice
+     * @return An instance of FeedPriceBookDelete
+     * @throws IOException if the JSON string is invalid with respect to FeedPriceBookDelete
      */
-    public static DiscountsFinalPrice fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, DiscountsFinalPrice.class);
+    public static FeedPriceBookDelete fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, FeedPriceBookDelete.class);
     }
 
     /**
-     * Convert an instance of DiscountsFinalPrice to an JSON string
+     * Convert an instance of FeedPriceBookDelete to an JSON string
      *
      * @return JSON string
      */

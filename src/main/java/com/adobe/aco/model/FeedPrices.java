@@ -41,7 +41,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/** Product price information. */
+/**
+ * Product price information with support for regular pricing, discounts, and tiered pricing. Each
+ * price record must reference an existing price book and can include multiple discount types and
+ * tiered pricing levels for different quantity thresholds.
+ */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
@@ -66,6 +70,11 @@ public class FeedPrices {
     @SerializedName(SERIALIZED_NAME_DISCOUNTS)
     private List<FeedPricesDiscountsInner> discounts;
 
+    public static final String SERIALIZED_NAME_TIER_PRICES = "tierPrices";
+
+    @SerializedName(SERIALIZED_NAME_TIER_PRICES)
+    private List<FeedPricesTierPricesInner> tierPrices;
+
     public FeedPrices() {}
 
     public FeedPrices sku(String sku) {
@@ -74,7 +83,8 @@ public class FeedPrices {
     }
 
     /**
-     * Product SKU
+     * Product SKU identifier. Must match an existing product in the catalog. For configurable
+     * products, use the variant SKU, not the parent SKU.
      *
      * @return sku
      */
@@ -93,7 +103,8 @@ public class FeedPrices {
     }
 
     /**
-     * Price book id
+     * Price book identifier. Must reference an existing price book. Prices referencing non-existing
+     * price books are ignored.
      *
      * @return priceBookId
      */
@@ -112,7 +123,8 @@ public class FeedPrices {
     }
 
     /**
-     * Regular price
+     * Base price for the product SKU in the specified price book. This is the price before any
+     * discounts or tiered pricing are applied.
      *
      * @return regular
      */
@@ -139,7 +151,8 @@ public class FeedPrices {
     }
 
     /**
-     * Active discounts
+     * Array of active discounts applied to the regular price. Each discount requires a unique code
+     * identifier. Supports both percentage and fixed amount discounts.
      *
      * @return discounts
      */
@@ -150,6 +163,34 @@ public class FeedPrices {
 
     public void setDiscounts(List<FeedPricesDiscountsInner> discounts) {
         this.discounts = discounts;
+    }
+
+    public FeedPrices tierPrices(List<FeedPricesTierPricesInner> tierPrices) {
+        this.tierPrices = tierPrices;
+        return this;
+    }
+
+    public FeedPrices addTierPricesItem(FeedPricesTierPricesInner tierPricesItem) {
+        if (this.tierPrices == null) {
+            this.tierPrices = new ArrayList<>();
+        }
+        this.tierPrices.add(tierPricesItem);
+        return this;
+    }
+
+    /**
+     * Array of tiered pricing for quantity-based discounts. Quantities must be greater than 1 and
+     * should be in ascending order. Supports both percentage and fixed price tiers.
+     *
+     * @return tierPrices
+     */
+    @javax.annotation.Nullable
+    public List<FeedPricesTierPricesInner> getTierPrices() {
+        return tierPrices;
+    }
+
+    public void setTierPrices(List<FeedPricesTierPricesInner> tierPrices) {
+        this.tierPrices = tierPrices;
     }
 
     @Override
@@ -164,12 +205,13 @@ public class FeedPrices {
         return Objects.equals(this.sku, feedPrices.sku)
                 && Objects.equals(this.priceBookId, feedPrices.priceBookId)
                 && Objects.equals(this.regular, feedPrices.regular)
-                && Objects.equals(this.discounts, feedPrices.discounts);
+                && Objects.equals(this.discounts, feedPrices.discounts)
+                && Objects.equals(this.tierPrices, feedPrices.tierPrices);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sku, priceBookId, regular, discounts);
+        return Objects.hash(sku, priceBookId, regular, discounts, tierPrices);
     }
 
     @Override
@@ -180,6 +222,7 @@ public class FeedPrices {
         sb.append("    priceBookId: ").append(toIndentedString(priceBookId)).append("\n");
         sb.append("    regular: ").append(toIndentedString(regular)).append("\n");
         sb.append("    discounts: ").append(toIndentedString(discounts)).append("\n");
+        sb.append("    tierPrices: ").append(toIndentedString(tierPrices)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -205,6 +248,7 @@ public class FeedPrices {
         openapiFields.add("priceBookId");
         openapiFields.add("regular");
         openapiFields.add("discounts");
+        openapiFields.add("tierPrices");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -277,6 +321,24 @@ public class FeedPrices {
                 // validate the optional field `discounts` (array)
                 for (int i = 0; i < jsonArraydiscounts.size(); i++) {
                     FeedPricesDiscountsInner.validateJsonElement(jsonArraydiscounts.get(i));
+                }
+                ;
+            }
+        }
+        if (jsonObj.get("tierPrices") != null && !jsonObj.get("tierPrices").isJsonNull()) {
+            JsonArray jsonArraytierPrices = jsonObj.getAsJsonArray("tierPrices");
+            if (jsonArraytierPrices != null) {
+                // ensure the json data is an array
+                if (!jsonObj.get("tierPrices").isJsonArray()) {
+                    throw new IllegalArgumentException(
+                            String.format(
+                                    "Expected the field `tierPrices` to be an array in the JSON string but got `%s`",
+                                    jsonObj.get("tierPrices").toString()));
+                }
+
+                // validate the optional field `tierPrices` (array)
+                for (int i = 0; i < jsonArraytierPrices.size(); i++) {
+                    FeedPricesTierPricesInner.validateJsonElement(jsonArraytierPrices.get(i));
                 }
                 ;
             }
