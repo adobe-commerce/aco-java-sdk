@@ -24,8 +24,8 @@ package com.adobe.aco.client;
 import com.adobe.aco.model.FeedMetadata;
 import com.adobe.aco.model.FeedMetadataDelete;
 import com.adobe.aco.model.FeedMetadataUpdate;
+import com.adobe.aco.model.FeedPriceBookDelete;
 import com.adobe.aco.model.FeedPricebook;
-import com.adobe.aco.model.FeedPricebookDelete;
 import com.adobe.aco.model.FeedPrices;
 import com.adobe.aco.model.FeedPricesDelete;
 import com.adobe.aco.model.FeedPricesUpdate;
@@ -55,6 +55,7 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse createProductMetadata(List<FeedMetadata> data);
+
     /**
      * Delete product attributes metadata Remove product attribute metadata resources from the
      * catalog data.
@@ -64,6 +65,7 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data);
+
     /**
      * Update product attribute metadata Update existing product attribute metadata with new values.
      * When the update is processed, the merge strategy is used to apply changes to `scalar` and
@@ -74,6 +76,7 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data);
+
     /**
      * Create price books Create or replace existing price books. Use the [update price books
      * operation](#operation/updatePriceBooks) to modify values for existing price books.
@@ -87,6 +90,7 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse createPriceBooks(List<FeedPricebook> data);
+
     /**
      * Delete price books When you delete a price book, all its child price books and all prices
      * assigned to the `priceBookId` and its children are also deleted. If a price book is deleted
@@ -96,11 +100,12 @@ public interface Client {
      * price books and prices are restored to the status and price values assigned when the price
      * book was deleted.
      *
-     * @param data payload of type List<FeedPricebookDelete>
+     * @param data payload of type List<FeedPriceBookDelete>
      * @return ProcessFeedResponse indicating the result of the ingestion.
      * @throws RuntimeException if the API request fails
      */
-    ProcessFeedResponse deletePriceBooks(List<FeedPricebookDelete> data);
+    ProcessFeedResponse deletePriceBooks(List<FeedPriceBookDelete> data);
+
     /**
      * Update price books Change the name of a base or child price book, or change the currency
      * assigned to the base price book. When you submit the update request for a child price book,
@@ -112,20 +117,43 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse updatePriceBooks(List<FeedPricebook> data);
+
     /**
-     * Create prices Create or replace existing product prices.
+     * Create prices Create or replace existing product prices with support for regular pricing,
+     * discounts, and tiered pricing.
      *
-     * <h3>Configurable Products</h3>
+     * <h3>Pricing structure</h3>
+     *
+     * Each price record can include: * **Regular Price** - The base price for the product SKU *
+     * **Discounts** - Percentage or fixed amount discounts applied to the regular price * **Tiered
+     * Pricing** - Quantity-based pricing for bulk purchases
+     *
+     * <h3>Discount configuration</h3>
+     *
+     * Discounts can be configured in two ways: * **Fixed Amount Discounts** - Use `price` field to
+     * specify a fixed discount amount (e.g., 10.00 for $10 off) * **Percentage Discounts** - Use
+     * `percentage` field to specify a discount percentage (e.g., 20 for 20% off) Each discount
+     * requires a unique `code` identifier to distinguish between different discount types.
+     *
+     * <h3>Tiered pricing</h3>
+     *
+     * Tiered pricing offers different prices based on purchase quantity: * **Tier Fixed Prices** -
+     * Use `price` field with `qty` to specify quantity-based fixed prices * **Tier Percentage
+     * Discounts** - Use `percentage` field with `qty` to specify quantity-based percentage
+     * discounts Tier quantities must be greater than 1.
+     *
+     * <h3>Pricing for configurable products</h3>
      *
      * Because configurable product price is calculated based on the price of the selected product
-     * variant, you don't need to send price data for configurable product skus. Sending price data
-     * for these skus can cause incorrect price calculations.
+     * variant, you don't need to send price data for configurable product SKUs. Sending price data
+     * for these SKUs can cause incorrect price calculations.
      *
      * @param data payload of type List<FeedPrices>
      * @return ProcessFeedResponse indicating the result of the ingestion.
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse createPrices(List<FeedPrices> data);
+
     /**
      * Delete prices Delete existing product prices
      *
@@ -134,16 +162,36 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse deletePrices(List<FeedPricesDelete> data);
+
     /**
-     * Update prices Change existing product prices When the update is processed, the merge strategy
-     * is used to apply changes to `scalar` and `object` type fields. The replace strategy is used
-     * to apply changes for fields in an `array`.
+     * Update prices Change existing product prices, discounts, and tiered pricing. When the update
+     * is processed, the merge strategy is used to apply changes to `scalar` and `object` type
+     * fields. The replace strategy is used to apply changes for fields in an `array`.
+     *
+     * <h3>Update strategies</h3>
+     *
+     * * **Regular Price** - Updated using merge strategy * **Discounts Array** - Updated using
+     * replace strategy (entire array is replaced) * **Tiered Pricing Array** - Updated using
+     * replace strategy (entire array is replaced)
+     *
+     * <h3>Discount and tier pricing updates</h3>
+     *
+     * When updating discounts or tiered pricing: * Include all desired discounts/tiers in the array
+     * * The entire array replaces the existing configuration * To remove all discounts/tiers, send
+     * an empty array * To add new discounts/tiers, include both existing and new items
+     *
+     * <h3>Best practices</h3>
+     *
+     * * Always include the complete array of discounts/tiers when updating * Use descriptive
+     * discount codes for easier management * Ensure tier quantities are in ascending order * Test
+     * updates in a development environment first
      *
      * @param data payload of type List<FeedPricesUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data);
+
     /**
      * Create or replace products You can create different types of products, such as simple
      * products and configurable products. When creating products: - Each product requires a unique
@@ -154,13 +202,13 @@ public interface Client {
      * product. - You can create multiple products in a single request, and also create product
      * variants for configurable products in the same request.
      *
-     * <h3 id=\"simpleProducts\">Simple Products</h3>
+     * <h3 id=\"simpleProducts\">Simple products</h3>
      *
      * Create products or replace existing products with specified `sku` and `source` values. Use
      * the <strong>[update operation](#operation/updateProducts)</strong> to modify values for an
      * existing product.
      *
-     * <h3>Configurable Products</h3>
+     * <h3 id=\"configurableProducts\">Configurable products</h3>
      *
      * A configurable product is a parent product that allows customers to select from multiple
      * predefined attributes such as color, size, and material. Each unique combination of these
@@ -199,7 +247,7 @@ public interface Client {
      * to `null` and unassign the product variant from the configurable product by removing the
      * [\"links\"](#operation/createProducts!path=links&t=request) association.
      *
-     * <h3>Bundle Products</h3>
+     * <h3>Bundle products</h3>
      *
      * A bundle product combines several simple products into one sellable unit. Items within the
      * bundle can be categorized into logical groups like `tops`, `bottoms`, and `accessories`. Each
@@ -226,6 +274,7 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse createProducts(List<FeedProduct> data);
+
     /**
      * Delete products Delete products with specified `sku`` and `source`` values
      *
@@ -234,6 +283,7 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse deleteProducts(List<FeedProductDelete> data);
+
     /**
      * Update products Update products with specified `sku` and `source` values to replace existing
      * field data with the data supplied in the request. When the update is processed, the merge

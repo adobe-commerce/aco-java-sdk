@@ -214,6 +214,7 @@ public class FeedPricebook extends AbstractOpenApiSchema {
     public PriceBookBase getPriceBookBase() throws ClassCastException {
         return (PriceBookBase) super.getActualInstance();
     }
+
     /**
      * Get the actual instance of `PriceBookChild`. If the actual instance is not `PriceBookChild`,
      * the ClassCastException will be thrown.
