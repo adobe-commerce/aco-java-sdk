@@ -39,64 +39,63 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Fixed amount discount that reduces the regular price by a specific monetary value. Example: $100
- * regular price with a $10 fixed discount results in $90 final price.
+ * Percentage discount applied when purchasing at or above a specific quantity threshold. Example:
+ * $100 regular price with 20% discount for quantity of 10 or more.
  */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
-public class DiscountsFinalPrice {
-    public static final String SERIALIZED_NAME_CODE = "code";
+public class TierPercentage {
+    public static final String SERIALIZED_NAME_QTY = "qty";
 
-    @SerializedName(SERIALIZED_NAME_CODE)
-    private String code;
+    @SerializedName(SERIALIZED_NAME_QTY)
+    private Float qty;
 
-    public static final String SERIALIZED_NAME_PRICE = "price";
+    public static final String SERIALIZED_NAME_PERCENTAGE = "percentage";
 
-    @SerializedName(SERIALIZED_NAME_PRICE)
-    private Float price;
+    @SerializedName(SERIALIZED_NAME_PERCENTAGE)
+    private Float percentage;
 
-    public DiscountsFinalPrice() {}
+    public TierPercentage() {}
 
-    public DiscountsFinalPrice code(String code) {
-        this.code = code;
+    public TierPercentage qty(Float qty) {
+        this.qty = qty;
         return this;
     }
 
     /**
-     * Unique identifier for the discount. Must be unique within the price record. Use descriptive
-     * codes for easier management (e.g., \&quot;loyalty_discount\&quot;,
-     * \&quot;holiday_sale\&quot;).
+     * Minimum quantity required to qualify for this tier discount. Must be greater than 1 and
+     * should be in ascending order with other tiers.
      *
-     * @return code
+     * @return qty
      */
     @javax.annotation.Nonnull
-    public String getCode() {
-        return code;
+    public Float getQty() {
+        return qty;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setQty(Float qty) {
+        this.qty = qty;
     }
 
-    public DiscountsFinalPrice price(Float price) {
-        this.price = price;
+    public TierPercentage percentage(Float percentage) {
+        this.percentage = percentage;
         return this;
     }
 
     /**
-     * Fixed discount amount in the same currency as the price book. Must be a positive number less
-     * than the regular price.
+     * Discount percentage applied for the specified quantity threshold. Valid range is 0.01 to
+     * 99.99 (1% to 99.99%).
      *
-     * @return price
+     * @return percentage
      */
     @javax.annotation.Nonnull
-    public Float getPrice() {
-        return price;
+    public Float getPercentage() {
+        return percentage;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
+    public void setPercentage(Float percentage) {
+        this.percentage = percentage;
     }
 
     @Override
@@ -107,22 +106,22 @@ public class DiscountsFinalPrice {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        DiscountsFinalPrice discountsFinalPrice = (DiscountsFinalPrice) o;
-        return Objects.equals(this.code, discountsFinalPrice.code)
-                && Objects.equals(this.price, discountsFinalPrice.price);
+        TierPercentage tierPercentage = (TierPercentage) o;
+        return Objects.equals(this.qty, tierPercentage.qty)
+                && Objects.equals(this.percentage, tierPercentage.percentage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, price);
+        return Objects.hash(qty, percentage);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class DiscountsFinalPrice {\n");
-        sb.append("    code: ").append(toIndentedString(code)).append("\n");
-        sb.append("    price: ").append(toIndentedString(price)).append("\n");
+        sb.append("class TierPercentage {\n");
+        sb.append("    qty: ").append(toIndentedString(qty)).append("\n");
+        sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -144,45 +143,45 @@ public class DiscountsFinalPrice {
     static {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
-        openapiFields.add("code");
-        openapiFields.add("price");
+        openapiFields.add("qty");
+        openapiFields.add("percentage");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("code");
-        openapiRequiredFields.add("price");
+        openapiRequiredFields.add("qty");
+        openapiRequiredFields.add("percentage");
     }
 
     /**
      * Validates the JSON Element and throws an exception if issues found
      *
      * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to DiscountsFinalPrice
+     * @throws IOException if the JSON Element is invalid with respect to TierPercentage
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!DiscountsFinalPrice.openapiRequiredFields
+            if (!TierPercentage.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in DiscountsFinalPrice is not found in the empty JSON string",
-                                DiscountsFinalPrice.openapiRequiredFields.toString()));
+                                "The required field(s) %s in TierPercentage is not found in the empty JSON string",
+                                TierPercentage.openapiRequiredFields.toString()));
             }
         }
 
         Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
         // check to see if the JSON string contains additional fields
         for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!DiscountsFinalPrice.openapiFields.contains(entry.getKey())) {
+            if (!TierPercentage.openapiFields.contains(entry.getKey())) {
                 throw new IllegalArgumentException(
                         String.format(
-                                "The field `%s` in the JSON string is not defined in the `DiscountsFinalPrice` properties. JSON: %s",
+                                "The field `%s` in the JSON string is not defined in the `TierPercentage` properties. JSON: %s",
                                 entry.getKey(), jsonElement.toString()));
             }
         }
 
         // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : DiscountsFinalPrice.openapiRequiredFields) {
+        for (String requiredField : TierPercentage.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -191,36 +190,29 @@ public class DiscountsFinalPrice {
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("code").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `code` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("code").toString()));
-        }
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!DiscountsFinalPrice.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'DiscountsFinalPrice' and its subtypes
+            if (!TierPercentage.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'TierPercentage' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<DiscountsFinalPrice> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(DiscountsFinalPrice.class));
+            final TypeAdapter<TierPercentage> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(TierPercentage.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<DiscountsFinalPrice>() {
+                    new TypeAdapter<TierPercentage>() {
                         @Override
-                        public void write(JsonWriter out, DiscountsFinalPrice value)
-                                throws IOException {
+                        public void write(JsonWriter out, TierPercentage value) throws IOException {
                             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public DiscountsFinalPrice read(JsonReader in) throws IOException {
+                        public TierPercentage read(JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             validateJsonElement(jsonElement);
                             return thisAdapter.fromJsonTree(jsonElement);
@@ -230,18 +222,18 @@ public class DiscountsFinalPrice {
     }
 
     /**
-     * Create an instance of DiscountsFinalPrice given an JSON string
+     * Create an instance of TierPercentage given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of DiscountsFinalPrice
-     * @throws IOException if the JSON string is invalid with respect to DiscountsFinalPrice
+     * @return An instance of TierPercentage
+     * @throws IOException if the JSON string is invalid with respect to TierPercentage
      */
-    public static DiscountsFinalPrice fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, DiscountsFinalPrice.class);
+    public static TierPercentage fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, TierPercentage.class);
     }
 
     /**
-     * Convert an instance of DiscountsFinalPrice to an JSON string
+     * Convert an instance of TierPercentage to an JSON string
      *
      * @return JSON string
      */

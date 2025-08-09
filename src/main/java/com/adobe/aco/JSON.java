@@ -123,15 +123,17 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedMetadataUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.FeedPricebook.CustomTypeAdapterFactory());
+                new com.adobe.aco.model.FeedPriceBookDelete.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.FeedPricebookDelete.CustomTypeAdapterFactory());
+                new com.adobe.aco.model.FeedPricebook.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPrices.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPricesDelete.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPricesDiscountsInner.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedPricesTierPricesInner.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPricesUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -140,8 +142,6 @@ public class JSON {
                 new com.adobe.aco.model.FeedProductDelete.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedProductUpdate.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.ItemFailedValidationResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.Model400ProcessFeedResponse.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -176,6 +176,10 @@ public class JSON {
                 new com.adobe.aco.model.ProductRoutes.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.Source.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.TierFinalPrice.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.TierPercentage.CustomTypeAdapterFactory());
         gson = gsonBuilder.create();
     }
 
