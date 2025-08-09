@@ -66,11 +66,6 @@ public class FeedPricesUpdate {
     @SerializedName(SERIALIZED_NAME_DISCOUNTS)
     private List<FeedPricesDiscountsInner> discounts;
 
-    public static final String SERIALIZED_NAME_TIER_PRICES = "tierPrices";
-
-    @SerializedName(SERIALIZED_NAME_TIER_PRICES)
-    private List<FeedPricesTierPricesInner> tierPrices;
-
     public FeedPricesUpdate() {}
 
     public FeedPricesUpdate sku(String sku) {
@@ -157,33 +152,6 @@ public class FeedPricesUpdate {
         this.discounts = discounts;
     }
 
-    public FeedPricesUpdate tierPrices(List<FeedPricesTierPricesInner> tierPrices) {
-        this.tierPrices = tierPrices;
-        return this;
-    }
-
-    public FeedPricesUpdate addTierPricesItem(FeedPricesTierPricesInner tierPricesItem) {
-        if (this.tierPrices == null) {
-            this.tierPrices = new ArrayList<>();
-        }
-        this.tierPrices.add(tierPricesItem);
-        return this;
-    }
-
-    /**
-     * Tier prices for quantities greater-than one
-     *
-     * @return tierPrices
-     */
-    @javax.annotation.Nullable
-    public List<FeedPricesTierPricesInner> getTierPrices() {
-        return tierPrices;
-    }
-
-    public void setTierPrices(List<FeedPricesTierPricesInner> tierPrices) {
-        this.tierPrices = tierPrices;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -196,13 +164,12 @@ public class FeedPricesUpdate {
         return Objects.equals(this.sku, feedPricesUpdate.sku)
                 && Objects.equals(this.priceBookId, feedPricesUpdate.priceBookId)
                 && Objects.equals(this.regular, feedPricesUpdate.regular)
-                && Objects.equals(this.discounts, feedPricesUpdate.discounts)
-                && Objects.equals(this.tierPrices, feedPricesUpdate.tierPrices);
+                && Objects.equals(this.discounts, feedPricesUpdate.discounts);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sku, priceBookId, regular, discounts, tierPrices);
+        return Objects.hash(sku, priceBookId, regular, discounts);
     }
 
     @Override
@@ -213,7 +180,6 @@ public class FeedPricesUpdate {
         sb.append("    priceBookId: ").append(toIndentedString(priceBookId)).append("\n");
         sb.append("    regular: ").append(toIndentedString(regular)).append("\n");
         sb.append("    discounts: ").append(toIndentedString(discounts)).append("\n");
-        sb.append("    tierPrices: ").append(toIndentedString(tierPrices)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -239,7 +205,6 @@ public class FeedPricesUpdate {
         openapiFields.add("priceBookId");
         openapiFields.add("regular");
         openapiFields.add("discounts");
-        openapiFields.add("tierPrices");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -311,24 +276,6 @@ public class FeedPricesUpdate {
                 // validate the optional field `discounts` (array)
                 for (int i = 0; i < jsonArraydiscounts.size(); i++) {
                     FeedPricesDiscountsInner.validateJsonElement(jsonArraydiscounts.get(i));
-                }
-                ;
-            }
-        }
-        if (jsonObj.get("tierPrices") != null && !jsonObj.get("tierPrices").isJsonNull()) {
-            JsonArray jsonArraytierPrices = jsonObj.getAsJsonArray("tierPrices");
-            if (jsonArraytierPrices != null) {
-                // ensure the json data is an array
-                if (!jsonObj.get("tierPrices").isJsonArray()) {
-                    throw new IllegalArgumentException(
-                            String.format(
-                                    "Expected the field `tierPrices` to be an array in the JSON string but got `%s`",
-                                    jsonObj.get("tierPrices").toString()));
-                }
-
-                // validate the optional field `tierPrices` (array)
-                for (int i = 0; i < jsonArraytierPrices.size(); i++) {
-                    FeedPricesTierPricesInner.validateJsonElement(jsonArraytierPrices.get(i));
                 }
                 ;
             }

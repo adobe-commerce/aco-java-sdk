@@ -97,7 +97,7 @@ public class ClientImpl implements Client {
 
     /** {@inheritDoc} */
     @Override
-    public ProcessFeedResponse deletePriceBooks(List<FeedPriceBookDelete> data) {
+    public ProcessFeedResponse deletePriceBooks(List<FeedPricebookDelete> data) {
         try {
             String body = mapper.writeValueAsString(data);
             HttpRequest.Builder builder =
