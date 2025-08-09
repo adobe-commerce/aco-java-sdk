@@ -91,6 +91,14 @@ jobs:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
+      - name: Fail if version still has -SNAPSHOT
+        run: |
+          V=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Effective version: $V"
+          if [[ "$V" == *"-SNAPSHOT" ]]; then
+            echo "ERROR: Version still contains -SNAPSHOT. Aborting publish."
+            exit 1
+          fi
 
       - name: Deploy to Maven Central (with signing)
         env:
@@ -104,6 +112,52 @@ jobs:
             -Dmaven.wagon.http.retryHandler.count=3 \
             -Dmaven.wagon.httpconnectionManager.maxPerHost=2 \
             -Dmaven.wagon.httpconnectionManager.ttlSeconds=60
+
+      - name: Commit POM version bump to main
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.extract_version.outputs.release-version }}
+          git config user.name "github-actions[bot]"
+          git config user.email "action@github.com"
+          git add pom.xml
+          git commit -m "release: set version ${VERSION}"
+          git push origin HEAD:main
+
+      - name: Create tag v<version>
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        run: |
+          VERSION=${{ steps.extract_version.outputs.release-version }}
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+          
+      - name: Create GitHub Release (no assets)
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.extract_version.outputs.release-version }}
+          name: Release ${{ steps.extract_version.outputs.release-version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump to next snapshot
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CURRENT=${{ steps.extract_version.outputs.release-version }}
+          # Calcula siguiente versión de patch: X.Y.(Z+1)-SNAPSHOT
+          IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
+          NEXT="$MAJ.$MIN.$((PAT+1))-SNAPSHOT"
+          echo "Setting next dev version: $NEXT"
+          mvn versions:set -DnewVersion="$NEXT" -q
+          mvn versions:commit -q
+          git add pom.xml
+          git commit -m "chore: start next dev cycle $NEXT"
+          git push origin HEAD:main          
 
       - name: Upload all artifacts (post-deploy)
         if: always()
