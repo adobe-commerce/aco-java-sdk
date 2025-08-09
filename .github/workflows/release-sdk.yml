@@ -21,9 +21,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
-          server-id: central
-          server-username: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          server-password: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
 
       - name: Extract version from pom.xml
         id: get_version
@@ -31,6 +28,24 @@ jobs:
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
           echo "VERSION=$VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+      - name: Generate custom settings.xml with expanded credentials
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>central</id>
+                <username>${{ secrets.MAVEN_CENTRAL_USERNAME }}</username>
+                <password>${{ secrets.MAVEN_CENTRAL_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+          echo "Created ~/.m2/settings.xml with expanded credentials"
 
       - name: Show extracted version
         run: echo "Current version is ${{ steps.get_version.outputs.version }}"
