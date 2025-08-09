@@ -38,10 +38,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * Percentage discount that reduces the regular price by a specified percentage. Example: $100
- * regular price with a 20% discount results in $80 final price.
- */
+/** DiscountsPercentage */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
@@ -64,8 +61,7 @@ public class DiscountsPercentage {
     }
 
     /**
-     * Unique identifier for the discount. Must be unique within the price record. Use descriptive
-     * codes for easier management (e.g., \&quot;seasonal_sale\&quot;, \&quot;vip_member\&quot;).
+     * Get code
      *
      * @return code
      */
@@ -84,7 +80,7 @@ public class DiscountsPercentage {
     }
 
     /**
-     * Discount percentage as a positive number. Valid range is 0.01 to 99.99 (1% to 99.99%).
+     * Get percentage
      *
      * @return percentage
      */
