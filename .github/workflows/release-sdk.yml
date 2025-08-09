@@ -2,10 +2,167 @@ name: Release SDK
 
 on:
   workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'If true, simulate the commands without executing them'
+        required: false
+        default: 'true'
 
 jobs:
-  noop:
+  read-version:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Placeholder step
-        run: echo "Release workflow ready"
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Extract version from pom.xml
+        id: get_version
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "VERSION=$VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          
+      - name: Generate custom settings.xml with expanded credentials
+        run: |
+          mkdir -p ~/.m2
+          cat > ~/.m2/settings.xml <<EOF
+          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>central</id>
+                <username>${{ secrets.MAVEN_CENTRAL_USERNAME }}</username>
+                <password>${{ secrets.MAVEN_CENTRAL_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+          echo "Created ~/.m2/settings.xml with expanded credentials"
+
+      - name: Show extracted version
+        run: echo "Current version is ${{ steps.get_version.outputs.version }}"
+
+      - name: Extract release version
+        id: extract_version
+        run: |
+          RAW_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          RELEASE_VERSION=${RAW_VERSION/-SNAPSHOT/}
+          echo "RELEASE_VERSION=$RELEASE_VERSION"
+          echo "release-version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Set release version in pom.xml (temporary)
+        run: |
+          RELEASE_VERSION=${{ steps.extract_version.outputs.release-version }}
+          echo "Temporarily setting version to $RELEASE_VERSION"
+          mvn versions:set -DnewVersion=$RELEASE_VERSION
+          mvn versions:commit
+
+      - name: Confirm version after set
+        run: mvn help:evaluate -Dexpression=project.version -q -DforceStdout
+
+      - name: Import GPG key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --yes --import
+          mkdir -p ~/.gnupg
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo RELOADAGENT | gpg-connect-agent
+
+      - name: Debug settings.xml (safe)
+        run: |
+          echo "Sanitized settings.xml:"
+          cat ~/.m2/settings.xml
+          
+          echo ""
+          echo "Preview secrets:"
+          echo "MAVEN_CENTRAL_USERNAME starts with: ${MAVEN_CENTRAL_USERNAME:0:3}***"
+          echo "MAVEN_CENTRAL_TOKEN starts with: ${MAVEN_CENTRAL_TOKEN:0:3}***"
+        env:
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_TOKEN: ${{ secrets.MAVEN_CENTRAL_TOKEN }}
+
+      - name: Fail if version still has -SNAPSHOT
+        run: |
+          V=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          echo "Effective version: $V"
+          if [[ "$V" == *"-SNAPSHOT" ]]; then
+            echo "ERROR: Version still contains -SNAPSHOT. Aborting publish."
+            exit 1
+          fi
+
+      - name: Deploy to Maven Central (with signing)
+        env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          echo "Running: mvn deploy -Psign-release -X"
+          mvn deploy -Psign-release -X \
+            -DskipTests=true \
+            -DretryFailedDeploymentCount=3 \
+            -Dmaven.wagon.http.timeout=120000 \
+            -Dmaven.wagon.http.retryHandler.count=3 \
+            -Dmaven.wagon.httpconnectionManager.maxPerHost=2 \
+            -Dmaven.wagon.httpconnectionManager.ttlSeconds=60
+
+      - name: Commit POM version bump to main
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.extract_version.outputs.release-version }}
+          git config user.name "github-actions[bot]"
+          git config user.email "action@github.com"
+          git add pom.xml
+          git commit -m "release: set version ${VERSION}"
+          git push origin HEAD:main
+
+      - name: Create tag v<version>
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        run: |
+          VERSION=${{ steps.extract_version.outputs.release-version }}
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+          
+      - name: Create GitHub Release (no assets)
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.extract_version.outputs.release-version }}
+          name: Release ${{ steps.extract_version.outputs.release-version }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Bump to next snapshot
+        if: ${{ github.event.inputs.dry-run != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CURRENT=${{ steps.extract_version.outputs.release-version }}
+          # Calcula siguiente versión de patch: X.Y.(Z+1)-SNAPSHOT
+          IFS='.' read -r MAJ MIN PAT <<< "$CURRENT"
+          NEXT="$MAJ.$MIN.$((PAT+1))-SNAPSHOT"
+          echo "Setting next dev version: $NEXT"
+          mvn versions:set -DnewVersion="$NEXT" -q
+          mvn versions:commit -q
+          git add pom.xml
+          git commit -m "chore: start next dev cycle $NEXT"
+          git push origin HEAD:main          
+
+      - name: Upload all artifacts (post-deploy)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: full-publish-output
+          path: |
+            target/central-publishing/central-bundle.zip
