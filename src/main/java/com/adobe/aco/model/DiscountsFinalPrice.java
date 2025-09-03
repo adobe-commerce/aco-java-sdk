@@ -38,7 +38,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/** DiscountsFinalPrice */
+/**
+ * Fixed amount discount that reduces the regular price by a specific monetary value. Example: $100
+ * regular price with a $10 fixed discount results in $90 final price.
+ */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
@@ -61,7 +64,9 @@ public class DiscountsFinalPrice {
     }
 
     /**
-     * Get code
+     * Unique identifier for the discount. Must be unique within the price record. Use descriptive
+     * codes for easier management (e.g., \&quot;loyalty_discount\&quot;,
+     * \&quot;holiday_sale\&quot;).
      *
      * @return code
      */
@@ -80,7 +85,8 @@ public class DiscountsFinalPrice {
     }
 
     /**
-     * Get price
+     * Fixed discount amount in the same currency as the price book. Must be a positive number less
+     * than the regular price.
      *
      * @return price
      */
