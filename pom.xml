@@ -267,7 +267,7 @@
                                         <argument>-s</argument>
                                         <argument>-o</argument>
                                         <argument>${project.basedir}/generator/catalog-ingestion-openapi-spec.yaml</argument>
-                                        <argument>https://raw.githubusercontent.com/AdobeDocs/commerce-services/refs/heads/ccdm-early-access/src/openapi/data-ingestion-schema-v1.yaml</argument>
+                                        <argument>https://raw.githubusercontent.com/AdobeDocs/commerce-services/refs/heads/main/static/rest/data-ingestion-schema-v1.yaml</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
