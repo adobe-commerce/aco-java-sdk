@@ -179,8 +179,8 @@ public class FeedPrices {
     }
 
     /**
-     * Array of tiered pricing for quantity-based discounts. Quantities must be greater than 1 and
-     * should be in ascending order. Supports both percentage and fixed price tiers.
+     * Array of tiered pricing for quantity-based discounts. Quantities must be greater than 1.
+     * Supports both percentage and fixed price tiers.
      *
      * @return tierPrices
      */

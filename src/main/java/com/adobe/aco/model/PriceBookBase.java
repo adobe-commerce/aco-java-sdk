@@ -66,7 +66,8 @@ public class PriceBookBase {
     }
 
     /**
-     * Base price book id
+     * Unique identifier for the base price book. Must be unique across all price books. Used to
+     * reference this price book in child price books and pricing data.
      *
      * @return priceBookId
      */
@@ -85,7 +86,7 @@ public class PriceBookBase {
     }
 
     /**
-     * Price book name
+     * Human-readable name for the price book. Used for display and identification purposes.
      *
      * @return name
      */
@@ -104,7 +105,8 @@ public class PriceBookBase {
     }
 
     /**
-     * Price book currency
+     * Currency code that applies to this price book and all its child price books in ISO format.
+     * Child price books inherit this currency and cannot override it.
      *
      * @return currency
      */

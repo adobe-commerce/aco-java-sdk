@@ -39,8 +39,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Percentage discount applied when purchasing at or above a specific quantity threshold. Example:
- * $100 regular price with 20% discount for quantity of 10 or more.
+ * Percentage discount applied to the regular price when purchasing at or above a specific quantity
+ * threshold. Example: $100 regular price with 20% discount for quantity of 10 or more.
  */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -64,8 +64,7 @@ public class TierPercentage {
     }
 
     /**
-     * Minimum quantity required to qualify for this tier discount. Must be greater than 1 and
-     * should be in ascending order with other tiers.
+     * Minimum quantity required to qualify for this tier discount. Must be greater than 1.
      *
      * @return qty
      */
@@ -84,8 +83,8 @@ public class TierPercentage {
     }
 
     /**
-     * Discount percentage applied for the specified quantity threshold. Valid range is 0.01 to
-     * 99.99 (1% to 99.99%).
+     * Discount percentage applied to the specified quantity threshold. Valid range is 0.01 to 99.99
+     * (1% to 99.99%).
      *
      * @return percentage
      */
