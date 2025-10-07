@@ -38,6 +38,49 @@ public class ClientImpl implements Client {
 
     /** {@inheritDoc} */
     @Override
+    public ProcessFeedResponse createCategories(List<FeedCategory> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
+
+            return http.request("/v1/catalog/categories", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/categories failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deleteCategories(List<FeedCategoryDelete> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
+
+            return http.request(
+                    "/v1/catalog/categories/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/categories/delete failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse updateCategories(List<FeedCategoryUpdate> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
+
+            return http.request("/v1/catalog/categories", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/categories failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public ProcessFeedResponse createProductMetadata(List<FeedMetadata> data) {
         try {
             String body = mapper.writeValueAsString(data);

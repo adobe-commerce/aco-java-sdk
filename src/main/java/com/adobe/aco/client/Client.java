@@ -21,6 +21,9 @@
  **************************************************************************/
 package com.adobe.aco.client;
 
+import com.adobe.aco.model.FeedCategory;
+import com.adobe.aco.model.FeedCategoryDelete;
+import com.adobe.aco.model.FeedCategoryUpdate;
 import com.adobe.aco.model.FeedMetadata;
 import com.adobe.aco.model.FeedMetadataDelete;
 import com.adobe.aco.model.FeedMetadataUpdate;
@@ -36,6 +39,57 @@ import com.adobe.aco.model.ProcessFeedResponse;
 import java.util.List;
 
 public interface Client {
+    /**
+     * Create categories Create new categories with hierarchical structure and slug-based paths.
+     * Categories organize products into logical groups and support nested hierarchies. When
+     * creating categories: - Each category requires a unique `slug` and `source`. - Use the `slug`
+     * field in a hierarchical format like men/clothing/pants' to create parent-child relationships
+     * - The category `slug` string can contain only lowercase letters, numbers, and hyphens. - Use
+     * the `name` field to define the display name for the category. - Use the optional `families`
+     * field to associate categories with product families for enhanced organization. To update
+     * existing categories, use the update operation.
+     *
+     * @param data payload of type List<FeedCategory>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse createCategories(List<FeedCategory> data);
+
+    /**
+     * Delete categories Delete categories and all their associated children
+     *
+     * <h3>Cascading Deletion</h3>
+     *
+     * When you delete a category: * **Child categories**: All child categories in the hierarchy are
+     * deleted automatically * **Hierarchy Impact**: The entire branch below the deleted category is
+     * removed
+     *
+     * <h3>Recovery Options</h3>
+     *
+     * If a category is deleted by mistake: * **Time Window**: You have up to one week to restore
+     * deleted categories * **Restoration Method**: Recreate the top-level deleted category using
+     * the [update operation](#operation/createCategories) * **State Recovery**: Categories are
+     * restored to their exact state from the time of deletion, including all metadata, family
+     * associations, and hierarchy relationships * **Hierarchy Reconstruction**: The entire
+     * hierarchy is rebuilt from the restoration payload
+     *
+     * @param data payload of type List<FeedCategoryDelete>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse deleteCategories(List<FeedCategoryDelete> data);
+
+    /**
+     * Update categories Update existing product categories with new values. When the update is
+     * processed, the merge strategy is used to apply changes to `scalar` and `object` type fields.
+     * The replace strategy is used to apply changes for fields in an `array`.
+     *
+     * @param data payload of type List<FeedCategoryUpdate>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse updateCategories(List<FeedCategoryUpdate> data);
+
     /**
      * Create product attribute metadata To ensure product data is indexed for discovery, create or
      * replace existing product attribute metadata resources before creating products. For each
@@ -223,13 +277,15 @@ public interface Client {
     /**
      * Update prices Change existing product prices, discounts, and tiered pricing. When the update
      * is processed, the merge strategy is used to apply changes to `scalar` and `object` type
-     * fields. The replace strategy is used to apply changes for fields in an `array`.
+     * fields. For `array` type fields, a new value can be appended to the existing list. For an
+     * object list, you can update a specific object by matching on a key field. The following
+     * fields are supported: * `discounts` - match on `code` * `tierPrices` - match on `qty`
      *
      * <h3>Update strategies</h3>
      *
-     * * **Regular Price** - Updated using merge strategy * **Discounts Array** - Updated using
-     * replace strategy (entire array is replaced) * **Tiered Pricing Array** - Updated using
-     * replace strategy (entire array is replaced)
+     * * **Regular Price** - Updated using merge strategy * **Discounts Array** - Updated using the
+     * append or merge strategy * **Tiered Pricing Array** - Updated using the append or merge
+     * strategy
      *
      * <h3>Discount and tier pricing updates</h3>
      *
@@ -344,8 +400,13 @@ public interface Client {
     /**
      * Update products Update products with specified `sku` and `source` values to replace existing
      * field data with the data supplied in the request. When the update is processed, the merge
-     * strategy is used to apply changes to `scalar` and `object` type fields. The replace strategy
-     * is used to apply changes for fields in an `array`.
+     * strategy is used to apply changes to `scalar` and `object` type fields. For `array` type
+     * fields, a new value can be appended to the existing list. For an object list, you can update
+     * a specific object by matching on a key field. The following fields are supported: *
+     * `attributes` - match on `code` * `images` - match on `url` * `routes` - match on `path` *
+     * `links` - match on `type` and `sku` * `bundles` match on `type` and `group` *
+     * `configurations` match on `type` and `attributeCode` * `externalIds` match on `type` and
+     * `origin`
      *
      * @param data payload of type List<FeedProductUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
