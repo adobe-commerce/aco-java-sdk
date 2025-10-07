@@ -115,6 +115,12 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.DiscountsPercentage.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedCategory.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedCategoryDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedCategoryUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedItemFailedValidationResult.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedMetadata.CustomTypeAdapterFactory());

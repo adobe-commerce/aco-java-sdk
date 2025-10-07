@@ -38,35 +38,61 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/** Source of the entity, for example, \&quot;en-US\&quot; for US English. */
+/** Delete category information for removing categories from the catalog. */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
-public class Source {
-    public static final String SERIALIZED_NAME_LOCALE = "locale";
+public class FeedCategoryDelete {
+    public static final String SERIALIZED_NAME_SLUG = "slug";
 
-    @SerializedName(SERIALIZED_NAME_LOCALE)
-    private String locale;
+    @SerializedName(SERIALIZED_NAME_SLUG)
+    private String slug;
 
-    public Source() {}
+    public static final String SERIALIZED_NAME_SOURCE = "source";
 
-    public Source locale(String locale) {
-        this.locale = locale;
+    @SerializedName(SERIALIZED_NAME_SOURCE)
+    private Source source;
+
+    public FeedCategoryDelete() {}
+
+    public FeedCategoryDelete slug(String slug) {
+        this.slug = slug;
         return this;
     }
 
     /**
-     * A single value that represents content locale, for example, English.
+     * Category slug using hierarchical format with forward slashes to represent parent-child
+     * relationships. Must use only lowercase letters, numbers, and hyphens. Examples:
+     * &#39;men&#39;, &#39;men/clothing&#39;, &#39;men/clothing/pants&#39;
      *
-     * @return locale
+     * @return slug
      */
     @javax.annotation.Nonnull
-    public String getLocale() {
-        return locale;
+    public String getSlug() {
+        return slug;
     }
 
-    public void setLocale(String locale) {
-        this.locale = locale;
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public FeedCategoryDelete source(Source source) {
+        this.source = source;
+        return this;
+    }
+
+    /**
+     * Get source
+     *
+     * @return source
+     */
+    @javax.annotation.Nonnull
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
     }
 
     @Override
@@ -77,20 +103,22 @@ public class Source {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Source source = (Source) o;
-        return Objects.equals(this.locale, source.locale);
+        FeedCategoryDelete feedCategoryDelete = (FeedCategoryDelete) o;
+        return Objects.equals(this.slug, feedCategoryDelete.slug)
+                && Objects.equals(this.source, feedCategoryDelete.source);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(locale);
+        return Objects.hash(slug, source);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class Source {\n");
-        sb.append("    locale: ").append(toIndentedString(locale)).append("\n");
+        sb.append("class FeedCategoryDelete {\n");
+        sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
+        sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -112,43 +140,45 @@ public class Source {
     static {
         // a set of all properties/fields (JSON key names)
         openapiFields = new HashSet<String>();
-        openapiFields.add("locale");
+        openapiFields.add("slug");
+        openapiFields.add("source");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
-        openapiRequiredFields.add("locale");
+        openapiRequiredFields.add("slug");
+        openapiRequiredFields.add("source");
     }
 
     /**
      * Validates the JSON Element and throws an exception if issues found
      *
      * @param jsonElement JSON Element
-     * @throws IOException if the JSON Element is invalid with respect to Source
+     * @throws IOException if the JSON Element is invalid with respect to FeedCategoryDelete
      */
     public static void validateJsonElement(JsonElement jsonElement) throws IOException {
         if (jsonElement == null) {
-            if (!Source.openapiRequiredFields
+            if (!FeedCategoryDelete.openapiRequiredFields
                     .isEmpty()) { // has required fields but JSON element is null
                 throw new IllegalArgumentException(
                         String.format(
-                                "The required field(s) %s in Source is not found in the empty JSON string",
-                                Source.openapiRequiredFields.toString()));
+                                "The required field(s) %s in FeedCategoryDelete is not found in the empty JSON string",
+                                FeedCategoryDelete.openapiRequiredFields.toString()));
             }
         }
 
         Set<Map.Entry<String, JsonElement>> entries = jsonElement.getAsJsonObject().entrySet();
         // check to see if the JSON string contains additional fields
         for (Map.Entry<String, JsonElement> entry : entries) {
-            if (!Source.openapiFields.contains(entry.getKey())) {
+            if (!FeedCategoryDelete.openapiFields.contains(entry.getKey())) {
                 throw new IllegalArgumentException(
                         String.format(
-                                "The field `%s` in the JSON string is not defined in the `Source` properties. JSON: %s",
+                                "The field `%s` in the JSON string is not defined in the `FeedCategoryDelete` properties. JSON: %s",
                                 entry.getKey(), jsonElement.toString()));
             }
         }
 
         // check to make sure all required properties/fields are present in the JSON string
-        for (String requiredField : Source.openapiRequiredFields) {
+        for (String requiredField : FeedCategoryDelete.openapiRequiredFields) {
             if (jsonElement.getAsJsonObject().get(requiredField) == null) {
                 throw new IllegalArgumentException(
                         String.format(
@@ -157,35 +187,38 @@ public class Source {
             }
         }
         JsonObject jsonObj = jsonElement.getAsJsonObject();
-        if (!jsonObj.get("locale").isJsonPrimitive()) {
+        if (!jsonObj.get("slug").isJsonPrimitive()) {
             throw new IllegalArgumentException(
                     String.format(
-                            "Expected the field `locale` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("locale").toString()));
+                            "Expected the field `slug` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("slug").toString()));
         }
+        // validate the required field `source`
+        Source.validateJsonElement(jsonObj.get("source"));
     }
 
     public static class CustomTypeAdapterFactory implements TypeAdapterFactory {
         @SuppressWarnings("unchecked")
         @Override
         public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
-            if (!Source.class.isAssignableFrom(type.getRawType())) {
-                return null; // this class only serializes 'Source' and its subtypes
+            if (!FeedCategoryDelete.class.isAssignableFrom(type.getRawType())) {
+                return null; // this class only serializes 'FeedCategoryDelete' and its subtypes
             }
             final TypeAdapter<JsonElement> elementAdapter = gson.getAdapter(JsonElement.class);
-            final TypeAdapter<Source> thisAdapter =
-                    gson.getDelegateAdapter(this, TypeToken.get(Source.class));
+            final TypeAdapter<FeedCategoryDelete> thisAdapter =
+                    gson.getDelegateAdapter(this, TypeToken.get(FeedCategoryDelete.class));
 
             return (TypeAdapter<T>)
-                    new TypeAdapter<Source>() {
+                    new TypeAdapter<FeedCategoryDelete>() {
                         @Override
-                        public void write(JsonWriter out, Source value) throws IOException {
+                        public void write(JsonWriter out, FeedCategoryDelete value)
+                                throws IOException {
                             JsonObject obj = thisAdapter.toJsonTree(value).getAsJsonObject();
                             elementAdapter.write(out, obj);
                         }
 
                         @Override
-                        public Source read(JsonReader in) throws IOException {
+                        public FeedCategoryDelete read(JsonReader in) throws IOException {
                             JsonElement jsonElement = elementAdapter.read(in);
                             validateJsonElement(jsonElement);
                             return thisAdapter.fromJsonTree(jsonElement);
@@ -195,18 +228,18 @@ public class Source {
     }
 
     /**
-     * Create an instance of Source given an JSON string
+     * Create an instance of FeedCategoryDelete given an JSON string
      *
      * @param jsonString JSON string
-     * @return An instance of Source
-     * @throws IOException if the JSON string is invalid with respect to Source
+     * @return An instance of FeedCategoryDelete
+     * @throws IOException if the JSON string is invalid with respect to FeedCategoryDelete
      */
-    public static Source fromJson(String jsonString) throws IOException {
-        return JSON.getGson().fromJson(jsonString, Source.class);
+    public static FeedCategoryDelete fromJson(String jsonString) throws IOException {
+        return JSON.getGson().fromJson(jsonString, FeedCategoryDelete.class);
     }
 
     /**
-     * Convert an instance of Source to an JSON string
+     * Convert an instance of FeedCategoryDelete to an JSON string
      *
      * @return JSON string
      */
