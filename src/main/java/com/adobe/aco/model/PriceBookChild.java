@@ -38,7 +38,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-/** PriceBookChild */
+/**
+ * Nested price book that inherits currency from its parent and can extend the pricing hierarchy.
+ * Child price books can have up to 3 levels of nesting from the base price book.
+ */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
         comments = "Generator version: 7.4.0")
@@ -66,7 +69,8 @@ public class PriceBookChild {
     }
 
     /**
-     * Child price book id
+     * Unique identifier for the child price book. Must be unique across all price books. Used to
+     * reference this price book in pricing data and potential child price books.
      *
      * @return priceBookId
      */
@@ -85,7 +89,7 @@ public class PriceBookChild {
     }
 
     /**
-     * Price book name
+     * Human-readable name for the child price book. Used for display and identification purposes.
      *
      * @return name
      */
@@ -104,7 +108,8 @@ public class PriceBookChild {
     }
 
     /**
-     * Base price book id
+     * Reference to the parent price book ID. Must reference an existing price book. Determines the
+     * currency inheritance and hierarchy level.
      *
      * @return parentId
      */

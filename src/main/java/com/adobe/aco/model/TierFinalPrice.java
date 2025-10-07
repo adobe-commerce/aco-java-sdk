@@ -39,7 +39,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Fixed price offered for bulk purchases at a specific quantity threshold. Example: $100 regular
+ * Final price offered for bulk purchases at a specific quantity threshold. Example: $100 regular
  * price with tier price of $80 for quantity of 5 or more.
  */
 @javax.annotation.Generated(
@@ -64,8 +64,7 @@ public class TierFinalPrice {
     }
 
     /**
-     * Minimum quantity required to qualify for this tier price. Must be greater than 1 and should
-     * be in ascending order with other tiers.
+     * Minimum quantity required to qualify for this tier price. Must be greater than 1.
      *
      * @return qty
      */
