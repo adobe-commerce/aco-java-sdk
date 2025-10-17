@@ -9,6 +9,12 @@ additionalProperties:
   withJson: false
   hideGenerationTimestamp: true
 
+typeMappings:
+  float: java.math.BigDecimal
+
+importMappings:
+  BigDecimal: java.math.BigDecimal
+
 files:
   AdobeCredentials.mustache:
     templateType: SupportingFiles
