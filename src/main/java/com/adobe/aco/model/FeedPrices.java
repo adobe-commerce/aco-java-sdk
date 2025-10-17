@@ -63,7 +63,7 @@ public class FeedPrices {
     public static final String SERIALIZED_NAME_REGULAR = "regular";
 
     @SerializedName(SERIALIZED_NAME_REGULAR)
-    private Float regular;
+    private java.math.BigDecimal regular;
 
     public static final String SERIALIZED_NAME_DISCOUNTS = "discounts";
 
@@ -117,7 +117,7 @@ public class FeedPrices {
         this.priceBookId = priceBookId;
     }
 
-    public FeedPrices regular(Float regular) {
+    public FeedPrices regular(java.math.BigDecimal regular) {
         this.regular = regular;
         return this;
     }
@@ -129,11 +129,11 @@ public class FeedPrices {
      * @return regular
      */
     @javax.annotation.Nonnull
-    public Float getRegular() {
+    public java.math.BigDecimal getRegular() {
         return regular;
     }
 
-    public void setRegular(Float regular) {
+    public void setRegular(java.math.BigDecimal regular) {
         this.regular = regular;
     }
 

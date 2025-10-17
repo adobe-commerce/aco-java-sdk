@@ -49,16 +49,16 @@ public class TierFinalPrice {
     public static final String SERIALIZED_NAME_QTY = "qty";
 
     @SerializedName(SERIALIZED_NAME_QTY)
-    private Float qty;
+    private java.math.BigDecimal qty;
 
     public static final String SERIALIZED_NAME_PRICE = "price";
 
     @SerializedName(SERIALIZED_NAME_PRICE)
-    private Float price;
+    private java.math.BigDecimal price;
 
     public TierFinalPrice() {}
 
-    public TierFinalPrice qty(Float qty) {
+    public TierFinalPrice qty(java.math.BigDecimal qty) {
         this.qty = qty;
         return this;
     }
@@ -69,15 +69,15 @@ public class TierFinalPrice {
      * @return qty
      */
     @javax.annotation.Nonnull
-    public Float getQty() {
+    public java.math.BigDecimal getQty() {
         return qty;
     }
 
-    public void setQty(Float qty) {
+    public void setQty(java.math.BigDecimal qty) {
         this.qty = qty;
     }
 
-    public TierFinalPrice price(Float price) {
+    public TierFinalPrice price(java.math.BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -89,11 +89,11 @@ public class TierFinalPrice {
      * @return price
      */
     @javax.annotation.Nonnull
-    public Float getPrice() {
+    public java.math.BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(java.math.BigDecimal price) {
         this.price = price;
     }
 

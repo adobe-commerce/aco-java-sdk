@@ -49,16 +49,16 @@ public class TierPercentage {
     public static final String SERIALIZED_NAME_QTY = "qty";
 
     @SerializedName(SERIALIZED_NAME_QTY)
-    private Float qty;
+    private java.math.BigDecimal qty;
 
     public static final String SERIALIZED_NAME_PERCENTAGE = "percentage";
 
     @SerializedName(SERIALIZED_NAME_PERCENTAGE)
-    private Float percentage;
+    private java.math.BigDecimal percentage;
 
     public TierPercentage() {}
 
-    public TierPercentage qty(Float qty) {
+    public TierPercentage qty(java.math.BigDecimal qty) {
         this.qty = qty;
         return this;
     }
@@ -69,15 +69,15 @@ public class TierPercentage {
      * @return qty
      */
     @javax.annotation.Nonnull
-    public Float getQty() {
+    public java.math.BigDecimal getQty() {
         return qty;
     }
 
-    public void setQty(Float qty) {
+    public void setQty(java.math.BigDecimal qty) {
         this.qty = qty;
     }
 
-    public TierPercentage percentage(Float percentage) {
+    public TierPercentage percentage(java.math.BigDecimal percentage) {
         this.percentage = percentage;
         return this;
     }
@@ -89,11 +89,11 @@ public class TierPercentage {
      * @return percentage
      */
     @javax.annotation.Nonnull
-    public Float getPercentage() {
+    public java.math.BigDecimal getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Float percentage) {
+    public void setPercentage(java.math.BigDecimal percentage) {
         this.percentage = percentage;
     }
 

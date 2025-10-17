@@ -51,7 +51,7 @@ public class ProductBundleItem {
     public static final String SERIALIZED_NAME_QTY = "qty";
 
     @SerializedName(SERIALIZED_NAME_QTY)
-    private Float qty;
+    private java.math.BigDecimal qty;
 
     public static final String SERIALIZED_NAME_USER_DEFINED_QTY = "userDefinedQty";
 
@@ -79,7 +79,7 @@ public class ProductBundleItem {
         this.sku = sku;
     }
 
-    public ProductBundleItem qty(Float qty) {
+    public ProductBundleItem qty(java.math.BigDecimal qty) {
         this.qty = qty;
         return this;
     }
@@ -90,11 +90,11 @@ public class ProductBundleItem {
      * @return qty
      */
     @javax.annotation.Nullable
-    public Float getQty() {
+    public java.math.BigDecimal getQty() {
         return qty;
     }
 
-    public void setQty(Float qty) {
+    public void setQty(java.math.BigDecimal qty) {
         this.qty = qty;
     }
 
