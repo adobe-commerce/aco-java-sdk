@@ -54,7 +54,7 @@ public class DiscountsPercentage {
     public static final String SERIALIZED_NAME_PERCENTAGE = "percentage";
 
     @SerializedName(SERIALIZED_NAME_PERCENTAGE)
-    private Float percentage;
+    private java.math.BigDecimal percentage;
 
     public DiscountsPercentage() {}
 
@@ -78,7 +78,7 @@ public class DiscountsPercentage {
         this.code = code;
     }
 
-    public DiscountsPercentage percentage(Float percentage) {
+    public DiscountsPercentage percentage(java.math.BigDecimal percentage) {
         this.percentage = percentage;
         return this;
     }
@@ -89,11 +89,11 @@ public class DiscountsPercentage {
      * @return percentage
      */
     @javax.annotation.Nonnull
-    public Float getPercentage() {
+    public java.math.BigDecimal getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Float percentage) {
+    public void setPercentage(java.math.BigDecimal percentage) {
         this.percentage = percentage;
     }
 

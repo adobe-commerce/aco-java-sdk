@@ -199,7 +199,7 @@ public class FeedMetadata {
     public static final String SERIALIZED_NAME_SEARCH_WEIGHT = "searchWeight";
 
     @SerializedName(SERIALIZED_NAME_SEARCH_WEIGHT)
-    private Float searchWeight;
+    private java.math.BigDecimal searchWeight;
 
     /** Gets or Sets searchTypes */
     @JsonAdapter(SearchTypesEnum.Adapter.class)
@@ -425,7 +425,7 @@ public class FeedMetadata {
         this.searchable = searchable;
     }
 
-    public FeedMetadata searchWeight(Float searchWeight) {
+    public FeedMetadata searchWeight(java.math.BigDecimal searchWeight) {
         this.searchWeight = searchWeight;
         return this;
     }
@@ -437,11 +437,11 @@ public class FeedMetadata {
      * @return searchWeight
      */
     @javax.annotation.Nullable
-    public Float getSearchWeight() {
+    public java.math.BigDecimal getSearchWeight() {
         return searchWeight;
     }
 
-    public void setSearchWeight(Float searchWeight) {
+    public void setSearchWeight(java.math.BigDecimal searchWeight) {
         this.searchWeight = searchWeight;
     }
 

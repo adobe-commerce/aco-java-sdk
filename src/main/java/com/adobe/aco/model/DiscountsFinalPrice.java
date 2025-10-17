@@ -54,7 +54,7 @@ public class DiscountsFinalPrice {
     public static final String SERIALIZED_NAME_PRICE = "price";
 
     @SerializedName(SERIALIZED_NAME_PRICE)
-    private Float price;
+    private java.math.BigDecimal price;
 
     public DiscountsFinalPrice() {}
 
@@ -79,7 +79,7 @@ public class DiscountsFinalPrice {
         this.code = code;
     }
 
-    public DiscountsFinalPrice price(Float price) {
+    public DiscountsFinalPrice price(java.math.BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -91,11 +91,11 @@ public class DiscountsFinalPrice {
      * @return price
      */
     @javax.annotation.Nonnull
-    public Float getPrice() {
+    public java.math.BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(java.math.BigDecimal price) {
         this.price = price;
     }
 
