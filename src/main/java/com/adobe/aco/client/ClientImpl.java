@@ -212,6 +212,35 @@ public class ClientImpl implements Client {
 
     /** {@inheritDoc} */
     @Override
+    public ProcessFeedResponse createProductLayers(List<FeedProductLayer> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
+
+            return http.request("/v1/catalog/products/layers", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/layers failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deleteProductLayers(List<FeedProductLayerDelete> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
+
+            return http.request(
+                    "/v1/catalog/products/layers/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/layers/delete failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
     public ProcessFeedResponse createProducts(List<FeedProduct> data) {
         try {
             String body = mapper.writeValueAsString(data);
