@@ -23,7 +23,9 @@
 package com.adobe.aco.model;
 
 public enum Region {
-    NA1("na1");
+    NA1("na1"),
+    EU1("eu1"),
+    UK1("uk1");
 
     private final String value;
 
