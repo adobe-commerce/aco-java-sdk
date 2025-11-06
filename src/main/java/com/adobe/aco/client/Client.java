@@ -34,6 +34,8 @@ import com.adobe.aco.model.FeedPricesDelete;
 import com.adobe.aco.model.FeedPricesUpdate;
 import com.adobe.aco.model.FeedProduct;
 import com.adobe.aco.model.FeedProductDelete;
+import com.adobe.aco.model.FeedProductLayer;
+import com.adobe.aco.model.FeedProductLayerDelete;
 import com.adobe.aco.model.FeedProductUpdate;
 import com.adobe.aco.model.ProcessFeedResponse;
 import java.util.List;
@@ -310,6 +312,35 @@ public interface Client {
     ProcessFeedResponse updatePrices(List<FeedPricesUpdate> data);
 
     /**
+     * Create or replace product layers You can create a product layer to merge and override a base
+     * product. When creating product layers: - Each product layer requires a SKU identifier which
+     * matches to a base product. - A product layer may have a defined catalog `source.locale`, and
+     * if absent is treated as a global layer for any locale. - A product layer must have a defined
+     * catalog `source.layer`. - All other fields are optional. If provided, they are used to
+     * override the base product. - When merging array lists, the first array is merged with the
+     * base list. All other inner lists of the same object are treated as replace values. For
+     * example `attributes` is merged with base list, but `attributes.values` is a replacement.
+     *
+     * <pre>
+     *     {      \"sku\": \"pants-red-32\",      \"source\": {        \"locale\": \"en\",        \"layer\": \"custom-layer\"      },      \"attributes\": [        {          \"code\": \"color\",          \"values\": [\"Green\", \"Light Green\"],          \"variantReferenceId\": \"pants-color-green\"        }      ]    }
+     * </pre>
+     *
+     * @param data payload of type List<FeedProductLayer>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse createProductLayers(List<FeedProductLayer> data);
+
+    /**
+     * Delete product layers Delete product layers with specified `sku` and `source` values
+     *
+     * @param data payload of type List<FeedProductLayerDelete>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse deleteProductLayers(List<FeedProductLayerDelete> data);
+
+    /**
      * Create or replace products You can create different types of products, such as simple
      * products and configurable products. When creating products: - Each product requires a unique
      * SKU identifier. - Products must have a defined catalog source, for example `locale`. - Add
@@ -397,7 +428,7 @@ public interface Client {
     ProcessFeedResponse createProducts(List<FeedProduct> data);
 
     /**
-     * Delete products Delete products with specified `sku`` and `source`` values
+     * Delete products Delete products with specified `sku` and `source` values
      *
      * @param data payload of type List<FeedProductDelete>
      * @return ProcessFeedResponse indicating the result of the ingestion.
