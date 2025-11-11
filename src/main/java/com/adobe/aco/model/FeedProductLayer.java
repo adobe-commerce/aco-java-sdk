@@ -126,7 +126,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * SKU (Stock Keeping Unit) is a unique identifier for a product.
+     * SKU (Stock Keeping Unit) that uniquely identifies the base product this layer will modify.
+     * Must match an existing product SKU in the catalog.
      *
      * @return sku
      */
@@ -164,7 +165,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * Product name
+     * Product display name that will override the base product name. Use for localized names,
+     * seasonal branding, or promotional titles.
      *
      * @return name
      */
@@ -183,7 +185,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * The URL key for the product.
+     * URL-friendly identifier for the product page. Override to create layer-specific URLs for SEO
+     * or campaign tracking.
      *
      * @return slug
      */
@@ -202,7 +205,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * The main description for the product
+     * Detailed product description that replaces the base product description. Use for localized
+     * content, seasonal messaging, or enhanced marketing copy.
      *
      * @return description
      */
@@ -221,7 +225,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A short description of the product
+     * Brief product summary that appears in product listings and search results. Override for
+     * concise, layer-specific messaging.
      *
      * @return shortDescription
      */
@@ -267,7 +272,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of product attributes.
+     * Product attributes that will be merged with base product attributes. Use to add
+     * layer-specific variants, localized values, or seasonal properties.
      *
      * @return attributes
      */
@@ -294,7 +300,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of product images.
+     * Product images that will be merged with base product images. Use to add seasonal imagery,
+     * locale-specific photos, or promotional visuals.
      *
      * @return images
      */
@@ -321,7 +328,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of linked SKUs.
+     * Related product SKUs that will be merged with base product links. Use to add seasonal
+     * recommendations, locale-specific cross-sells, or promotional bundles.
      *
      * @return links
      */
@@ -348,7 +356,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of product routes.
+     * URL routing configurations that will be merged with base product routes. Use to add
+     * layer-specific navigation paths or campaign-specific URLs.
      *
      * @return routes
      */
@@ -375,8 +384,9 @@ public class FeedProductLayer {
     }
 
     /**
-     * Composite products, such as configurable products, must provide a list of product options
-     * that a shopper can select (for example, \&quot;color\&quot;, \&quot;size\&quot;, etc.).
+     * Product configuration options for composite products (for example, configurable products)
+     * that will be merged with base configurations. Use to add layer-specific variants or seasonal
+     * options.
      *
      * @return configurations
      */
@@ -403,9 +413,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * Composite products, such as bundle products, must include a list of individual products that
-     * are part of the bundle, organized into groups (for example, \&quot;shirts\&quot;,
-     * \&quot;pants\&quot;, \&quot;accessories\&quot;).
+     * Bundle product definitions that will be merged with base product bundles. Use to create
+     * seasonal bundles, promotional packages, or locale-specific product groupings.
      *
      * @return bundles
      */
@@ -432,7 +441,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of external IDs for the product.
+     * External system identifiers that will be merged with base product external IDs. Use to add
+     * layer-specific tracking codes, campaign IDs, or integration references.
      *
      * @return externalIds
      */
