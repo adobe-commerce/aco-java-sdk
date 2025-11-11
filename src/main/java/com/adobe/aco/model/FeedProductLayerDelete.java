@@ -61,7 +61,8 @@ public class FeedProductLayerDelete {
     }
 
     /**
-     * Product unique identifier
+     * SKU (Stock Keeping Unit) that identifies the base product containing the layer to delete.
+     * Must match an existing product SKU in the catalog.
      *
      * @return sku
      */

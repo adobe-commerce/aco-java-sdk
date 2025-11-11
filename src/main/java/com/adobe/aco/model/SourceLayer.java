@@ -39,8 +39,8 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Source of the entity, for example, \&quot;en-US\&quot; for US English for layer
- * \&quot;MyLayer\&quot;
+ * Identifies the source context for a product layer, combining locale and layer name to create a
+ * unique layer identifier. This allows for precise targeting of content overrides.
  */
 @javax.annotation.Generated(
         value = "org.openapitools.codegen.languages.JavaClientCodegen",
@@ -64,8 +64,9 @@ public class SourceLayer {
     }
 
     /**
-     * A single value that represents content locale. When absent layer is treated as global for any
-     * locale.
+     * ISO locale code (for example, \&quot;en-US\&quot;, \&quot;fr-FR\&quot;, \&quot;de-DE\&quot;)
+     * that specifies the target market or language. When omitted, the layer applies globally across
+     * all locales. Use for market-specific customizations.
      *
      * @return locale
      */
@@ -84,7 +85,9 @@ public class SourceLayer {
     }
 
     /**
-     * A single value that represents content layer.
+     * Unique identifier for the layer within the product&#39;s layer hierarchy. Use descriptive
+     * names that indicate the layer&#39;s purpose (for example, \&quot;seasonal-winter-2024\&quot;,
+     * \&quot;promotional-black-friday\&quot;, \&quot;a-b-test-variant\&quot;).
      *
      * @return layer
      */
