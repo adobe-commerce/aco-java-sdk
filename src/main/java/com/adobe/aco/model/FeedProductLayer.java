@@ -63,11 +63,6 @@ public class FeedProductLayer {
     @SerializedName(SERIALIZED_NAME_NAME)
     private String name;
 
-    public static final String SERIALIZED_NAME_SLUG = "slug";
-
-    @SerializedName(SERIALIZED_NAME_SLUG)
-    private String slug;
-
     public static final String SERIALIZED_NAME_DESCRIPTION = "description";
 
     @SerializedName(SERIALIZED_NAME_DESCRIPTION)
@@ -98,21 +93,6 @@ public class FeedProductLayer {
     @SerializedName(SERIALIZED_NAME_LINKS)
     private List<ProductLink> links;
 
-    public static final String SERIALIZED_NAME_ROUTES = "routes";
-
-    @SerializedName(SERIALIZED_NAME_ROUTES)
-    private List<ProductRoutes> routes;
-
-    public static final String SERIALIZED_NAME_CONFIGURATIONS = "configurations";
-
-    @SerializedName(SERIALIZED_NAME_CONFIGURATIONS)
-    private List<ProductConfiguration> configurations;
-
-    public static final String SERIALIZED_NAME_BUNDLES = "bundles";
-
-    @SerializedName(SERIALIZED_NAME_BUNDLES)
-    private List<ProductBundle> bundles;
-
     public static final String SERIALIZED_NAME_EXTERNAL_IDS = "externalIds";
 
     @SerializedName(SERIALIZED_NAME_EXTERNAL_IDS)
@@ -126,7 +106,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * SKU (Stock Keeping Unit) is a unique identifier for a product.
+     * SKU (Stock Keeping Unit) that uniquely identifies the base product this layer will modify.
+     * Must match an existing product SKU in the catalog.
      *
      * @return sku
      */
@@ -164,7 +145,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * Product name
+     * Product display name that will override the base product name. Use for localized names,
+     * seasonal branding, or promotional titles.
      *
      * @return name
      */
@@ -177,32 +159,14 @@ public class FeedProductLayer {
         this.name = name;
     }
 
-    public FeedProductLayer slug(String slug) {
-        this.slug = slug;
-        return this;
-    }
-
-    /**
-     * The URL key for the product.
-     *
-     * @return slug
-     */
-    @javax.annotation.Nullable
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
     public FeedProductLayer description(String description) {
         this.description = description;
         return this;
     }
 
     /**
-     * The main description for the product
+     * Detailed product description that replaces the base product description. Use for localized
+     * content, seasonal messaging, or enhanced marketing copy.
      *
      * @return description
      */
@@ -221,7 +185,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A short description of the product
+     * Brief product summary that appears in product listings and search results. Override for
+     * concise, layer-specific messaging.
      *
      * @return shortDescription
      */
@@ -267,7 +232,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of product attributes.
+     * Product attributes that will be merged with base product attributes. Use to add
+     * layer-specific variants, localized values, or seasonal properties.
      *
      * @return attributes
      */
@@ -294,7 +260,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of product images.
+     * Product images that will be merged with base product images. Use to add seasonal imagery,
+     * locale-specific photos, or promotional visuals.
      *
      * @return images
      */
@@ -321,7 +288,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of linked SKUs.
+     * Related product SKUs that will be merged with base product links. Use to add seasonal
+     * recommendations, locale-specific cross-sells, or promotional bundles.
      *
      * @return links
      */
@@ -332,90 +300,6 @@ public class FeedProductLayer {
 
     public void setLinks(List<ProductLink> links) {
         this.links = links;
-    }
-
-    public FeedProductLayer routes(List<ProductRoutes> routes) {
-        this.routes = routes;
-        return this;
-    }
-
-    public FeedProductLayer addRoutesItem(ProductRoutes routesItem) {
-        if (this.routes == null) {
-            this.routes = new ArrayList<>();
-        }
-        this.routes.add(routesItem);
-        return this;
-    }
-
-    /**
-     * A list of product routes.
-     *
-     * @return routes
-     */
-    @javax.annotation.Nullable
-    public List<ProductRoutes> getRoutes() {
-        return routes;
-    }
-
-    public void setRoutes(List<ProductRoutes> routes) {
-        this.routes = routes;
-    }
-
-    public FeedProductLayer configurations(List<ProductConfiguration> configurations) {
-        this.configurations = configurations;
-        return this;
-    }
-
-    public FeedProductLayer addConfigurationsItem(ProductConfiguration configurationsItem) {
-        if (this.configurations == null) {
-            this.configurations = new ArrayList<>();
-        }
-        this.configurations.add(configurationsItem);
-        return this;
-    }
-
-    /**
-     * Composite products, such as configurable products, must provide a list of product options
-     * that a shopper can select (for example, \&quot;color\&quot;, \&quot;size\&quot;, etc.).
-     *
-     * @return configurations
-     */
-    @javax.annotation.Nullable
-    public List<ProductConfiguration> getConfigurations() {
-        return configurations;
-    }
-
-    public void setConfigurations(List<ProductConfiguration> configurations) {
-        this.configurations = configurations;
-    }
-
-    public FeedProductLayer bundles(List<ProductBundle> bundles) {
-        this.bundles = bundles;
-        return this;
-    }
-
-    public FeedProductLayer addBundlesItem(ProductBundle bundlesItem) {
-        if (this.bundles == null) {
-            this.bundles = new ArrayList<>();
-        }
-        this.bundles.add(bundlesItem);
-        return this;
-    }
-
-    /**
-     * Composite products, such as bundle products, must include a list of individual products that
-     * are part of the bundle, organized into groups (for example, \&quot;shirts\&quot;,
-     * \&quot;pants\&quot;, \&quot;accessories\&quot;).
-     *
-     * @return bundles
-     */
-    @javax.annotation.Nullable
-    public List<ProductBundle> getBundles() {
-        return bundles;
-    }
-
-    public void setBundles(List<ProductBundle> bundles) {
-        this.bundles = bundles;
     }
 
     public FeedProductLayer externalIds(List<ProductExternalId> externalIds) {
@@ -432,7 +316,8 @@ public class FeedProductLayer {
     }
 
     /**
-     * A list of external IDs for the product.
+     * External system identifiers that will be merged with base product external IDs. Use to add
+     * layer-specific tracking codes, campaign IDs, or integration references.
      *
      * @return externalIds
      */
@@ -457,16 +342,12 @@ public class FeedProductLayer {
         return Objects.equals(this.sku, feedProductLayer.sku)
                 && Objects.equals(this.source, feedProductLayer.source)
                 && Objects.equals(this.name, feedProductLayer.name)
-                && Objects.equals(this.slug, feedProductLayer.slug)
                 && Objects.equals(this.description, feedProductLayer.description)
                 && Objects.equals(this.shortDescription, feedProductLayer.shortDescription)
                 && Objects.equals(this.metaTags, feedProductLayer.metaTags)
                 && Objects.equals(this.attributes, feedProductLayer.attributes)
                 && Objects.equals(this.images, feedProductLayer.images)
                 && Objects.equals(this.links, feedProductLayer.links)
-                && Objects.equals(this.routes, feedProductLayer.routes)
-                && Objects.equals(this.configurations, feedProductLayer.configurations)
-                && Objects.equals(this.bundles, feedProductLayer.bundles)
                 && Objects.equals(this.externalIds, feedProductLayer.externalIds);
     }
 
@@ -485,16 +366,12 @@ public class FeedProductLayer {
                 sku,
                 source,
                 name,
-                slug,
                 description,
                 shortDescription,
                 metaTags,
                 attributes,
                 images,
                 links,
-                routes,
-                configurations,
-                bundles,
                 externalIds);
     }
 
@@ -512,16 +389,12 @@ public class FeedProductLayer {
         sb.append("    sku: ").append(toIndentedString(sku)).append("\n");
         sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
-        sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    shortDescription: ").append(toIndentedString(shortDescription)).append("\n");
         sb.append("    metaTags: ").append(toIndentedString(metaTags)).append("\n");
         sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
         sb.append("    images: ").append(toIndentedString(images)).append("\n");
         sb.append("    links: ").append(toIndentedString(links)).append("\n");
-        sb.append("    routes: ").append(toIndentedString(routes)).append("\n");
-        sb.append("    configurations: ").append(toIndentedString(configurations)).append("\n");
-        sb.append("    bundles: ").append(toIndentedString(bundles)).append("\n");
         sb.append("    externalIds: ").append(toIndentedString(externalIds)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -547,16 +420,12 @@ public class FeedProductLayer {
         openapiFields.add("sku");
         openapiFields.add("source");
         openapiFields.add("name");
-        openapiFields.add("slug");
         openapiFields.add("description");
         openapiFields.add("shortDescription");
         openapiFields.add("metaTags");
         openapiFields.add("attributes");
         openapiFields.add("images");
         openapiFields.add("links");
-        openapiFields.add("routes");
-        openapiFields.add("configurations");
-        openapiFields.add("bundles");
         openapiFields.add("externalIds");
 
         // a set of required properties/fields (JSON key names)
@@ -617,13 +486,6 @@ public class FeedProductLayer {
                     String.format(
                             "Expected the field `name` to be a primitive type in the JSON string but got `%s`",
                             jsonObj.get("name").toString()));
-        }
-        if ((jsonObj.get("slug") != null && !jsonObj.get("slug").isJsonNull())
-                && !jsonObj.get("slug").isJsonPrimitive()) {
-            throw new IllegalArgumentException(
-                    String.format(
-                            "Expected the field `slug` to be a primitive type in the JSON string but got `%s`",
-                            jsonObj.get("slug").toString()));
         }
         if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull())
                 && !jsonObj.get("description").isJsonPrimitive()) {
@@ -694,60 +556,6 @@ public class FeedProductLayer {
                 // validate the optional field `links` (array)
                 for (int i = 0; i < jsonArraylinks.size(); i++) {
                     ProductLink.validateJsonElement(jsonArraylinks.get(i));
-                }
-                ;
-            }
-        }
-        if (jsonObj.get("routes") != null && !jsonObj.get("routes").isJsonNull()) {
-            JsonArray jsonArrayroutes = jsonObj.getAsJsonArray("routes");
-            if (jsonArrayroutes != null) {
-                // ensure the json data is an array
-                if (!jsonObj.get("routes").isJsonArray()) {
-                    throw new IllegalArgumentException(
-                            String.format(
-                                    "Expected the field `routes` to be an array in the JSON string but got `%s`",
-                                    jsonObj.get("routes").toString()));
-                }
-
-                // validate the optional field `routes` (array)
-                for (int i = 0; i < jsonArrayroutes.size(); i++) {
-                    ProductRoutes.validateJsonElement(jsonArrayroutes.get(i));
-                }
-                ;
-            }
-        }
-        if (jsonObj.get("configurations") != null && !jsonObj.get("configurations").isJsonNull()) {
-            JsonArray jsonArrayconfigurations = jsonObj.getAsJsonArray("configurations");
-            if (jsonArrayconfigurations != null) {
-                // ensure the json data is an array
-                if (!jsonObj.get("configurations").isJsonArray()) {
-                    throw new IllegalArgumentException(
-                            String.format(
-                                    "Expected the field `configurations` to be an array in the JSON string but got `%s`",
-                                    jsonObj.get("configurations").toString()));
-                }
-
-                // validate the optional field `configurations` (array)
-                for (int i = 0; i < jsonArrayconfigurations.size(); i++) {
-                    ProductConfiguration.validateJsonElement(jsonArrayconfigurations.get(i));
-                }
-                ;
-            }
-        }
-        if (jsonObj.get("bundles") != null && !jsonObj.get("bundles").isJsonNull()) {
-            JsonArray jsonArraybundles = jsonObj.getAsJsonArray("bundles");
-            if (jsonArraybundles != null) {
-                // ensure the json data is an array
-                if (!jsonObj.get("bundles").isJsonArray()) {
-                    throw new IllegalArgumentException(
-                            String.format(
-                                    "Expected the field `bundles` to be an array in the JSON string but got `%s`",
-                                    jsonObj.get("bundles").toString()));
-                }
-
-                // validate the optional field `bundles` (array)
-                for (int i = 0; i < jsonArraybundles.size(); i++) {
-                    ProductBundle.validateJsonElement(jsonArraybundles.get(i));
                 }
                 ;
             }
