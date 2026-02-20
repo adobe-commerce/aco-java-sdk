@@ -49,11 +49,14 @@ public interface Client {
      * `men/clothing/pants'. - A category `slug` string can contain only lowercase letters, numbers,
      * and hyphens with `/` used as a separator for hierarchy. - Create each category as a separate
      * entity. - Use the `name` field to define the display name for the category. - Use the
+     * optional `description` field to provide a full-text description of the category. - Use the
      * optional `families` field to associate categories with product families for enhanced
-     * organization. After you create categories, link a product to a category using the `path`
-     * value for the [routes](#operation/createProducts!path=routes&t=request) field. When you
-     * create or update products. The value of `path` in the route must match the `slug` value for
-     * the category. To update existing categories, use the update operation.
+     * organization. - Use the optional `metaTags` field to define SEO meta tags (title,
+     * description, keywords) for the category. - Use the optional `images` field to associate
+     * images with the category. After you create categories, link a product to a category using the
+     * `path` value for the [routes](#operation/createProducts!path=routes&t=request) field. When
+     * you create or update products. The value of `path` in the route must match the `slug` value
+     * for the category. To update existing categories, use the update operation.
      *
      * @param data payload of type List<FeedCategory>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -88,7 +91,10 @@ public interface Client {
     /**
      * Update categories Update existing product categories with new values. When the update is
      * processed, the merge strategy is used to apply changes to `scalar` and `object` type fields.
-     * The replace strategy is used to apply changes for fields in an `array`.
+     * The replace strategy is used to apply changes for fields in an `array`. > **Note:** Before
+     * submitting an update request, verify that the target entity already exists. Update operations
+     * do not validate the existence of the entity — if it does not exist, the request is accepted,
+     * but the update is silently ignored.
      *
      * @param data payload of type List<FeedCategoryUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -130,6 +136,9 @@ public interface Client {
      * Update product attribute metadata Update existing product attribute metadata with new values.
      * When the update is processed, the merge strategy is used to apply changes to `scalar` and
      * `object` type fields. The replace strategy is used to apply changes for fields in an `array`.
+     * > **Note:** Before submitting an update request, verify that the target entity already
+     * exists. Update operations do not validate the existence of the entity — if it does not exist,
+     * the request is accepted, but the update is silently ignored.
      *
      * @param data payload of type List<FeedMetadataUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -227,7 +236,10 @@ public interface Client {
      *
      * * **Base Price Books**: Update name and currency as needed * **Child Price Books**: Include
      * correct `parentId` in request (will be ignored if different) * **Hierarchy Restructuring**:
-     * Delete child price book and recreate with new parent reference
+     * Delete child price book and recreate with new parent reference > **Note:** Before submitting
+     * an update request, verify that the target entity already exists. Update operations do not
+     * validate the existence of the entity — if it does not exist, the request is accepted, but the
+     * update is silently ignored.
      *
      * @param data payload of type List<FeedPricebook>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -303,7 +315,10 @@ public interface Client {
      *
      * * Always include the complete array of discounts/tiers when updating * Use descriptive
      * discount codes for easier management * Ensure tier quantities are in ascending order * Test
-     * updates in a development environment first
+     * updates in a development environment first > **Note:** Before submitting an update request,
+     * verify that the target entity already exists. Update operations do not validate the existence
+     * of the entity — if it does not exist, the request is accepted, but the update is silently
+     * ignored.
      *
      * @param data payload of type List<FeedPricesUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -457,7 +472,9 @@ public interface Client {
      * `attributes` - match on `code` * `images` - match on `url` * `routes` - match on `path` *
      * `links` - match on `type` and `sku` * `bundles` match on `type` and `group` *
      * `configurations` match on `type` and `attributeCode` * `externalIds` match on `type` and
-     * `origin`
+     * `origin` > **Note:** Before submitting an update request, verify that the target entity
+     * already exists. Update operations do not validate the existence of the entity — if it does
+     * not exist, the request is accepted, but the update is silently ignored.
      *
      * @param data payload of type List<FeedProductUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.

@@ -24,6 +24,7 @@ package com.adobe.aco.model;
 
 import com.adobe.aco.JSON;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.TypeAdapter;
@@ -65,10 +66,25 @@ public class FeedCategory {
     @SerializedName(SERIALIZED_NAME_NAME)
     private String name;
 
+    public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+
+    @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+    private String description;
+
     public static final String SERIALIZED_NAME_FAMILIES = "families";
 
     @SerializedName(SERIALIZED_NAME_FAMILIES)
     private List<String> families;
+
+    public static final String SERIALIZED_NAME_META_TAGS = "metaTags";
+
+    @SerializedName(SERIALIZED_NAME_META_TAGS)
+    private ProductMetaAttribute metaTags;
+
+    public static final String SERIALIZED_NAME_IMAGES = "images";
+
+    @SerializedName(SERIALIZED_NAME_IMAGES)
+    private List<ProductImage> images;
 
     public FeedCategory() {}
 
@@ -131,6 +147,25 @@ public class FeedCategory {
         this.name = name;
     }
 
+    public FeedCategory description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Full-text description of the category.
+     *
+     * @return description
+     */
+    @javax.annotation.Nullable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public FeedCategory families(List<String> families) {
         this.families = families;
         return this;
@@ -159,6 +194,52 @@ public class FeedCategory {
         this.families = families;
     }
 
+    public FeedCategory metaTags(ProductMetaAttribute metaTags) {
+        this.metaTags = metaTags;
+        return this;
+    }
+
+    /**
+     * Get metaTags
+     *
+     * @return metaTags
+     */
+    @javax.annotation.Nullable
+    public ProductMetaAttribute getMetaTags() {
+        return metaTags;
+    }
+
+    public void setMetaTags(ProductMetaAttribute metaTags) {
+        this.metaTags = metaTags;
+    }
+
+    public FeedCategory images(List<ProductImage> images) {
+        this.images = images;
+        return this;
+    }
+
+    public FeedCategory addImagesItem(ProductImage imagesItem) {
+        if (this.images == null) {
+            this.images = new ArrayList<>();
+        }
+        this.images.add(imagesItem);
+        return this;
+    }
+
+    /**
+     * A list of category images.
+     *
+     * @return images
+     */
+    @javax.annotation.Nullable
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -171,7 +252,10 @@ public class FeedCategory {
         return Objects.equals(this.slug, feedCategory.slug)
                 && Objects.equals(this.source, feedCategory.source)
                 && Objects.equals(this.name, feedCategory.name)
-                && Objects.equals(this.families, feedCategory.families);
+                && Objects.equals(this.description, feedCategory.description)
+                && Objects.equals(this.families, feedCategory.families)
+                && Objects.equals(this.metaTags, feedCategory.metaTags)
+                && Objects.equals(this.images, feedCategory.images);
     }
 
     private static <T> boolean equalsNullable(JsonNullable<T> a, JsonNullable<T> b) {
@@ -185,7 +269,7 @@ public class FeedCategory {
 
     @Override
     public int hashCode() {
-        return Objects.hash(slug, source, name, families);
+        return Objects.hash(slug, source, name, description, families, metaTags, images);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -202,7 +286,10 @@ public class FeedCategory {
         sb.append("    slug: ").append(toIndentedString(slug)).append("\n");
         sb.append("    source: ").append(toIndentedString(source)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    families: ").append(toIndentedString(families)).append("\n");
+        sb.append("    metaTags: ").append(toIndentedString(metaTags)).append("\n");
+        sb.append("    images: ").append(toIndentedString(images)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -227,7 +314,10 @@ public class FeedCategory {
         openapiFields.add("slug");
         openapiFields.add("source");
         openapiFields.add("name");
+        openapiFields.add("description");
         openapiFields.add("families");
+        openapiFields.add("metaTags");
+        openapiFields.add("images");
 
         // a set of required properties/fields (JSON key names)
         openapiRequiredFields = new HashSet<String>();
@@ -288,6 +378,13 @@ public class FeedCategory {
                             "Expected the field `name` to be a primitive type in the JSON string but got `%s`",
                             jsonObj.get("name").toString()));
         }
+        if ((jsonObj.get("description") != null && !jsonObj.get("description").isJsonNull())
+                && !jsonObj.get("description").isJsonPrimitive()) {
+            throw new IllegalArgumentException(
+                    String.format(
+                            "Expected the field `description` to be a primitive type in the JSON string but got `%s`",
+                            jsonObj.get("description").toString()));
+        }
         // ensure the optional json data is an array if present
         if (jsonObj.get("families") != null
                 && !jsonObj.get("families").isJsonNull()
@@ -296,6 +393,28 @@ public class FeedCategory {
                     String.format(
                             "Expected the field `families` to be an array in the JSON string but got `%s`",
                             jsonObj.get("families").toString()));
+        }
+        // validate the optional field `metaTags`
+        if (jsonObj.get("metaTags") != null && !jsonObj.get("metaTags").isJsonNull()) {
+            ProductMetaAttribute.validateJsonElement(jsonObj.get("metaTags"));
+        }
+        if (jsonObj.get("images") != null && !jsonObj.get("images").isJsonNull()) {
+            JsonArray jsonArrayimages = jsonObj.getAsJsonArray("images");
+            if (jsonArrayimages != null) {
+                // ensure the json data is an array
+                if (!jsonObj.get("images").isJsonArray()) {
+                    throw new IllegalArgumentException(
+                            String.format(
+                                    "Expected the field `images` to be an array in the JSON string but got `%s`",
+                                    jsonObj.get("images").toString()));
+                }
+
+                // validate the optional field `images` (array)
+                for (int i = 0; i < jsonArrayimages.size(); i++) {
+                    ProductImage.validateJsonElement(jsonArrayimages.get(i));
+                }
+                ;
+            }
         }
     }
 
