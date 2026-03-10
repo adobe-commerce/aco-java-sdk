@@ -91,10 +91,9 @@ public interface Client {
     /**
      * Update categories Update existing product categories with new values. When the update is
      * processed, the merge strategy is used to apply changes to `scalar` and `object` type fields.
-     * The replace strategy is used to apply changes for fields in an `array`. > **Note:** Before
-     * submitting an update request, verify that the target entity already exists. Update operations
-     * do not validate the existence of the entity — if it does not exist, the request is accepted,
-     * but the update is silently ignored.
+     * The replace strategy is used to apply changes for fields in an `array`. > **Note:** Update
+     * operations do not verify that the entity exists. Requests targeting a nonexistent entity are
+     * accepted, but the update has no effect.
      *
      * @param data payload of type List<FeedCategoryUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -136,9 +135,11 @@ public interface Client {
      * Update product attribute metadata Update existing product attribute metadata with new values.
      * When the update is processed, the merge strategy is used to apply changes to `scalar` and
      * `object` type fields. The replace strategy is used to apply changes for fields in an `array`.
-     * > **Note:** Before submitting an update request, verify that the target entity already
-     * exists. Update operations do not validate the existence of the entity — if it does not exist,
-     * the request is accepted, but the update is silently ignored.
+     * > **Note:** Before submitting an update request, verify that the target entity exists using
+     * the
+     * [attributeMetadata](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#query-attributeMetadata)
+     * GraphQL query. Update operations do not verify that the entity exists. Requests targeting a
+     * nonexistent entity are accepted, but the update has no effect.
      *
      * @param data payload of type List<FeedMetadataUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -237,9 +238,11 @@ public interface Client {
      * * **Base Price Books**: Update name and currency as needed * **Child Price Books**: Include
      * correct `parentId` in request (will be ignored if different) * **Hierarchy Restructuring**:
      * Delete child price book and recreate with new parent reference > **Note:** Before submitting
-     * an update request, verify that the target entity already exists. Update operations do not
-     * validate the existence of the entity — if it does not exist, the request is accepted, but the
-     * update is silently ignored.
+     * an update request, verify that the target entity exists by checking the available price books
+     * in [Commerce
+     * Optimizer](https://experienceleague.adobe.com/en/docs/commerce/optimizer/setup/pricebooks#view-price-books-in-commerce-optimizer).
+     * Update operations do not verify that the entity exists. Requests targeting a nonexistent
+     * entity are accepted, but the update has no effect.
      *
      * @param data payload of type List<FeedPricebook>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -316,9 +319,11 @@ public interface Client {
      * * Always include the complete array of discounts/tiers when updating * Use descriptive
      * discount codes for easier management * Ensure tier quantities are in ascending order * Test
      * updates in a development environment first > **Note:** Before submitting an update request,
-     * verify that the target entity already exists. Update operations do not validate the existence
-     * of the entity — if it does not exist, the request is accepted, but the update is silently
-     * ignored.
+     * verify that the target entity exists using the [products GraphQL
+     * query](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#query-products)
+     * to check the prices assigned to the product SKU. Update operations do not verify that the
+     * entity exists. Requests targeting a nonexistent entity are accepted, but the update has no
+     * effect.
      *
      * @param data payload of type List<FeedPricesUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -332,19 +337,22 @@ public interface Client {
      * - Override product attributes for specific markets or channels - Provide locale-specific
      * content while maintaining a global base product - Create seasonal or promotional variations
      * without duplicating entire product records - Implement A/B testing scenarios with different
-     * product presentations ## Layer behavior and requirements **Required fields:** - `sku`: Must
-     * match an existing base product SKU - `source.layer`: Identifies the layer name for
-     * organization and retrieval **Optional Fields:** - `source.locale`: When specified, layer
-     * applies only to that locale. When omitted, layer applies globally across all locales - All
-     * product fields (name, description, images, and so on): Override corresponding base product
-     * values ## Merging logic Product layers use intelligent merging: - **Simple fields** (name,
-     * description, and so on): Complete replacement of base values - **Array fields** (attributes,
-     * images, etc.): First-level arrays are merged with base arrays - **Nested arrays**
-     * (attribute.values, etc.): Complete replacement of nested arrays **Example:** Adding a color
-     * variant while preserving existing attributes: ```json { \"sku\": \"red-pants\", \"source\": {
-     * \"locale\": \"en-US\", \"layer\": \"seasonal-colors\" }, \"attributes\": [ { \"code\":
-     * \"color\", \"values\": [\"Crimson Red\", \"Deep Red\"], \"variantReferenceId\":
-     * \"pants-color-crimson\" } ] } ```
+     * product presentations For details on how to use layers with Adobe Commerce Optimizer, see
+     * [Catalog
+     * Layers](https://experienceleague.adobe.com/en/docs/commerce/optimizer/setup/catalog-layer) in
+     * the Adobe Commerce Optimizer documentation. ## Layer behavior and requirements **Required
+     * fields:** - `sku`: Must match an existing base product SKU - `source.layer`: Identifies the
+     * layer name for organization and retrieval **Optional Fields:** - `source.locale`: When
+     * specified, layer applies only to that locale. When omitted, layer applies globally across all
+     * locales - All product fields (name, description, images, and so on): Override corresponding
+     * base product values ## Merging logic Product layers use intelligent merging: - **Simple
+     * fields** (name, description, and so on): Complete replacement of base values - **Array
+     * fields** (attributes, images, etc.): First-level arrays are merged with base arrays -
+     * **Nested arrays** (attribute.values, etc.): Complete replacement of nested arrays
+     * **Example:** Adding a color variant while preserving existing attributes: ```json { \"sku\":
+     * \"red-pants\", \"source\": { \"locale\": \"en-US\", \"layer\": \"seasonal-colors\" },
+     * \"attributes\": [ { \"code\": \"color\", \"values\": [\"Crimson Red\", \"Deep Red\"],
+     * \"variantReferenceId\": \"pants-color-crimson\" } ] } ```
      *
      * @param data payload of type List<FeedProductLayer>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -473,8 +481,10 @@ public interface Client {
      * `links` - match on `type` and `sku` * `bundles` match on `type` and `group` *
      * `configurations` match on `type` and `attributeCode` * `externalIds` match on `type` and
      * `origin` > **Note:** Before submitting an update request, verify that the target entity
-     * already exists. Update operations do not validate the existence of the entity — if it does
-     * not exist, the request is accepted, but the update is silently ignored.
+     * exists using the
+     * [products](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#query-products)
+     * GraphQL query. Update operations do not verify that the entity exists. Requests targeting a
+     * nonexistent entity are accepted, but the update has no effect.
      *
      * @param data payload of type List<FeedProductUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
