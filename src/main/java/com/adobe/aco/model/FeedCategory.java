@@ -76,6 +76,11 @@ public class FeedCategory {
     @SerializedName(SERIALIZED_NAME_FAMILIES)
     private List<String> families;
 
+    public static final String SERIALIZED_NAME_POSITION = "position";
+
+    @SerializedName(SERIALIZED_NAME_POSITION)
+    private Integer position;
+
     public static final String SERIALIZED_NAME_META_TAGS = "metaTags";
 
     @SerializedName(SERIALIZED_NAME_META_TAGS)
@@ -194,6 +199,25 @@ public class FeedCategory {
         this.families = families;
     }
 
+    public FeedCategory position(Integer position) {
+        this.position = position;
+        return this;
+    }
+
+    /**
+     * Sort order for the category
+     *
+     * @return position
+     */
+    @javax.annotation.Nullable
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
     public FeedCategory metaTags(ProductMetaAttribute metaTags) {
         this.metaTags = metaTags;
         return this;
@@ -254,6 +278,7 @@ public class FeedCategory {
                 && Objects.equals(this.name, feedCategory.name)
                 && Objects.equals(this.description, feedCategory.description)
                 && Objects.equals(this.families, feedCategory.families)
+                && Objects.equals(this.position, feedCategory.position)
                 && Objects.equals(this.metaTags, feedCategory.metaTags)
                 && Objects.equals(this.images, feedCategory.images);
     }
@@ -269,7 +294,7 @@ public class FeedCategory {
 
     @Override
     public int hashCode() {
-        return Objects.hash(slug, source, name, description, families, metaTags, images);
+        return Objects.hash(slug, source, name, description, families, position, metaTags, images);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -288,6 +313,7 @@ public class FeedCategory {
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
         sb.append("    description: ").append(toIndentedString(description)).append("\n");
         sb.append("    families: ").append(toIndentedString(families)).append("\n");
+        sb.append("    position: ").append(toIndentedString(position)).append("\n");
         sb.append("    metaTags: ").append(toIndentedString(metaTags)).append("\n");
         sb.append("    images: ").append(toIndentedString(images)).append("\n");
         sb.append("}");
@@ -316,6 +342,7 @@ public class FeedCategory {
         openapiFields.add("name");
         openapiFields.add("description");
         openapiFields.add("families");
+        openapiFields.add("position");
         openapiFields.add("metaTags");
         openapiFields.add("images");
 
