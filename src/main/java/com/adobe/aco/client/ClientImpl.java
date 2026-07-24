@@ -81,46 +81,47 @@ public class ClientImpl implements Client {
 
     /** {@inheritDoc} */
     @Override
-    public ProcessFeedResponse createProductMetadata(List<FeedMetadata> data) {
+    public ProcessFeedResponse createCategoryMetadata(List<FeedCategoryMetadata> data) {
         try {
             String body = mapper.writeValueAsString(data);
             HttpRequest.Builder builder =
                     HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
             return http.request(
-                    "/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
+                    "/v1/catalog/categories/metadata", builder, ProcessFeedResponse.class);
         } catch (Exception e) {
-            throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
+            throw new RuntimeException("Request to /v1/catalog/categories/metadata failed", e);
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data) {
+    public ProcessFeedResponse deleteCategoryMetadata(List<FeedCategoryMetadataDelete> data) {
         try {
             String body = mapper.writeValueAsString(data);
             HttpRequest.Builder builder =
                     HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
 
             return http.request(
-                    "/v1/catalog/products/metadata/delete", builder, ProcessFeedResponse.class);
+                    "/v1/catalog/categories/metadata/delete", builder, ProcessFeedResponse.class);
         } catch (Exception e) {
-            throw new RuntimeException("Request to /v1/catalog/products/metadata/delete failed", e);
+            throw new RuntimeException(
+                    "Request to /v1/catalog/categories/metadata/delete failed", e);
         }
     }
 
     /** {@inheritDoc} */
     @Override
-    public ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data) {
+    public ProcessFeedResponse updateCategoryMetadata(List<FeedCategoryMetadataUpdate> data) {
         try {
             String body = mapper.writeValueAsString(data);
             HttpRequest.Builder builder =
                     HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
 
             return http.request(
-                    "/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
+                    "/v1/catalog/categories/metadata", builder, ProcessFeedResponse.class);
         } catch (Exception e) {
-            throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
+            throw new RuntimeException("Request to /v1/catalog/categories/metadata failed", e);
         }
     }
 
@@ -236,6 +237,51 @@ public class ClientImpl implements Client {
                     "/v1/catalog/products/layers/delete", builder, ProcessFeedResponse.class);
         } catch (Exception e) {
             throw new RuntimeException("Request to /v1/catalog/products/layers/delete failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse createProductMetadata(List<FeedProductMetadata> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
+
+            return http.request(
+                    "/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse deleteProductMetadata(List<FeedProductMetadataDelete> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("POST", BodyPublishers.ofString(body));
+
+            return http.request(
+                    "/v1/catalog/products/metadata/delete", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/metadata/delete failed", e);
+        }
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public ProcessFeedResponse updateProductMetadata(List<FeedProductMetadataUpdate> data) {
+        try {
+            String body = mapper.writeValueAsString(data);
+            HttpRequest.Builder builder =
+                    HttpRequest.newBuilder().method("PATCH", BodyPublishers.ofString(body));
+
+            return http.request(
+                    "/v1/catalog/products/metadata", builder, ProcessFeedResponse.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Request to /v1/catalog/products/metadata failed", e);
         }
     }
 

@@ -111,6 +111,12 @@ public class JSON {
         gsonBuilder.registerTypeAdapter(LocalDate.class, localDateTypeAdapter);
         gsonBuilder.registerTypeAdapter(byte[].class, byteArrayAdapter);
         gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.CategoryAttribute.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.CategoryImage.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.CategoryMetaAttribute.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.DiscountsFinalPrice.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.DiscountsPercentage.CustomTypeAdapterFactory());
@@ -119,15 +125,15 @@ public class JSON {
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedCategoryDelete.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedCategoryMetadata.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedCategoryMetadataDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedCategoryMetadataUpdate.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedCategoryUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedItemFailedValidationResult.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.FeedMetadata.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.FeedMetadataDelete.CustomTypeAdapterFactory());
-        gsonBuilder.registerTypeAdapterFactory(
-                new com.adobe.aco.model.FeedMetadataUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedPriceBookDelete.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
@@ -150,6 +156,12 @@ public class JSON {
                 new com.adobe.aco.model.FeedProductLayer.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedProductLayerDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedProductMetadata.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedProductMetadataDelete.CustomTypeAdapterFactory());
+        gsonBuilder.registerTypeAdapterFactory(
+                new com.adobe.aco.model.FeedProductMetadataUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
                 new com.adobe.aco.model.FeedProductUpdate.CustomTypeAdapterFactory());
         gsonBuilder.registerTypeAdapterFactory(
