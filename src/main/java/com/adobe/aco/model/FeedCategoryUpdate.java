@@ -81,12 +81,17 @@ public class FeedCategoryUpdate {
     public static final String SERIALIZED_NAME_META_TAGS = "metaTags";
 
     @SerializedName(SERIALIZED_NAME_META_TAGS)
-    private ProductMetaAttribute metaTags;
+    private CategoryMetaAttribute metaTags;
+
+    public static final String SERIALIZED_NAME_ATTRIBUTES = "attributes";
+
+    @SerializedName(SERIALIZED_NAME_ATTRIBUTES)
+    private List<CategoryAttribute> attributes;
 
     public static final String SERIALIZED_NAME_IMAGES = "images";
 
     @SerializedName(SERIALIZED_NAME_IMAGES)
-    private List<ProductImage> images;
+    private List<CategoryImage> images;
 
     public FeedCategoryUpdate() {}
 
@@ -217,7 +222,7 @@ public class FeedCategoryUpdate {
         this.position = position;
     }
 
-    public FeedCategoryUpdate metaTags(ProductMetaAttribute metaTags) {
+    public FeedCategoryUpdate metaTags(CategoryMetaAttribute metaTags) {
         this.metaTags = metaTags;
         return this;
     }
@@ -228,20 +233,47 @@ public class FeedCategoryUpdate {
      * @return metaTags
      */
     @javax.annotation.Nullable
-    public ProductMetaAttribute getMetaTags() {
+    public CategoryMetaAttribute getMetaTags() {
         return metaTags;
     }
 
-    public void setMetaTags(ProductMetaAttribute metaTags) {
+    public void setMetaTags(CategoryMetaAttribute metaTags) {
         this.metaTags = metaTags;
     }
 
-    public FeedCategoryUpdate images(List<ProductImage> images) {
+    public FeedCategoryUpdate attributes(List<CategoryAttribute> attributes) {
+        this.attributes = attributes;
+        return this;
+    }
+
+    public FeedCategoryUpdate addAttributesItem(CategoryAttribute attributesItem) {
+        if (this.attributes == null) {
+            this.attributes = new ArrayList<>();
+        }
+        this.attributes.add(attributesItem);
+        return this;
+    }
+
+    /**
+     * A list of category attributes.
+     *
+     * @return attributes
+     */
+    @javax.annotation.Nullable
+    public List<CategoryAttribute> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<CategoryAttribute> attributes) {
+        this.attributes = attributes;
+    }
+
+    public FeedCategoryUpdate images(List<CategoryImage> images) {
         this.images = images;
         return this;
     }
 
-    public FeedCategoryUpdate addImagesItem(ProductImage imagesItem) {
+    public FeedCategoryUpdate addImagesItem(CategoryImage imagesItem) {
         if (this.images == null) {
             this.images = new ArrayList<>();
         }
@@ -255,11 +287,11 @@ public class FeedCategoryUpdate {
      * @return images
      */
     @javax.annotation.Nullable
-    public List<ProductImage> getImages() {
+    public List<CategoryImage> getImages() {
         return images;
     }
 
-    public void setImages(List<ProductImage> images) {
+    public void setImages(List<CategoryImage> images) {
         this.images = images;
     }
 
@@ -279,6 +311,7 @@ public class FeedCategoryUpdate {
                 && Objects.equals(this.families, feedCategoryUpdate.families)
                 && Objects.equals(this.position, feedCategoryUpdate.position)
                 && Objects.equals(this.metaTags, feedCategoryUpdate.metaTags)
+                && Objects.equals(this.attributes, feedCategoryUpdate.attributes)
                 && Objects.equals(this.images, feedCategoryUpdate.images);
     }
 
@@ -293,7 +326,8 @@ public class FeedCategoryUpdate {
 
     @Override
     public int hashCode() {
-        return Objects.hash(slug, source, name, description, families, position, metaTags, images);
+        return Objects.hash(
+                slug, source, name, description, families, position, metaTags, attributes, images);
     }
 
     private static <T> int hashCodeNullable(JsonNullable<T> a) {
@@ -314,6 +348,7 @@ public class FeedCategoryUpdate {
         sb.append("    families: ").append(toIndentedString(families)).append("\n");
         sb.append("    position: ").append(toIndentedString(position)).append("\n");
         sb.append("    metaTags: ").append(toIndentedString(metaTags)).append("\n");
+        sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
         sb.append("    images: ").append(toIndentedString(images)).append("\n");
         sb.append("}");
         return sb.toString();
@@ -343,6 +378,7 @@ public class FeedCategoryUpdate {
         openapiFields.add("families");
         openapiFields.add("position");
         openapiFields.add("metaTags");
+        openapiFields.add("attributes");
         openapiFields.add("images");
 
         // a set of required properties/fields (JSON key names)
@@ -422,7 +458,25 @@ public class FeedCategoryUpdate {
         }
         // validate the optional field `metaTags`
         if (jsonObj.get("metaTags") != null && !jsonObj.get("metaTags").isJsonNull()) {
-            ProductMetaAttribute.validateJsonElement(jsonObj.get("metaTags"));
+            CategoryMetaAttribute.validateJsonElement(jsonObj.get("metaTags"));
+        }
+        if (jsonObj.get("attributes") != null && !jsonObj.get("attributes").isJsonNull()) {
+            JsonArray jsonArrayattributes = jsonObj.getAsJsonArray("attributes");
+            if (jsonArrayattributes != null) {
+                // ensure the json data is an array
+                if (!jsonObj.get("attributes").isJsonArray()) {
+                    throw new IllegalArgumentException(
+                            String.format(
+                                    "Expected the field `attributes` to be an array in the JSON string but got `%s`",
+                                    jsonObj.get("attributes").toString()));
+                }
+
+                // validate the optional field `attributes` (array)
+                for (int i = 0; i < jsonArrayattributes.size(); i++) {
+                    CategoryAttribute.validateJsonElement(jsonArrayattributes.get(i));
+                }
+                ;
+            }
         }
         if (jsonObj.get("images") != null && !jsonObj.get("images").isJsonNull()) {
             JsonArray jsonArrayimages = jsonObj.getAsJsonArray("images");
@@ -437,7 +491,7 @@ public class FeedCategoryUpdate {
 
                 // validate the optional field `images` (array)
                 for (int i = 0; i < jsonArrayimages.size(); i++) {
-                    ProductImage.validateJsonElement(jsonArrayimages.get(i));
+                    CategoryImage.validateJsonElement(jsonArrayimages.get(i));
                 }
                 ;
             }

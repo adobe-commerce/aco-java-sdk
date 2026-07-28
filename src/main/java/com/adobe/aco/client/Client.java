@@ -23,10 +23,10 @@ package com.adobe.aco.client;
 
 import com.adobe.aco.model.FeedCategory;
 import com.adobe.aco.model.FeedCategoryDelete;
+import com.adobe.aco.model.FeedCategoryMetadata;
+import com.adobe.aco.model.FeedCategoryMetadataDelete;
+import com.adobe.aco.model.FeedCategoryMetadataUpdate;
 import com.adobe.aco.model.FeedCategoryUpdate;
-import com.adobe.aco.model.FeedMetadata;
-import com.adobe.aco.model.FeedMetadataDelete;
-import com.adobe.aco.model.FeedMetadataUpdate;
 import com.adobe.aco.model.FeedPriceBookDelete;
 import com.adobe.aco.model.FeedPricebook;
 import com.adobe.aco.model.FeedPrices;
@@ -36,6 +36,9 @@ import com.adobe.aco.model.FeedProduct;
 import com.adobe.aco.model.FeedProductDelete;
 import com.adobe.aco.model.FeedProductLayer;
 import com.adobe.aco.model.FeedProductLayerDelete;
+import com.adobe.aco.model.FeedProductMetadata;
+import com.adobe.aco.model.FeedProductMetadataDelete;
+import com.adobe.aco.model.FeedProductMetadataUpdate;
 import com.adobe.aco.model.FeedProductUpdate;
 import com.adobe.aco.model.ProcessFeedResponse;
 import java.util.List;
@@ -54,10 +57,11 @@ public interface Client {
      * organization. - Use the optional `position` field to assign a numeric sort order to the
      * category. - Use the optional `metaTags` field to define SEO meta tags (title, description,
      * keywords) for the category. - Use the optional `images` field to associate images with the
-     * category. After you create categories, link a product to a category using the `path` value
-     * for the [routes](#operation/createProducts!path=routes&t=request) field. When you create or
-     * update products. The value of `path` in the route must match the `slug` value for the
-     * category. To update existing categories, use the update operation.
+     * category. - Use the optional `attributes` field to add additional attributes. After you
+     * create categories, link a product to a category using the `path` value for the
+     * [routes](#operation/createProducts!path=routes&t=request) field. When you create or update
+     * products. The value of `path` in the route must match the `slug` value for the category. To
+     * update existing categories, use the update operation.
      *
      * @param data payload of type List<FeedCategory>
      * @return ProcessFeedResponse indicating the result of the ingestion.
@@ -103,50 +107,39 @@ public interface Client {
     ProcessFeedResponse updateCategories(List<FeedCategoryUpdate> data);
 
     /**
-     * Create product attribute metadata To ensure product data is indexed for discovery, create or
-     * replace existing product attribute metadata resources before creating products. For each
-     * Commerce project, you must define metadata for the following attributes for each catalog
-     * source (`locale`): - `sku` - `name` - `description` - `shortDescription` - `price` Also, you
-     * can define metadata for custom attributes. When creating product attribute metadata: - Each
-     * product attribute requires a unique `code` and `source`. - Use the `dataType` field to define
-     * the data type for the product attribute. - Use the `visibleIn` field to define where the
-     * product attribute is displayed on the storefront. - Use the `filterable`, `sortable`, and
-     * `searchable` fields to define how the product attribute is used for filtering, sorting, and
-     * searching. - Use the `searchWeight` field to define the search weight for the product
-     * attribute. - Use the `searchTypes` field to define the search type for the product attribute.
-     * To update existing product attribute metadata, use the update operation.
+     * Create category attribute metadata When creating category attribute metadata: - Each category
+     * attribute requires a unique `code` and `source`. - Use the `dataType` field to define the
+     * data type for the category attribute. To update existing category attribute metadata, use the
+     * update operation.
      *
-     * @param data payload of type List<FeedMetadata>
+     * @param data payload of type List<FeedCategoryMetadata>
      * @return ProcessFeedResponse indicating the result of the ingestion.
      * @throws RuntimeException if the API request fails
      */
-    ProcessFeedResponse createProductMetadata(List<FeedMetadata> data);
+    ProcessFeedResponse createCategoryMetadata(List<FeedCategoryMetadata> data);
 
     /**
-     * Delete product attributes metadata Remove product attribute metadata resources from the
+     * Delete category attributes metadata Remove category attribute metadata resources from the
      * catalog data.
      *
-     * @param data payload of type List<FeedMetadataDelete>
+     * @param data payload of type List<FeedCategoryMetadataDelete>
      * @return ProcessFeedResponse indicating the result of the ingestion.
      * @throws RuntimeException if the API request fails
      */
-    ProcessFeedResponse deleteProductMetadata(List<FeedMetadataDelete> data);
+    ProcessFeedResponse deleteCategoryMetadata(List<FeedCategoryMetadataDelete> data);
 
     /**
-     * Update product attribute metadata Update existing product attribute metadata with new values.
-     * When the update is processed, the merge strategy is used to apply changes to `scalar` and
-     * `object` type fields. The replace strategy is used to apply changes for fields in an `array`.
-     * > **Note:** Before submitting an update request, verify that the target entity exists using
-     * the
-     * [attributeMetadata](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#query-attributeMetadata)
-     * GraphQL query. Update operations do not verify that the entity exists. Requests targeting a
-     * nonexistent entity are accepted, but the update has no effect.
+     * Update category attribute metadata Update existing category attribute metadata with new
+     * values. When the update is processed, the merge strategy is used to apply changes to `scalar`
+     * and `object` type fields. The replace strategy is used to apply changes for fields in an
+     * `array`. > **Note:** Update operations do not verify that the entity exists. Requests
+     * targeting a nonexistent entity are accepted, but the update has no effect.
      *
-     * @param data payload of type List<FeedMetadataUpdate>
+     * @param data payload of type List<FeedCategoryMetadataUpdate>
      * @return ProcessFeedResponse indicating the result of the ingestion.
      * @throws RuntimeException if the API request fails
      */
-    ProcessFeedResponse updateProductMetadata(List<FeedMetadataUpdate> data);
+    ProcessFeedResponse updateCategoryMetadata(List<FeedCategoryMetadataUpdate> data);
 
     /**
      * Create price books Create or replace existing price books with support for hierarchical
@@ -321,7 +314,7 @@ public interface Client {
      * discount codes for easier management * Ensure tier quantities are in ascending order * Test
      * updates in a development environment first > **Note:** Before submitting an update request,
      * verify that the target entity exists using the [products GraphQL
-     * query](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#query-products)
+     * query](https://developer.adobe.com/commerce/services/includes/autogenerated/merchandising-api#products)
      * to check the prices assigned to the product SKU. Update operations do not verify that the
      * entity exists. Requests targeting a nonexistent entity are accepted, but the update has no
      * effect.
@@ -375,6 +368,52 @@ public interface Client {
      * @throws RuntimeException if the API request fails
      */
     ProcessFeedResponse deleteProductLayers(List<FeedProductLayerDelete> data);
+
+    /**
+     * Create product attribute metadata To ensure product data is indexed for discovery, create or
+     * replace existing product attribute metadata resources before creating products. For each
+     * Commerce project, you must define metadata for the following attributes for each catalog
+     * source (`locale`): - `sku` - `name` - `description` - `shortDescription` - `price` Also, you
+     * can define metadata for custom attributes. When creating product attribute metadata: - Each
+     * product attribute requires a unique `code` and `source`. - Use the `dataType` field to define
+     * the data type for the product attribute. - Use the `visibleIn` field to define where the
+     * product attribute is displayed on the storefront. - Use the `filterable`, `sortable`, and
+     * `searchable` fields to define how the product attribute is used for filtering, sorting, and
+     * searching. - Use the `searchWeight` field to define the search weight for the product
+     * attribute. - Use the `searchTypes` field to define the search type for the product attribute.
+     * To update existing product attribute metadata, use the update operation.
+     *
+     * @param data payload of type List<FeedProductMetadata>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse createProductMetadata(List<FeedProductMetadata> data);
+
+    /**
+     * Delete product attributes metadata Remove product attribute metadata resources from the
+     * catalog data.
+     *
+     * @param data payload of type List<FeedProductMetadataDelete>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse deleteProductMetadata(List<FeedProductMetadataDelete> data);
+
+    /**
+     * Update product attribute metadata Update existing product attribute metadata with new values.
+     * When the update is processed, the merge strategy is used to apply changes to `scalar` and
+     * `object` type fields. The replace strategy is used to apply changes for fields in an `array`.
+     * > **Note:** Before submitting an update request, verify that the target entity exists using
+     * the
+     * [attributeMetadata](https://developer.adobe.com/commerce/services/includes/autogenerated/merchandising-api#attributemetadata)
+     * GraphQL query. Update operations do not verify that the entity exists. Requests targeting a
+     * nonexistent entity are accepted, but the update has no effect.
+     *
+     * @param data payload of type List<FeedProductMetadataUpdate>
+     * @return ProcessFeedResponse indicating the result of the ingestion.
+     * @throws RuntimeException if the API request fails
+     */
+    ProcessFeedResponse updateProductMetadata(List<FeedProductMetadataUpdate> data);
 
     /**
      * Create or replace products You can create different types of products, such as simple
@@ -483,7 +522,7 @@ public interface Client {
      * `configurations` match on `type` and `attributeCode` * `externalIds` match on `type` and
      * `origin` > **Note:** Before submitting an update request, verify that the target entity
      * exists using the
-     * [products](https://developer.adobe.com/commerce/services/graphql-api/merchandising-api/index.html#query-products)
+     * [products](https://developer.adobe.com/commerce/services/includes/autogenerated/merchandising-api#products)
      * GraphQL query. Update operations do not verify that the entity exists. Requests targeting a
      * nonexistent entity are accepted, but the update has no effect.
      *
