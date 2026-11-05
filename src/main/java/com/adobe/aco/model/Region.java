@@ -28,7 +28,8 @@ public enum Region {
     UK1("uk1"),
     AU1("au1"),
     IN1("in1"),
-    SG1("sg1");
+    SG1("sg1"),
+    JP1("jp1");
 
     private final String value;
 
