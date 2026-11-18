@@ -14,7 +14,8 @@ import java.time.Instant;
 public class AuthServiceFactory {
     private static final String IMS_BASE_URL = "https://ims-na1.adobelogin.com";
     private static final int TOKEN_BUFFER_SECONDS = 300;
-    private static final String DEFAULT_SCOPES = "adobeio_api,openid,AdobeID,read_organizations";
+    private static final String DEFAULT_SCOPES =
+            "adobeio_api,openid,AdobeID,read_organizations,commerce.aco.ingestion";
     private static CachedToken cachedToken = null;
 
     public static AuthService createAuthService(
